@@ -10,10 +10,11 @@ public class Item extends BaseEntity { //상품
     private String title;
     private String thumbnail;
     private String intro;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne @JoinColumn(name = "category_id")
+    @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "category_id")
     private Category category; //fk
 }
