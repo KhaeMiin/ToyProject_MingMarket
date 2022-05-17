@@ -28,7 +28,7 @@ public class Order {
      *  orphanRemoval = true: 그니까 부모 삭제하면 부모 PK 연결돼있는 자식도 삭제된다는거 > 부모삭제되면 자식은 고아됨. 그래서 삭제됨
      *  이것 역시 소유자가 하나일 경우에만 사용하자.
      */
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //연관관계 편의메서드 만들어야 합니다.
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true) //연관관계 편의메서드 만들어야 합니다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order() {

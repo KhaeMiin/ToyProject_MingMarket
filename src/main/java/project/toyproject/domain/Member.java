@@ -19,6 +19,10 @@ public class Member extends BaseEntity {
     private String name;
     private int hp;
 
+    /**
+     * @Embedded: 내장타입?
+     * 재사용이 가능함
+     */
     @Embedded
     private Address address;
 

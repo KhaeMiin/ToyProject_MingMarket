@@ -3,7 +3,7 @@
 
 </br>
 
-##현재 진행사항
+## 현재 진행사항
 - 도메인 설계(JPA)
 - 요구사항 정리중 (핵심 기능)
 - junit 5 사용
@@ -77,14 +77,14 @@
 
 ## 6. 그 외 트러블 슈팅
 <details>
-<summary>maven을 이용하여 서버 배포중 build시 발생한 에러</summary>
+<summary>제목</summary>
 <div markdown="1">
 
 </div>
 </details>
 
 <details>
-<summary>한글 데이터를 insert시 에러가남</summary>
+<summary>~~때문에 에러가 납</summary>
 <div markdown="1">
 
 </div>
