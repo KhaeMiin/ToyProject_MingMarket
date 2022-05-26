@@ -1,16 +1,21 @@
 package project.toyproject.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
+@Getter
 public class OrderItem {
 
     @Id @GeneratedValue
+    @Column(name = "order_item_id")
     private Long orderItemId;
+
     private int orderPrice;
-    private int count;
+    private int count; //주문 수량
 
     /**
      * @ManyToOne(fetch = FetchType.LAZY) //멤버 클래스만 DB에서 조회할 수 있도록 (굳이 조인할 필요 없이) > Team은 프록시로 가져온다.

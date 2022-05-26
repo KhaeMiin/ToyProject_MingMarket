@@ -1,5 +1,7 @@
 package project.toyproject.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +14,11 @@ import java.util.List;
  * 상위 카테고리(private List<Category> parent; 사용 안함.
  */
 @Entity
+@Getter
 public class Category {
 
     @Id @GeneratedValue
+    @Column(name = "category_id")
     private Long categoryId; //pk
 
     private String categoryName;

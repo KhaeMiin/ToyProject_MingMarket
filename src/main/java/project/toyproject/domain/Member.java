@@ -1,8 +1,11 @@
 package project.toyproject.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue
@@ -16,7 +19,7 @@ public class Member extends BaseEntity {
 
     @Column(length = 32) //최대 길이 정해두기
     private int pass;
-    private String name;
+    private String username;
     private int hp;
 
     /**
