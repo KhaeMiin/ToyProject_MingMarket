@@ -12,7 +12,7 @@ public class OrderItem {
 
     @Id @GeneratedValue
     @Column(name = "order_item_id")
-    private Long orderItemId;
+    private Long id;
 
     private int orderPrice;
     private int count; //주문 수량

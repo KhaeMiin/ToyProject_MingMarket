@@ -16,7 +16,7 @@ public class Order {
 
     @Id @GeneratedValue
     @Column(name = "order_id")
-    private Long orderId;
+    private Long id;
 
     @ManyToOne(fetch = LAZY) //어떤 관계인지
     @JoinColumn(name = "member_id") //Join할 컬럼 명

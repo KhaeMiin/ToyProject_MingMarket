@@ -10,7 +10,7 @@ public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
-    private Long memberId; //시퀀스
+    private Long id; //시퀀스
 
     private String email; //이메일(아이디)
 

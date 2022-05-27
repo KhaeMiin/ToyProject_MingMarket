@@ -11,7 +11,9 @@ import static javax.persistence.FetchType.*;
 public class Item extends BaseEntity { //상품
 
     @Id @GeneratedValue
-    private Long itemId; //pk
+    @Column(name = "item_id")
+    private Long id; //pk
+
     private String title; //제목
     private String thumbnail; //섬네일
     private String intro; //설명
