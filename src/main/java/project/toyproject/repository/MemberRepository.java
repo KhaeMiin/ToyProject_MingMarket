@@ -19,8 +19,8 @@ public class MemberRepository {
     }
 
     //회원 단건 조회(관리자)
-    public Member findOneMember(Long id) {
-        return em.find(Member.class, id);
+    public Member findOneMember(Long memberId) {
+        return em.find(Member.class, memberId);
     }
 
     //회원 전체 조회(관리자)

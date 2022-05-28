@@ -8,18 +8,6 @@ import javax.persistence.*;
 @Getter
 public class Member extends BaseEntity {
 
-    public Member() {
-    }
-
-    public Member(String email, String nickname, int pass, String username, int hp, Address address) {
-        this.email = email;
-        this.nickname = nickname;
-        this.pass = pass;
-        this.username = username;
-        this.hp = hp;
-        this.address = address;
-    }
-
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id; //시퀀스
@@ -40,5 +28,17 @@ public class Member extends BaseEntity {
      */
     @Embedded
     private Address address;
+
+    public Member() {
+    }
+
+    public Member(String email, String nickname, int pass, String username, int hp, Address address) {
+        this.email = email;
+        this.nickname = nickname;
+        this.pass = pass;
+        this.username = username;
+        this.hp = hp;
+        this.address = address;
+    }
 
 }

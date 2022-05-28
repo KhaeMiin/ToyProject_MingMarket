@@ -25,5 +25,11 @@ public class Category {
 
     private Long parentId; //NotNull (기본값 0이 들어가도록)
 
+    public Category() {
+    }
 
+    public Category(String categoryName, Long parentId) {
+        this.categoryName = categoryName;
+        this.parentId = parentId;
+    }
 }

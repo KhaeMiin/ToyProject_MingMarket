@@ -34,13 +34,13 @@ public class Order {
      *  이것 역시 소유자가 하나일 경우에만 사용하자.
      */
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>();//연관관계 편의메서드 만들어야 합니다.(엔티티에서는 영쪽에 값을 넣어주는게 맞음)
+    private List<OrderProduct> orderItems = new ArrayList<>();//연관관계 편의메서드 만들어야 합니다.(엔티티에서는 영쪽에 값을 넣어주는게 맞음)
 
     public Order() {
     }
 
     //연관관계 편의메서드
-    public void addOrderItem(OrderItem orderItem) {
+    public void addOrderItem(OrderProduct orderItem) {
         orderItems.add(orderItem);
         orderItem.createOrder(this); //setter 생성 막기위해서 caretOrder 메서드로 만들었습니다. (무분별한 set 막기)
     }
