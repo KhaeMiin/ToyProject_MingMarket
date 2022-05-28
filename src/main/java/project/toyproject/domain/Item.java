@@ -16,7 +16,7 @@ public class Item extends BaseEntity { //상품
 
     private String title; //제목
     private String thumbnail; //섬네일
-    private String intro; //설명
+    private String intro; //설명(게시판)
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
