@@ -27,21 +27,52 @@ public class Order {
     private OrderStatus status; //현재 주문 상태
 
     /**
-     * cascade = CascadeType.ALL: Order 저장시 OrderItem 같이 저장
+     * cascade = CascadeType.ALL: Order 저장시 OrderProduct 같이 저장
      * cascade : 다른 엔티티와 연관관계가 있을 경우 사용하지 말자.
      * 소유자가 하나일 경우 사용하자. (단일 엔티티에 완전히 종속적일 경우에만)
      *  orphanRemoval = true: 그니까 부모 삭제하면 부모 PK 연결돼있는 자식도 삭제된다는거 > 부모삭제되면 자식은 고아됨. 그래서 삭제됨
      *  이것 역시 소유자가 하나일 경우에만 사용하자.
      */
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderProduct> orderItems = new ArrayList<>();//연관관계 편의메서드 만들어야 합니다.(엔티티에서는 영쪽에 값을 넣어주는게 맞음)
+    private List<OrderProduct> orderProducts = new ArrayList<>();//연관관계 편의메서드 만들어야 합니다.(엔티티에서는 양쪽에 값을 넣어주는게 맞음)
 
     public Order() {
     }
 
+    public Order(Member member, LocalDateTime orderDate, OrderStatus status) {
+        this.member = member;
+        this.orderDate = orderDate;
+        this.status = status;
+    }
+
     //연관관계 편의메서드
-    public void addOrderItem(OrderProduct orderItem) {
-        orderItems.add(orderItem);
-        orderItem.createOrder(this); //setter 생성 막기위해서 caretOrder 메서드로 만들었습니다. (무분별한 set 막기)
+    public void addOrderProduct(OrderProduct orderProduct) {
+        orderProducts.add(orderProduct);
+        orderProduct.createOrder(this); //setter 생성 막기위해서 caretOrder 메서드로 만들었습니다. (무분별한 set 막기)
+    }
+
+    //생성 메서드
+    public static Order createOrder(Member member, OrderProduct... orderProducts) {
+        Order order = new Order(member, LocalDateTime.now(), OrderStatus.RESERVATION); //생성시(주문시) 상품상태: 예약 으로 초기화
+        for (OrderProduct orderProduct : orderProducts) {
+            order.addOrderProduct(orderProduct);
+        }
+        return order;
+    }
+
+    private void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    //비즈니스 로직
+    /**
+     * 예약 취소
+     */
+    public void cancel() {
+        if (status == OrderStatus.TRANSACTION_COMPLETE) { //주문 상태가:
+            throw new IllegalStateException("이미 거래가 완료된 상품은 취소가 불가능합니다");
+        }
+
+        this.setStatus(OrderStatus.CANCEL);
     }
 }

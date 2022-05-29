@@ -16,8 +16,8 @@ public class Comment {
     private Long id;
 
     @ManyToOne //하나의 상품에 여러 댓글을 남길 수 있다.
-    @JoinColumn(name = "item_id")
-    private Product item;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @ManyToOne //회원 한명이 여러 댓글을 남길 수 있다.
     @JoinColumn(name = "member_id")

@@ -22,6 +22,9 @@ public class Product extends BaseEntity { //상품
     @JoinColumn(name = "member_id")
     private Member member; //fk
 
+    @Enumerated(EnumType.STRING)
+    private CategoryList categoryList;
+
     /**
      * 무한카테고리(현재는 구현 안 할 예정) > 나중에 다시 구현하자
      */
@@ -31,10 +34,4 @@ public class Product extends BaseEntity { //상품
     public Product() {
     }
 
-    public Product(String title, String thumbnail, String intro, Member member) {
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.intro = intro;
-        this.member = member;
-    }
 }

@@ -21,10 +21,12 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    // 모든 상품 조회
     public List<Product> findProducts() {
         return productRepository.findAllProducts();
     }
 
+    //상품 단일 조회
     public Product findOneProduct(Long productId) {
         return productRepository.findOneProduct(productId);
     }
