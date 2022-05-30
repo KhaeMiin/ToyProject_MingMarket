@@ -1,5 +1,7 @@
 package project.toyproject.domain;
 
+import lombok.Getter;
+
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
@@ -11,7 +13,12 @@ import java.time.LocalDateTime;
  */
 
 @MappedSuperclass
+@Getter
 public abstract class BaseEntity {
 
     private LocalDateTime createDate; //상품 생성 날짜나 회원가입된 날짜.
+
+    public void createDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
 }

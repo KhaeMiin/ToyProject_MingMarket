@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
+
 import static javax.persistence.FetchType.*;
 
 @Entity
@@ -32,6 +34,20 @@ public class Product extends BaseEntity { //상품
     private Category category; //fk*/
 
     public Product() {
+    }
+
+    private Product(String title, String thumbnail, String intro, Member member) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.intro = intro;
+        this.member = member;
+    }
+
+    //생성 메서드
+    public static Product createProduct(String title, String thumbnail, String intro, Member member) {
+        Product product = new Product(title, thumbnail, intro, member);
+        product.createDate(LocalDateTime.now());
+        return product;
     }
 
 }

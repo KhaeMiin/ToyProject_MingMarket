@@ -3,7 +3,9 @@ package project.toyproject.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductRepository;
 
 import java.util.List;
@@ -14,11 +16,24 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final MemberRepository memberRepository;
 
-    // 상품 등록
+    /**
+     * 상품 등록
+     */
     @Transactional
-    public void saveProduct(Product product) {
+    public Long saveProduct(Long memberId, String title, String thumbnail, String intro) {
+
+        //엔티티 조회
+        Member member = memberRepository.findOneMember(memberId);
+
+        //상품 생성
+        Product product = Product.createProduct(title, thumbnail, intro, member);
+
+        //상품 저장
         productRepository.save(product);
+
+        return product.getId();
     }
 
     // 모든 상품 조회

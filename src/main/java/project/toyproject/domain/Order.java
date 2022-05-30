@@ -45,6 +45,10 @@ public class Order {
         this.status = status;
     }
 
+    private void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
     //연관관계 편의메서드
     public void addOrderProduct(OrderProduct orderProduct) {
         orderProducts.add(orderProduct);
@@ -58,10 +62,6 @@ public class Order {
             order.addOrderProduct(orderProduct);
         }
         return order;
-    }
-
-    private void setStatus(OrderStatus status) {
-        this.status = status;
     }
 
     //비즈니스 로직
