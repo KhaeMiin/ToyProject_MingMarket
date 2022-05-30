@@ -22,13 +22,13 @@ public class ProductService {
      * 상품 등록
      */
     @Transactional
-    public Long saveProduct(Long memberId, String title, String thumbnail, String intro) {
+    public Long saveProduct(Long memberId, String title, String thumbnail, String intro, int price) {
 
         //엔티티 조회
         Member member = memberRepository.findOneMember(memberId);
 
         //상품 생성
-        Product product = Product.createProduct(title, thumbnail, intro, member);
+        Product product = Product.createProduct(title, thumbnail, intro, price, member);
 
         //상품 저장
         productRepository.save(product);

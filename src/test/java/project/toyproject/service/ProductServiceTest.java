@@ -35,15 +35,17 @@ class ProductServiceTest {
         String title = "aa";
         String thumbnail = ".jng";
         String intro = "text";
+        int price = 10000;
 
         //when
-        Long productId = productService.saveProduct(member.getId(), title, thumbnail, intro);
+        Long productId = productService.saveProduct(member.getId(), title, thumbnail, intro, price);
 
         //then
         Product getProduct = productRepository.findOneProduct(productId);
         assertThat(title).isEqualTo(getProduct.getTitle());
         assertThat(thumbnail).isEqualTo(getProduct.getThumbnail());
         assertThat(intro).isEqualTo(getProduct.getIntro());
+        assertThat(price).isEqualTo(getProduct.getPrice());
 
     }
 

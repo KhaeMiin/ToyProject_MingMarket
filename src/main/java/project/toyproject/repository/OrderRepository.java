@@ -23,6 +23,6 @@ public class OrderRepository {
     }
 
     // 전체 조회
-//    public List<Order> findAll(OrderSerch orderSerch) {}
+//    public List<Order> findAll(OrderSearch orderSearch) {}
 
 }

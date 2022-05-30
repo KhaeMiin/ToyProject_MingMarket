@@ -19,6 +19,7 @@ public class Product extends BaseEntity { //상품
     private String title; //제목
     private String thumbnail; //섬네일
     private String intro; //설명(게시판)
+    private int Price; //상품가격
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -36,16 +37,17 @@ public class Product extends BaseEntity { //상품
     public Product() {
     }
 
-    private Product(String title, String thumbnail, String intro, Member member) {
+    public Product(String title, String thumbnail, String intro, int price, Member member) {
         this.title = title;
         this.thumbnail = thumbnail;
         this.intro = intro;
+        Price = price;
         this.member = member;
     }
 
     //생성 메서드
-    public static Product createProduct(String title, String thumbnail, String intro, Member member) {
-        Product product = new Product(title, thumbnail, intro, member);
+    public static Product createProduct(String title, String thumbnail, String intro, int price, Member member) {
+        Product product = new Product(title, thumbnail, intro, price, member);
         product.createDate(LocalDateTime.now());
         return product;
     }

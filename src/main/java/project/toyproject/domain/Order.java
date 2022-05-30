@@ -56,7 +56,10 @@ public class Order {
     }
 
     //생성 메서드
-    public static Order createOrder(Member member, OrderProduct... orderProducts) {
+    public Order createOrder(Member member, OrderProduct... orderProducts) {
+        if (status == OrderStatus.RESERVATION) { //주문 상태가:
+            throw new IllegalStateException("예약된 상품은 예약할 수 없습니다.");
+        }
         Order order = new Order(member, LocalDateTime.now(), OrderStatus.RESERVATION); //생성시(주문시) 상품상태: 예약 으로 초기화
         for (OrderProduct orderProduct : orderProducts) {
             order.addOrderProduct(orderProduct);
