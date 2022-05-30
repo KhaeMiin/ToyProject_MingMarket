@@ -56,6 +56,12 @@ public class Order {
     }
 
     //생성 메서드
+
+    /**
+     * static 메서드를 만들어서 new 생성자를 막고싶다.
+     * 하지만 iv 상태 검증이 필요하다. (현재 orderStatus 상태)
+     * 주문상태 검증을 어떻게 뺄 지 고민 (service 계층에서 로직을 짠다던지 등등)
+     */
     public Order createOrder(Member member, OrderProduct... orderProducts) {
         if (status == OrderStatus.RESERVATION) { //주문 상태가:
             throw new IllegalStateException("예약된 상품은 예약할 수 없습니다.");
@@ -69,7 +75,7 @@ public class Order {
 
     //비즈니스 로직
     /**
-     * 예약 취소
+     * 예약 취소 (도메인 모델 패턴: 엔티티가 비즈니스 로직을 가지고 있다.)
      */
     public void cancel() {
         if (status == OrderStatus.TRANSACTION_COMPLETE) { //주문 상태가:

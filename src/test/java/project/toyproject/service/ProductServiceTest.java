@@ -1,6 +1,5 @@
 package project.toyproject.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import project.toyproject.repository.ProductRepository;
 import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -41,7 +39,7 @@ class ProductServiceTest {
         Long productId = productService.saveProduct(member.getId(), title, thumbnail, intro, price);
 
         //then
-        Product getProduct = productRepository.findOneProduct(productId);
+        Product getProduct = productRepository.findSingleProduct(productId);
         assertThat(title).isEqualTo(getProduct.getTitle());
         assertThat(thumbnail).isEqualTo(getProduct.getThumbnail());
         assertThat(intro).isEqualTo(getProduct.getIntro());

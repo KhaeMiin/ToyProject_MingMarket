@@ -12,17 +12,24 @@ public class OrderRepository {
 
     private final EntityManager em;
 
-    // 주문하기
+    /**
+     * 상품 예약
+     */
     public void addOrder(Order order) {
         em.persist(order);
     }
 
-    // 주문 조회(단건)
+    /**
+     * 상품 조회(단건)
+     */
     public Order findOne(Long id) {
         return em.find(Order.class, id);
     }
 
-    // 전체 조회
+    /**
+     * TODO
+     * 예약한 상품 검색 + 예약한 전체 상품 리스트
+     */
 //    public List<Order> findAll(OrderSearch orderSearch) {}
 
 }

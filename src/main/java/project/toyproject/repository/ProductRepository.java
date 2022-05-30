@@ -23,7 +23,7 @@ public class ProductRepository {
     }
 
     // 단일 상품 조회
-    public Product findOneProduct(Long productId) {
+    public Product findSingleProduct(Long productId) {
         return em.find(Product.class, productId);
     }
 
@@ -31,5 +31,10 @@ public class ProductRepository {
     public List<Product> findAllProducts() {
         return em.createQuery("select p from Product p", Product.class)
                 .getResultList();
+    }
+
+    //상품 검색
+    public List<Product> searchProduct(String productName) {
+        return null;
     }
 }

@@ -28,7 +28,7 @@ public class OrderService {
 
         //엔티티 조회
         Member member = memberRepository.findOneMember(memberId);
-        Product product = productRepository.findOneProduct(productId);
+        Product product = productRepository.findSingleProduct(productId);
 
         //예약상품 생성
         OrderProduct orderProduct = OrderProduct.createOrderProduct(product, product.getPrice());
@@ -40,4 +40,26 @@ public class OrderService {
         orderRepository.addOrder(order);
         return order.getId();
     }
+
+    /**
+     * 예약 취소
+     */
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        //order 엔티티 조회
+        Order order = orderRepository.findOne(orderId);
+
+        //예약 취소
+        order.cancel();
+    }
+
+    /**
+     * 주문 조회 (단건)
+     */
+    public Order findOneOrder(Long orderId) {
+        Order order = orderRepository.findOne(orderId);
+        return order;
+    }
+
+
 }

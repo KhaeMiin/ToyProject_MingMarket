@@ -42,7 +42,7 @@ public class ProductService {
     }
 
     //상품 단일 조회
-    public Product findOneProduct(Long productId) {
-        return productRepository.findOneProduct(productId);
+    public Product findSingleProduct(Long productId) {
+        return productRepository.findSingleProduct(productId);
     }
 }
