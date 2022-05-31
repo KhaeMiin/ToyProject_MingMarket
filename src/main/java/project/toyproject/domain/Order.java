@@ -1,6 +1,8 @@
 package project.toyproject.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "orders")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -36,9 +39,6 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();//연관관계 편의메서드 만들어야 합니다.(엔티티에서는 양쪽에 값을 넣어주는게 맞음)
 
-    public Order() {
-    }
-
     public Order(Member member, LocalDateTime orderDate, OrderStatus status) {
         this.member = member;
         this.orderDate = orderDate;
@@ -58,14 +58,17 @@ public class Order {
     //생성 메서드
 
     /**
+     * TODO
      * static 메서드를 만들어서 new 생성자를 막고싶다.
      * 하지만 iv 상태 검증이 필요하다. (현재 orderStatus 상태)
      * 주문상태 검증을 어떻게 뺄 지 고민 (service 계층에서 로직을 짠다던지 등등)
      */
-    public Order createOrder(Member member, OrderProduct... orderProducts) {
+    public static Order createOrder(Member member, OrderProduct... orderProducts) {
+/*
         if (status == OrderStatus.RESERVATION) { //주문 상태가:
             throw new IllegalStateException("예약된 상품은 예약할 수 없습니다.");
         }
+*/
         Order order = new Order(member, LocalDateTime.now(), OrderStatus.RESERVATION); //생성시(주문시) 상품상태: 예약 으로 초기화
         for (OrderProduct orderProduct : orderProducts) {
             order.addOrderProduct(orderProduct);

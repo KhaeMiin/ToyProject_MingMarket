@@ -3,10 +3,7 @@ package project.toyproject.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.toyproject.domain.Member;
-import project.toyproject.domain.Order;
-import project.toyproject.domain.OrderProduct;
-import project.toyproject.domain.Product;
+import project.toyproject.domain.*;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.OrderRepository;
 import project.toyproject.repository.ProductRepository;
@@ -34,7 +31,8 @@ public class OrderService {
         OrderProduct orderProduct = OrderProduct.createOrderProduct(product, product.getPrice());
 
         //예약 생성
-        Order order = new Order().createOrder(member, orderProduct);
+        Order order = Order.createOrder(member, orderProduct);
+
 
         //예약 저장
         orderRepository.addOrder(order);

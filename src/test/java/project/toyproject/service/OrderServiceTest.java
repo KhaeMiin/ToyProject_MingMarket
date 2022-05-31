@@ -27,15 +27,10 @@ class OrderServiceTest {
     @Test
     void 상품예약() {
         //given
-        Member member = createMember();//주문자
+        Member member = createMember("test", "min", 1234, "해민", 01000000000);//주문자
+        Member member2 = createMember("admin", "admin", 1234, "admin", 01000000000);//판매자
 
-        //판매자
-        Address address = new Address("city", "street", "000-000");
-        Member member2 = new Member("admin", "admin", 1234, "admin", 01000000000, address);
-        em.persist(member2);
-
-        Product product = new Product("a", "b", "text", 10000, member2);
-        em.persist(product);
+        Product product = createProduct(member2);
 
         //when
         Long orderId = orderService.order(member.getId(), product.getId());
@@ -47,10 +42,34 @@ class OrderServiceTest {
 
     }
 
-    private Member createMember() {
+    @Test
+    void 예약취소() {
+        //given
+        Member member = createMember("aaa", "name", 1234, "kim", 01000000000);
+        Product product = createProduct(member);
+
+        Long orderId = orderService.order(member.getId(), product.getId());
+
+        //when
+        orderService.cancelOrder(orderId);
+
+        //then
+        Order getOrder = orderService.findOneOrder(orderId);
+
+        assertEquals(OrderStatus.CANCEL, getOrder.getStatus()); //예약 취소시 상태는 예약 취소
+    }
+
+    private Member createMember(String email, String name, int pass, String username, int hp) {
         Address address = new Address("city", "street", "000-000");
-        Member member = new Member("test", "min", 1234, "해민", 01000000000, address);
+        Member member = new Member(email, name, pass, username, hp, address);
         em.persist(member);
         return member;
     }
+
+    private Product createProduct(Member member2) {
+        Product product = new Product("a", "b", "text", 10000, member2);
+        em.persist(product);
+        return product;
+    }
+
 }
