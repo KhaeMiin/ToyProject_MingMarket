@@ -62,6 +62,7 @@ public class Order {
      * static 메서드를 만들어서 new 생성자를 막고싶다.
      * 하지만 iv 상태 검증이 필요하다. (현재 orderStatus 상태)
      * 주문상태 검증을 어떻게 뺄 지 고민 (service 계층에서 로직을 짠다던지 등등)
+     * validation 처리를 하자!!!!!
      */
     public static Order createOrder(Member member, OrderProduct... orderProducts) {
 /*

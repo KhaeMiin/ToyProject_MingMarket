@@ -1,5 +1,8 @@
 package project.toyproject.domain;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -9,6 +12,7 @@ import java.time.LocalDateTime;
  * 일단 댓글기능은 추후에 다시 생각해보자.
  */
 //@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment {
 
     @Id @GeneratedValue

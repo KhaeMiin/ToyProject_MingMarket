@@ -1,11 +1,14 @@
 package project.toyproject.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue
@@ -28,9 +31,6 @@ public class Member extends BaseEntity {
      */
     @Embedded
     private Address address;
-
-    public Member() {
-    }
 
     public Member(String email, String nickname, int pass, String username, int hp, Address address) {
         this.email = email;

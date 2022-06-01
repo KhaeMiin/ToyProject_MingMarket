@@ -1,6 +1,8 @@
 package project.toyproject.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +12,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends BaseEntity { //상품
 
     @Id @GeneratedValue
@@ -33,9 +36,6 @@ public class Product extends BaseEntity { //상품
      */
 /*    @OneToOne(fetch = LAZY) @JoinColumn(name = "category_id")
     private Category category; //fk*/
-
-    public Product() {
-    }
 
     public Product(String title, String thumbnail, String intro, int price, Member member) {
         this.title = title;

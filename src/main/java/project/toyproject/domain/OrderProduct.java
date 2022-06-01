@@ -1,6 +1,8 @@
 package project.toyproject.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -8,6 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderProduct {
 
     @Id @GeneratedValue
@@ -31,9 +34,6 @@ public class OrderProduct {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public OrderProduct() {
-    }
 
     public OrderProduct(int orderPrice, Product product) {
         this.orderPrice = orderPrice;
