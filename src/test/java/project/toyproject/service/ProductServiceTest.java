@@ -49,7 +49,7 @@ class ProductServiceTest {
 
     private Member createMember() {
         Address address = new Address("city", "street", "000-000");
-        Member member = new Member("test", "min", 1234, "해민", 01000000000, address);
+        Member member = new Member("test", "min", "1234", "해민", 01000000000, address);
         em.persist(member);
         return member;
     }

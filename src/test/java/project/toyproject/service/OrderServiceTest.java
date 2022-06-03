@@ -27,8 +27,8 @@ class OrderServiceTest {
     @Test
     void 상품예약() {
         //given
-        Member member = createMember("test", "min", 1234, "해민", 01000000000);//주문자
-        Member member2 = createMember("admin", "admin", 1234, "admin", 01000000000);//판매자
+        Member member = createMember("test", "min", "1234", "해민", 01000000000);//주문자
+        Member member2 = createMember("admin", "admin", "1234", "admin", 01000000000);//판매자
 
         Product product = createProduct(member2);
 
@@ -45,7 +45,7 @@ class OrderServiceTest {
     @Test
     void 예약취소() {
         //given
-        Member member = createMember("aaa", "name", 1234, "kim", 01000000000);
+        Member member = createMember("aaa", "name", "1234", "kim", 01000000000);
         Product product = createProduct(member);
 
         Long orderId = orderService.order(member.getId(), product.getId());
@@ -59,9 +59,9 @@ class OrderServiceTest {
         assertEquals(OrderStatus.CANCEL, getOrder.getStatus()); //예약 취소시 상태는 예약 취소
     }
 
-    private Member createMember(String email, String name, int pass, String username, int hp) {
+    private Member createMember(String userId, String name, String pass, String username, int hp) {
         Address address = new Address("city", "street", "000-000");
-        Member member = new Member(email, name, pass, username, hp, address);
+        Member member = new Member(userId, name, pass, username, hp, address);
         em.persist(member);
         return member;
     }

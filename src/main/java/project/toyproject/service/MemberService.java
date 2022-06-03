@@ -29,7 +29,7 @@ public class MemberService {
      * 중복 아이디 검증 메서드
      */
     private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
+        List<Member> findMembers = memberRepository.findByUserId(member.getUserId());
 /*        if (!findMembers.isEmpty()) { //isEmpty(): 문자열 길이가 0일 경우 true 반환, 여기서는 !isEmpty: 값이 있다면
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }*/

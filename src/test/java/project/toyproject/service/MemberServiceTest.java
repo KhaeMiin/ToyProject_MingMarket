@@ -30,7 +30,7 @@ class MemberServiceTest {
     void 회원가입() throws Exception {
         //given :이런게 주어지면
         Address address = new Address("city", "street", "000-000");
-        Member member = new Member("test", "min", 1234, "해민", 01000000000, address);
+        Member member = new Member("test", "min", "1234", "해민", 01000000000, address);
 
         //when : 이렇게 하면(실행)
         Long saveId = memberService.join(member);
@@ -43,10 +43,10 @@ class MemberServiceTest {
     void 중복_아이디_예외() throws Exception {
         //given :이런게 주어지면
         Address address = new Address("city", "street", "000-000");
-        Member member1 = new Member("test", "min", 1234, "해민", 01000000000, address);
+        Member member1 = new Member("test", "min", "1234", "해민", 01000000000, address);
 
         Address address2 = new Address("city", "street", "000-000");
-        Member member2 = new Member("test", "min", 1234, "해민", 01000000000, address2);
+        Member member2 = new Member("test", "min", "1234", "해민", 01000000000, address2);
 
         //when : 이렇게 하면(실행)
         memberService.join(member1);

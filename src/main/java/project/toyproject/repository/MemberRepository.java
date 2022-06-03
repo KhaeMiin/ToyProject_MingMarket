@@ -30,9 +30,9 @@ public class MemberRepository {
     }
 
     //회원 아이디로 검색하기(관리자)
-    public List<Member> findByEmail(String email) {
-        return em.createQuery("select m from Member m where m.email = :email", Member.class)
-                .setParameter("email", email)
+    public List<Member> findByUserId(String userId) {
+        return em.createQuery("select m from Member m where m.userId = :userId", Member.class)
+                .setParameter("userId", userId)
                 .getResultList();
     }
 }

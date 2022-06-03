@@ -15,13 +15,13 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id; //시퀀스
 
-    private String email; //이메일(아이디)
+    private String userId; //이메일(아이디)
 
     @Column(length = 10)
     private String nickname; //닉네임
 
     @Column(length = 32) //최대 길이 정해두기
-    private int pass;
+    private String pass;
     private String username;
     private int hp;
 
@@ -32,8 +32,8 @@ public class Member extends BaseEntity {
     @Embedded
     private Address address;
 
-    public Member(String email, String nickname, int pass, String username, int hp, Address address) {
-        this.email = email;
+    public Member(String userId, String nickname, String pass, String username, int hp, Address address) {
+        this.userId = userId;
         this.nickname = nickname;
         this.pass = pass;
         this.username = username;
