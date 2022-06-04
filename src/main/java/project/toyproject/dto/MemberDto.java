@@ -75,5 +75,26 @@ public class MemberDto {
 
     }
 
+    /**
+     * 회원 전체 목록 출력
+     */
+    @Getter
+    @Setter
+    public static class membersList {
+
+        private String userId;
+
+        private String nickname;
+
+        private String pass;
+
+        private String username;
+
+        private int hp;
+
+        private String city;
+        private String street;
+        private String zipcode;
+    }
 
 }

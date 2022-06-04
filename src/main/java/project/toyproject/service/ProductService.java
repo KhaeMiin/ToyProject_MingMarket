@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductRepository;
 
@@ -34,6 +35,16 @@ public class ProductService {
         productRepository.save(product);
 
         return product.getId();
+    }
+
+    /**
+     * 상품 수정
+     */
+    @Transactional
+    public void updateProduct(Long productId, ProductDto.updateProductForm form) {
+        Product findProduct = productRepository.findSingleProduct(productId);
+        findProduct.change(form.getTitle(), form.getThumbnail(), findProduct.getIntro(), form.getPrice());
+
     }
 
     // 모든 상품 조회

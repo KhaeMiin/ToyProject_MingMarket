@@ -41,7 +41,7 @@ public class Product extends BaseEntity { //상품
         this.title = title;
         this.thumbnail = thumbnail;
         this.intro = intro;
-        Price = price;
+        this.Price = price;
         this.member = member;
     }
 
@@ -50,6 +50,13 @@ public class Product extends BaseEntity { //상품
         Product product = new Product(title, thumbnail, intro, price, member);
         product.createDate(LocalDateTime.now());
         return product;
+    }
+    //수정 메서드
+    public void change(String title, String thumbnail, String intro, int price) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.intro = intro;
+        this.Price = price;
     }
 
 }
