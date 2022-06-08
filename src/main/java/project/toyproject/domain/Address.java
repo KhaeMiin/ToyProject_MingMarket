@@ -11,13 +11,11 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
 
-    private String city;
-    private String street;
-    private String zipcode;
+    private String address; //주소
+    private String detailedAddress; //상세주소
 
-    public Address(String city, String street, String zipcode) {
-        this.city = city;
-        this.street = street;
-        this.zipcode = zipcode;
+    public Address(String address, String detailedAddress) {
+        this.address = address;
+        this.detailedAddress = detailedAddress;
     }
 }

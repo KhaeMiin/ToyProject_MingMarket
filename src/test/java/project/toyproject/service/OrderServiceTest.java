@@ -60,7 +60,7 @@ class OrderServiceTest {
     }
 
     private Member createMember(String userId, String name, String pass, String username, int hp) {
-        Address address = new Address("city", "street", "000-000");
+        Address address = new Address("city", "street");
         Member member = new Member(userId, name, pass, username, hp, address);
         em.persist(member);
         return member;

@@ -29,7 +29,7 @@ class MemberServiceTest {
     @Test
     void 회원가입() throws Exception {
         //given :이런게 주어지면
-        Address address = new Address("city", "street", "000-000");
+        Address address = new Address("city", "street");
         Member member = new Member("test", "min", "1234", "해민", 01000000000, address);
 
         //when : 이렇게 하면(실행)
@@ -42,10 +42,10 @@ class MemberServiceTest {
     @Test
     void 중복_아이디_예외() throws Exception {
         //given :이런게 주어지면
-        Address address = new Address("city", "street", "000-000");
+        Address address = new Address("city", "street");
         Member member1 = new Member("test", "min", "1234", "해민", 01000000000, address);
 
-        Address address2 = new Address("city", "street", "000-000");
+        Address address2 = new Address("city", "street");
         Member member2 = new Member("test", "min", "1234", "해민", 01000000000, address2);
 
         //when : 이렇게 하면(실행)

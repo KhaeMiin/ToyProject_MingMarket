@@ -1,10 +1,6 @@
 package project.toyproject.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import project.toyproject.domain.Address;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,7 +23,7 @@ public class MemberDto {
 
         @NotBlank(message = "비밀번호는 필수입니다.")
         @Size(min = 10, max = 20, message = "비밀번호는 10 ~ 20자 이여야 합니다!")
-        private String pass;
+        private String password;
 
         @NotBlank(message = "회원이름은 필수입니다.")
         private String username;
@@ -35,9 +31,8 @@ public class MemberDto {
         @NotBlank(message = "연락처는 필수입니다.")
         private int hp;
 
-        private String city;
-        private String street;
-        private String zipcode;
+        private String address;
+        private String detailedAddress;
     }
 
     /**
@@ -57,9 +52,10 @@ public class MemberDto {
         @NotBlank(message = "연락처는 필수입니다.")
         private int hp;
 
-        private String city;
-        private String street;
-        private String zipcode;
+        @NotBlank(message = "주소를 입력해주세요")
+        private String address;
+        @NotBlank(message = "상세주소를 입력해주세요")
+        private String detailedAddress;
     }
 
     /**
