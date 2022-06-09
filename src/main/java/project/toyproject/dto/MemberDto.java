@@ -3,6 +3,7 @@ package project.toyproject.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class MemberDto {
@@ -28,7 +29,7 @@ public class MemberDto {
         @NotBlank(message = "회원이름은 필수입니다.")
         private String username;
 
-        @NotBlank(message = "연락처는 필수입니다.")
+        @NotNull(message = "연락처는 필수입니다.")
         private int hp;
 
         private String address;
