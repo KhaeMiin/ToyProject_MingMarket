@@ -39,13 +39,16 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();//연관관계 편의메서드 만들어야 합니다.(엔티티에서는 양쪽에 값을 넣어주는게 맞음)
 
-    public Order(Member member, LocalDateTime orderDate, OrderStatus status) {
+    private Order(Member member, LocalDateTime orderDate, OrderStatus status) {
         this.member = member;
         this.orderDate = orderDate;
         this.status = status;
     }
 
-    private void setStatus(OrderStatus status) {
+    /**
+     * 주문 상태 변경시 사용(상태 변경용 setter 입니다)
+     */
+    private void updateStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -55,7 +58,7 @@ public class Order {
         orderProduct.createOrder(this); //setter 생성 막기위해서 caretOrder 메서드로 만들었습니다. (무분별한 set 막기)
     }
 
-    //생성 메서드
+    //==생성 메서드==//
 
     /**
      * TODO
@@ -77,7 +80,7 @@ public class Order {
         return order;
     }
 
-    //비즈니스 로직
+    //==비즈니스 로직==//
     /**
      * 예약 취소 (도메인 모델 패턴: 엔티티가 비즈니스 로직을 가지고 있다.)
      */
@@ -86,6 +89,17 @@ public class Order {
             throw new IllegalStateException("이미 거래가 완료된 상품은 취소가 불가능합니다");
         }
 
-        this.setStatus(OrderStatus.CANCEL);
+        this.updateStatus(OrderStatus.CANCEL);
+    }
+
+    /**
+     * 거래 완료 TRANSACTION_COMPLETE
+     */
+    public void transactionComplete() {
+        if (status == OrderStatus.CANCEL) {
+            throw new IllegalStateException("취소된 상품은 거래 완료를 할 수 없습니다.");
+        }
+
+        this.updateStatus(OrderStatus.TRANSACTION_COMPLETE);
     }
 }

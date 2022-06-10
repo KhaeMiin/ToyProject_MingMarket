@@ -67,7 +67,7 @@ class OrderServiceTest {
     }
 
     private Product createProduct(Member member2) {
-        Product product = new Product("a", "b", "text", 10000, member2);
+        Product product = Product.createProduct("a", "b", "text", 10000, member2);
         em.persist(product);
         return product;
     }

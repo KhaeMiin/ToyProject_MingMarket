@@ -8,6 +8,8 @@ import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.OrderRepository;
 import project.toyproject.repository.ProductRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -52,6 +54,18 @@ public class OrderService {
     }
 
     /**
+     * 거래 완료
+     */
+    @Transactional
+    public void transactionComplete(Long orderId) {
+        //order 엔티티 조회
+        Order order = orderRepository.findOne(orderId);
+
+        //거래 완료
+        order.transactionComplete();
+    }
+
+    /**
      * 주문 조회 (단건)
      */
     public Order findOneOrder(Long orderId) {
@@ -59,5 +73,11 @@ public class OrderService {
         return order;
     }
 
+    /**
+     * 주문 조회 (회원 한명이 주문한 목록 리스트)
+     */
+    public List<Order> findMembers(String userId) {
+        return orderRepository.findAll(userId);
+    }
 
 }

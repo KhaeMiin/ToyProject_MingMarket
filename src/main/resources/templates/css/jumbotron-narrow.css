@@ -70,3 +70,7 @@ body {
         border-bottom: 0;
     }
 }
+
+.fieldError {
+    border-color: #bd2130;
+}

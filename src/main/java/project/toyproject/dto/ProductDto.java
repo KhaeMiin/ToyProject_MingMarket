@@ -5,6 +5,7 @@ import lombok.Setter;
 import project.toyproject.domain.CategoryList;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ProductDto {
@@ -13,7 +14,7 @@ public class ProductDto {
      * 상품 등록
      */
     @Getter @Setter
-    public static class createProductForm {
+    public static class CreateProductForm {
 
         @NotBlank(message = "제목을 입력해주세요")
         private String title;
@@ -24,15 +25,18 @@ public class ProductDto {
         @NotBlank(message = "상품 설명을 작성해주세요")
         private String intro;
 
-        @NotBlank(message = "상품 가격을 입력해주세요")
+        @NotNull(message = "상품 가격을 입력해주세요")
         private int price;
 
-        @NotBlank(message = "카테고리를 선택해주세요")
+        @NotNull(message = "카테고리를 선택해주세요")
         private CategoryList categoryList;
 
 //        private Long memberId;
     }
 
+    /**
+     * 상품 수정
+     */
     @Getter
     @Setter
     public static class updateProductForm {
@@ -48,10 +52,10 @@ public class ProductDto {
         @NotBlank(message = "상품 설명을 작성해주세요")
         private String intro;
 
-        @NotBlank(message = "상품 가격을 입력해주세요")
+        @NotNull(message = "상품 가격을 입력해주세요")
         private int price;
 
-        @NotBlank(message = "카테고리를 선택해주세요")
+        @NotNull(message = "카테고리를 선택해주세요")
         private CategoryList categoryList;
 
     }
