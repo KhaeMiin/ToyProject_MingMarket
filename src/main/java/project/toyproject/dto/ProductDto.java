@@ -2,6 +2,7 @@ package project.toyproject.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 import project.toyproject.domain.CategoryList;
 
 import javax.validation.constraints.NotBlank;
@@ -26,6 +27,7 @@ public class ProductDto {
         private String intro;
 
         @NotNull(message = "상품 가격을 입력해주세요")
+        @Range(min = 1000, max = 99999999, message = "1,000 ~ 99,999,999원으로 다시 입력해주세요")
         private int price;
 
         @NotNull(message = "카테고리를 선택해주세요")
@@ -53,6 +55,7 @@ public class ProductDto {
         private String intro;
 
         @NotNull(message = "상품 가격을 입력해주세요")
+        @Range(min = 1000, max = 99999999, message = "1,000 ~ 99,999,999원으로 다시 입력해주세요")
         private int price;
 
         @NotNull(message = "카테고리를 선택해주세요")
