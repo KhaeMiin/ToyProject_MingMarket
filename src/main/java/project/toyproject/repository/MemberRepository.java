@@ -6,6 +6,7 @@ import project.toyproject.domain.Member;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class MemberRepository {
@@ -35,4 +36,21 @@ public class MemberRepository {
                 .setParameter("userId", userId)
                 .getResultList();
     }
+
+    /**
+     * 로그인시 회원 조회
+     * TODO
+     * 코드 리팩토링 예정 (람다함수, stream 사용해보기)
+     */
+    public Optional<Member> findByloginId(String userId) {
+        List<Member> members = em.createQuery("select m from Member m", Member.class)
+                .getResultList();
+        for (Member m : members) {
+            if (m.getUserId().equals(userId)) { //값이 있을 경우
+                return Optional.of(m);
+            }
+        }
+        return Optional.empty(); //값이 없으면 null
+    }
+
 }
