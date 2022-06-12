@@ -12,6 +12,8 @@ import project.toyproject.domain.Member;
 import project.toyproject.dto.LoginDto;
 import project.toyproject.service.LoginService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -27,7 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("form") LoginDto form, BindingResult result) {
+    public String login(@Valid @ModelAttribute("form") LoginDto form, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "/members/login";
         }
@@ -40,10 +42,22 @@ public class LoginController {
             return "/members/login";
         }
 
-        //로그인 성공시 TODO
+        //로그인 성공처리
+        //기존 세션이 있으면 세션을 반환, 없으면 새로운 세션을 생성
+        HttpSession session = request.getSession();
+        //세션에 로그인 회원 정보를 보관 (쿠키에 key: JSESSIONID , value: UUID 로 들어감)
+        session.setAttribute("loginMember", loginMember);
+
         return "redirect:/";
+    }
 
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);//있는 세션 가져오게 하기. 없으면 null 가져오기
+        if (session != null) {
+            session.invalidate(); //데이터 날라감!
+        }
 
-
+        return "redirect:/"; //홈 화면으로!
     }
 }

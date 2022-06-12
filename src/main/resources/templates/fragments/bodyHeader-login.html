@@ -6,7 +6,11 @@
     </ul>
     <a href="/"><h3 class="text-muted">MING_MARKET</h3></a>
     <div>
-    <a href="/"><h3 class="text-muted">LOGOUT(아직못함)</h3></a>
+        <form th:action="@{/logout}" method="post">
+            <button class="w-100 btn btn-dark btn-lg" type="submit">
+                로그아웃
+            </button>
+        </form>
     <a href="/product/new"><h3 class="text-muted">NEW PRODUCT</h3></a>
     </div>
     나중에 로그인 유지하면 if로 login, logout 구분 해야겟다.
