@@ -9,7 +9,7 @@
 </style>
 <body>
 <div class="container">
-    <div th:replace="fragments/bodyHeader-logout :: bodyHeader" />
+    <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
         <div class="jumbotron">
             <form role="form" action="/members/join" th:object="${memberForm}"
                   method="post">

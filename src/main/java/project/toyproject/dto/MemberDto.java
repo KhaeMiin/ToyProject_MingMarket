@@ -73,11 +73,12 @@ public class MemberDto {
     }
 
     /**
-     * 회원 전체 목록 출력
+     * 회원 정보 출력
      */
     @Getter
     @Setter
-    public static class membersList {
+    @AllArgsConstructor
+    public static class MemberData {
 
         private String userId;
 
@@ -89,9 +90,8 @@ public class MemberDto {
 
         private int hp;
 
-        private String city;
-        private String street;
-        private String zipcode;
+        private String address; //주소
+        private String detailedAddress; //상세주소
     }
 
 }

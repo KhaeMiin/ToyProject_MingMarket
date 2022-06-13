@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.toyproject.domain.Member;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class HomeController {
             return "home";
         }
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        MemberDto.MemberData loginMember = (MemberDto.MemberData) session.getAttribute("loginMember");
 
         //세션에 회원 데이터가 없으면
         if (loginMember == null) {

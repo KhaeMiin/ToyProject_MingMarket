@@ -7,10 +7,10 @@
 <body>
 <div class="container">
     <div th:if="${member} == null"> <!--로그인 안된 상태-->
-        <div th:replace="fragments/bodyHeader-logout :: bodyHeader" />
+        <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
     </div>
     <div th:if="${member} != null"> <!--로그인 된 상태-->
-        <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
+        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${member.username})}" />
     </div>
 
     <div class="jumbotron">

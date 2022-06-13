@@ -11,8 +11,8 @@
 </style>
 <body>
 <div class="container">
-    <div th:replace="fragments/bodyHeader-logout :: bodyHeader" />
     <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div class="jumbotron">
         <form th:action="@{/product/new}" th:object="${form}" method="post">
             <div class="form-group">

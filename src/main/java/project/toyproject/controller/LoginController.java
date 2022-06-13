@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.LoginDto;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.service.LoginService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,17 +38,22 @@ public class LoginController {
 
         Member loginMember = loginService.login(form.getUserId(), form.getPassword());
 
+
         //로그인 실패시 (null)
         if (loginMember == null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");
             return "/members/login";
         }
 
+        Address address = loginMember.getAddress();
+        MemberDto.MemberData memberData = new MemberDto.MemberData(loginMember.getUserId(), loginMember.getNickname(), loginMember.getPass(),
+                loginMember.getUsername(), loginMember.getHp(), address.getAddress(), address.getDetailedAddress());
+
         //로그인 성공처리
         //기존 세션이 있으면 세션을 반환, 없으면 새로운 세션을 생성
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보를 보관 (쿠키에 key: JSESSIONID , value: UUID 로 들어감)
-        session.setAttribute("loginMember", loginMember);
+        session.setAttribute("loginMember", memberData);
 
         return "redirect:/";
     }
