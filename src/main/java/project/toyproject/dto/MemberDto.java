@@ -73,25 +73,21 @@ public class MemberDto {
     }
 
     /**
-     * 회원 정보 출력
+     * Session에 담을 회원 정보
      */
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class MemberData {
+    public static class SessionMemberData {
+
+        private Long memberId;
 
         private String userId;
 
         private String nickname;
 
-        private String pass;
-
         private String username;
 
-        private int hp;
-
-        private String address; //주소
-        private String detailedAddress; //상세주소
     }
 
 }
