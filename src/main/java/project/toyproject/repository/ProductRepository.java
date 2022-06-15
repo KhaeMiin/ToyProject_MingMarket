@@ -13,7 +13,7 @@ public class ProductRepository {
 
     private final EntityManager em;
 
-    // 상품 저장 or 상품 수정(merge 사용시 null값이 있을 경우 null로 저장될 위험이 있기때문에 merge 안쓰기!!!!
+    // 상품 저장
     public void save(Product product) {
         if (product.getId() == null) { // 등록된 상품이 없을 경우 새로 등록
             em.persist(product);
