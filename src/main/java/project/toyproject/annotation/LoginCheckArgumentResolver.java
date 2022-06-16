@@ -1,5 +1,6 @@
 package project.toyproject.annotation;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -11,9 +12,13 @@ import project.toyproject.dto.MemberDto;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 public class LoginCheckArgumentResolver implements HandlerMethodArgumentResolver {
+
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
+        log.info("supportsParameter 실행");
+
         boolean hasLoginCheckAnnotation = parameter.hasParameterAnnotation(LoginCheck.class); //파라미터에 @LoginCheck 붙어있는지 체크
         boolean hasSessionMemberDataType = MemberDto.SessionMemberData.class.isAssignableFrom(parameter.getParameterType()); //@LoginCheck 붙은 파라미터 타입이 SessionMemberData.class 타입이 들어오는지
 
@@ -33,6 +38,7 @@ public class LoginCheckArgumentResolver implements HandlerMethodArgumentResolver
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
+        log.info("ArgumentResolver 실행");
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest(); //HttpServletRequest 사용할 수 있다.
         HttpSession session = request.getSession(false); //기존 생성된 세션이 없어도 생성 안하도록
         if (session == null) {

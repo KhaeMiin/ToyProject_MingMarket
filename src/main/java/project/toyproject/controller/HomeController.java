@@ -1,6 +1,7 @@
 package project.toyproject.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import project.toyproject.repository.MemberRepository;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class HomeController {
 
     private final MemberRepository memberRepository;
@@ -35,6 +37,7 @@ public class HomeController {
     public String home(
             @LoginCheck MemberDto.SessionMemberData loginMember, Model model) {
 
+        log.info("login check = {}", loginMember);
         //세션에 회원 데이터가 없으면
         if (loginMember == null) {
             return "home";
