@@ -3,6 +3,7 @@ package project.toyproject.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
 import project.toyproject.domain.CategoryList;
 
 import javax.validation.constraints.NotBlank;
@@ -17,11 +18,12 @@ public class ProductDto {
     @Getter @Setter
     public static class CreateProductForm {
 
+        private Long memberId;
+
         @NotBlank(message = "제목을 입력해주세요")
         private String title;
 
-        @NotBlank(message = "대표 이미지를 등록해주세요")
-        private String thumbnail;
+        private MultipartFile thumbnail;
 
         @NotBlank(message = "상품 설명을 작성해주세요")
         private String intro;
@@ -33,7 +35,6 @@ public class ProductDto {
         @NotNull(message = "카테고리를 선택해주세요")
         private CategoryList categoryList;
 
-//        private Long memberId;
     }
 
     /**
@@ -48,8 +49,7 @@ public class ProductDto {
         @NotBlank(message = "제목을 입력해주세요")
         private String title;
 
-        @NotBlank(message = "대표 이미지를 등록해주세요")
-        private String thumbnail;
+        private MultipartFile thumbnail;
 
         @NotBlank(message = "상품 설명을 작성해주세요")
         private String intro;

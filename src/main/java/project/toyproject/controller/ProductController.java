@@ -1,27 +1,37 @@
 package project.toyproject.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.toyproject.FileUpload;
+import project.toyproject.annotation.LoginCheck;
+import project.toyproject.domain.Product;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
+    private final FileUpload fileUpload;
     private final MemberService memberService;
 
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("form", new ProductDto.CreateProductForm());
+
         return "product/createProductForm";
     }
 
@@ -32,14 +42,29 @@ public class ProductController {
      * 수행 완료 후 해당 상품 디테일 페이지로 가도록
      */
     @PostMapping("/new")
-    public String create(@Valid @ModelAttribute("form") ProductDto.CreateProductForm form, BindingResult result) {
-
+    public String create(@Valid @ModelAttribute("form") ProductDto.CreateProductForm form, BindingResult result,
+                         @LoginCheck MemberDto.SessionMemberData loginMember,
+                         RedirectAttributes redirectAttributes
+                         ) throws IOException {
         if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
             return "product/createProductForm"; //다시 폼으로 이동
         }
+        String uploadFile = fileUpload.serverUploadFile(form.getThumbnail());
+        log.info("이미지 파일명={}", uploadFile);
+        log.info("이미지 경로명={}", fileUpload.getFullPath(uploadFile));
 
-/*        Member member = memberService.findOneMember(memberId);
-        Product product = Product.createProduct(form.getTitle(), form.getThumbnail(), form.getIntro(), form.getPrice(), member);*/
-        return "redirect:/"; //나중에 상품디테일 페이지로 넘어가게
+        //데이터 베이스에 저장
+        Long productId = productService.saveProduct(loginMember.getMemberId(), form.getTitle(), uploadFile, form.getIntro(), form.getPrice());
+
+        redirectAttributes.addAttribute("productId", productId);
+
+        return "redirect:/product/detail/{productId}"; //나중에 상품디테일 페이지로 넘어가게
+    }
+
+    @GetMapping("/detail/{productId}")
+    public String ProductDetail(@PathVariable Long productId, Model model) {
+        Product singleProduct = productService.findSingleProduct(productId);
+
+        return "product/detailPage";
     }
 }

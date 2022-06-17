@@ -65,6 +65,8 @@ public class LoginController {
         //세션에 로그인 회원 정보를 보관 (쿠키에 key: JSESSIONID , value: UUID 로 들어감)
         session.setAttribute(LOGIN_MEMBER, memberData);
 
+        session.setAttribute("username", memberData.getUsername());
+
         return "redirect:/";
     }
 
