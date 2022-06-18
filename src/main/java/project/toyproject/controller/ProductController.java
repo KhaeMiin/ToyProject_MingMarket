@@ -11,12 +11,15 @@ import project.toyproject.FileUpload;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
-import project.toyproject.dto.ProductDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static project.toyproject.dto.ProductDto.*;
 
 @Slf4j
 @Controller
@@ -30,7 +33,7 @@ public class ProductController {
 
     @GetMapping("/new")
     public String createForm(Model model) {
-        model.addAttribute("form", new ProductDto.CreateProductForm());
+        model.addAttribute("form", new CreateProductForm());
 
         return "product/createProductForm";
     }
@@ -42,7 +45,7 @@ public class ProductController {
      * 수행 완료 후 해당 상품 디테일 페이지로 가도록
      */
     @PostMapping("/new")
-    public String create(@Valid @ModelAttribute("form") ProductDto.CreateProductForm form, BindingResult result,
+    public String create(@Valid @ModelAttribute("form") CreateProductForm form, BindingResult result,
                          @LoginCheck MemberDto.SessionMemberData loginMember,
                          RedirectAttributes redirectAttributes
                          ) throws IOException {
@@ -64,7 +67,11 @@ public class ProductController {
     @GetMapping("/detail/{productId}")
     public String ProductDetail(@PathVariable Long productId, Model model) {
         Product singleProduct = productService.findSingleProduct(productId);
-
+        String nickname = singleProduct.getMember().getNickname();
+        String createDate = singleProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        ProductDetailData productDetailPage = new ProductDetailData(
+                nickname, singleProduct.getTitle(), singleProduct.getThumbnail(), singleProduct.getIntro(), singleProduct.getPrice(), createDate);
+        model.addAttribute("singleProduct", productDetailPage);
         return "product/detailPage";
     }
 }

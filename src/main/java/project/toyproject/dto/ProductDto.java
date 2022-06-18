@@ -1,5 +1,6 @@
 package project.toyproject.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
@@ -8,7 +9,7 @@ import project.toyproject.domain.CategoryList;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 public class ProductDto {
 
@@ -60,6 +61,28 @@ public class ProductDto {
 
         @NotNull(message = "카테고리를 선택해주세요")
         private CategoryList categoryList;
+
+    }
+
+    /**
+     * 상품 상세페이지
+     */
+    @Getter @Setter
+    @AllArgsConstructor
+    public static class ProductDetailData {
+
+        private String nickName; // 작성자 닉네임
+
+        private String title; // 글 제목
+
+        private String thumbnail; //대표 이미지
+
+        private String intro; //상세설명
+
+        private int price; //가격
+
+        private String createDate;
+
 
     }
 }
