@@ -26,6 +26,10 @@ public class MemberDto {
         @Size(min = 10, max = 20, message = "비밀번호는 10 ~ 20자 이여야 합니다!")
         private String password;
 
+        @NotBlank(message = "비밀번호는 필수입니다.")
+        @Size(min = 10, max = 20, message = "비밀번호는 10 ~ 20자 이여야 합니다!")
+        private String passwordCheck;
+
         @NotBlank(message = "회원이름은 필수입니다.")
         private String username;
 

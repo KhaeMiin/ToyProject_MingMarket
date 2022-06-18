@@ -31,6 +31,10 @@ public class MemberController {
     @PostMapping("/join")
     public String join(@Valid @ModelAttribute("memberForm") MemberDto.CreateMemberForm form, BindingResult result) { //form 안에 에러가 있으면 튕겨내지말고 result에 담음
 
+        if (!form.getPassword().equals(form.getPasswordCheck())) {
+            result.reject("passwordFail","비밀번호가 일치하지 않습니다.");
+        }
+
         if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
             return "members/joinMemberForm"; //다시 폼으로 이동
         }
