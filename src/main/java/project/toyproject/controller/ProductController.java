@@ -2,6 +2,8 @@ package project.toyproject.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +16,10 @@ import project.toyproject.dto.MemberDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -47,14 +51,15 @@ public class ProductController {
     @PostMapping("/new")
     public String create(@Valid @ModelAttribute("form") CreateProductForm form, BindingResult result,
                          @LoginCheck MemberDto.SessionMemberData loginMember,
-                         RedirectAttributes redirectAttributes
+                         RedirectAttributes redirectAttributes,
+                         HttpServletRequest request
                          ) throws IOException {
         if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
             return "product/createProductForm"; //다시 폼으로 이동
         }
-        String uploadFile = fileUpload.serverUploadFile(form.getThumbnail());
-        log.info("이미지 파일명={}", uploadFile);
-        log.info("이미지 경로명={}", fileUpload.getFullPath(uploadFile));
+
+        String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
+        String uploadFile = fileUpload.serverUploadFile(form.getThumbnail(), realPath);
 
         //데이터 베이스에 저장
         Long productId = productService.saveProduct(loginMember.getMemberId(), form.getTitle(), uploadFile, form.getIntro(), form.getPrice());
@@ -67,11 +72,22 @@ public class ProductController {
     @GetMapping("/detail/{productId}")
     public String ProductDetail(@PathVariable Long productId, Model model) {
         Product singleProduct = productService.findSingleProduct(productId);
+        // 작성자 닉네임 구하기
         String nickname = singleProduct.getMember().getNickname();
+        //게시글 작성 날짜 구하기
         String createDate = singleProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         ProductDetailData productDetailPage = new ProductDetailData(
                 nickname, singleProduct.getTitle(), singleProduct.getThumbnail(), singleProduct.getIntro(), singleProduct.getPrice(), createDate);
         model.addAttribute("singleProduct", productDetailPage);
         return "product/detailPage";
     }
+
+    //대표이미지(thumbnail) 띄우기
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public Resource uploadImage(@PathVariable String filename, HttpServletRequest request) throws MalformedURLException {
+        String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
+        return new UrlResource("file:" + realPath + filename);
+    }
+
 }

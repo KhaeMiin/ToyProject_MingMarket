@@ -11,21 +11,21 @@ import java.util.UUID;
 @Component
 public class FileUpload {
 
-    @Value("${file.dir}")
-    private String fileDir;
+/*    @Value("${file.dir}")
+    private String fileDir;*/
 
-    public String getFullPath(String filename) {
+    public String getFullPath(String filename, String fileDir) {
         return fileDir + filename;
     }
 
-    public String serverUploadFile(MultipartFile multipartFile) throws IOException {
+    public String serverUploadFile(MultipartFile multipartFile, String fileDir) throws IOException {
         if (multipartFile.isEmpty()) { //파일 없으면 null 반환
             return null;
         }
         String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
 
         String serverUploadFileName = createServerFileName(originalFilename);
-        multipartFile.transferTo(new File(getFullPath(serverUploadFileName)));
+        multipartFile.transferTo(new File(getFullPath(serverUploadFileName, fileDir)));
 
         return serverUploadFileName;
 
