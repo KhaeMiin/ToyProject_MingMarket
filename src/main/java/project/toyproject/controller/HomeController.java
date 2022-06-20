@@ -7,8 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import project.toyproject.annotation.LoginCheck;
+import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
+import project.toyproject.service.ProductService;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,6 +20,7 @@ import project.toyproject.repository.MemberRepository;
 public class HomeController {
 
     private final MemberRepository memberRepository;
+    private final ProductService productService;
 
     /**
      * 홈화면 로그인 회원 / 비로그인 회원 구분해서 홈메인 화면 처리하기
@@ -37,6 +42,11 @@ public class HomeController {
     public String home(
             @LoginCheck MemberDto.SessionMemberData loginMember, Model model) {
 
+        //메인화면에 상품 리스트 출력
+        List<Product> products = productService.findProducts();
+
+        model.addAttribute("products", products);
+
         log.info("login check = {}", loginMember);
         //세션에 회원 데이터가 없으면
         if (loginMember == null) {
@@ -44,6 +54,10 @@ public class HomeController {
         }
 
         model.addAttribute("member", loginMember);
+
+
+
         return "home";
     }
+
 }

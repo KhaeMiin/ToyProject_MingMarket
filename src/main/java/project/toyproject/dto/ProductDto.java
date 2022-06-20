@@ -6,10 +6,14 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 import project.toyproject.domain.CategoryList;
+import project.toyproject.domain.Member;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
+import static javax.persistence.FetchType.LAZY;
 
 public class ProductDto {
 
@@ -84,5 +88,20 @@ public class ProductDto {
         private String createDate;
 
 
+    }
+
+    /**
+     * 상품 출력
+     */
+    @Getter
+    public static class SelectProducts {
+
+        private Long id; //pk
+
+        private String title; //제목
+        private String thumbnail; //섬네일
+        private String intro; //설명(게시판)
+        private int Price; //상품가격
+        private Member member; //fk
     }
 }

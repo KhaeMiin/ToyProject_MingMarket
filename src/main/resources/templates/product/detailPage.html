@@ -6,7 +6,12 @@
 </head>
 <body>
 <div class="container">
-    <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.username})}" />
+    <div th:if="${session.username} == null"> <!--로그인 안된 상태-->
+        <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
+    </div>
+    <div th:if="${session.username} != null"> <!--로그인 안된 상태-->
+        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.username})}" />
+    </div>
     <div class="jumbotron">
         <h2>상세 페이지</h2>
         대표이미지:

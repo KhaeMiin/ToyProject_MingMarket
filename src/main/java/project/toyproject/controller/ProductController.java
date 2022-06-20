@@ -82,12 +82,4 @@ public class ProductController {
         return "product/detailPage";
     }
 
-    //대표이미지(thumbnail) 띄우기
-    @ResponseBody
-    @GetMapping("/images/{filename}")
-    public Resource uploadImage(@PathVariable String filename, HttpServletRequest request) throws MalformedURLException {
-        String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
-        return new UrlResource("file:" + realPath + filename);
-    }
-
 }

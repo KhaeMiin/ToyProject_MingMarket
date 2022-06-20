@@ -14,8 +14,12 @@
     </div>
 
     <div class="jumbotron">
-        상품 리스트가 뜹니다!!
-
+        <div th:each="product : ${products}">
+            <a th:href="@{/product/detail/{productId}(productId=${product.id})}">
+                <img th:src="@{/webapp/upload/} + ${product.thumbnail}" width="300" height="300">
+            </a>
+            <a th:text="${product.title}" th:href="@{/product/detail/{productId}(productId=${product.id})}">제목입니다.</a>
+        </div>
     </div>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
