@@ -29,7 +29,7 @@ public class ProductRepository {
 
     // 전체 상품 조회
     public List<Product> findAllProducts() {
-        return em.createQuery("select p from Product p", Product.class)
+        return em.createQuery("select p from Product p order by p.id desc ", Product.class)
                 .getResultList();
     }
 
