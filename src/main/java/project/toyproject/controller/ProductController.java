@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.toyproject.FileUpload;
 import project.toyproject.annotation.LoginCheck;
+import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.service.MemberService;
@@ -72,12 +73,18 @@ public class ProductController {
     @GetMapping("/detail/{productId}")
     public String ProductDetail(@PathVariable Long productId, Model model) {
         Product singleProduct = productService.findSingleProduct(productId);
+        
         // 작성자 닉네임 구하기
-        String nickname = singleProduct.getMember().getNickname();
+        Member writer = memberService.findOneMember(singleProduct.getMember().getId());
+        String writerNickname = writer.getNickname();
+        String writerId = writer.getUserId();
+
         //게시글 작성 날짜 구하기
         String createDate = singleProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         ProductDetailData productDetailPage = new ProductDetailData(
-                nickname, singleProduct.getTitle(), singleProduct.getThumbnail(), singleProduct.getIntro(), singleProduct.getPrice(), createDate);
+                writerNickname, singleProduct.getTitle(), singleProduct.getThumbnail(), singleProduct.getIntro(), singleProduct.getPrice(), createDate);
+
+        model.addAttribute("writerId", writerId);
         model.addAttribute("singleProduct", productDetailPage);
         return "product/detailPage";
     }

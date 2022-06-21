@@ -23,10 +23,9 @@ public class TestDataInit {
     @PostConstruct
     public void init() {
         Address address = new Address("자바시 JPA구", "스프링");
-        Member member = new Member("test", "테스트", "test", "김테스트", 01022223333, address);
+        Member member = new Member("test", "닉네임", "test", "김성함", 01022223333, address);
         memberService.join(member);
 
-//        Product product = new Product("test", "");
         for (int i = 1; i < 17; i++) {
             productService.saveProduct(member.getId(), "test" + i, i + ".jpg", "test" + i, 10000);
         }

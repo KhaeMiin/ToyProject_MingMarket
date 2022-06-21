@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <label for="passwordCheck">비밀번호 확인</label>
-                    <input type="passwordCheck" id="passwordCheck" th:field="*{passwordCheck}" class="form-control"
+                    <input type="password" id="passwordCheck" th:field="*{passwordCheck}" class="form-control"
                            placeholder="비밀번호를 입력하세요"
                            th:class="${#fields.hasErrors('passwordCheck')}? 'form-control fieldError' : 'form-control'"><!--에러 테두리 붉은색으로-->
                     <div th:if="${#fields.hasGlobalErrors()}">

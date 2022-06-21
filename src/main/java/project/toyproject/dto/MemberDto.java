@@ -84,9 +84,9 @@ public class MemberDto {
     @AllArgsConstructor
     public static class SessionMemberData {
 
-        private Long memberId;
+        private Long memberId; //pk
 
-        private String userId;
+        private String userId; // 아이디
 
         private String nickname;
 

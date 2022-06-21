@@ -6,11 +6,11 @@
 </head>
 <body>
 <div class="container">
-    <div th:if="${session.username} == null"> <!--로그인 안된 상태-->
+    <div th:if="${session.userLoginId} == null"> <!--로그인 안된 상태-->
         <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
     </div>
-    <div th:if="${session.username} != null"> <!--로그인 안된 상태-->
-        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.username})}" />
+    <div th:if="${session.userLoginId} != null">
+        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.nickname})}" />
     </div>
     <div class="jumbotron">
         <h2>상세 페이지</h2>
@@ -22,6 +22,10 @@
         날짜: <span th:text="${singleProduct.createDate}">날짜</span><br>
         상세 설명: <span th:text="${singleProduct.intro}">상세설명</span><br>
 
+    </div>
+    <div th:if="${session.userLoginId} == ${writerId}">
+        <button type="button" class="btn btn-info">수정</button>
+        <button type="button" class="btn btn-info">삭제</button>
     </div>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
