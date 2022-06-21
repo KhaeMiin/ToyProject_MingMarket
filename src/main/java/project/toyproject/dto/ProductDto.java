@@ -8,12 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-
-import static javax.persistence.FetchType.LAZY;
 
 public class ProductDto {
 
@@ -49,12 +45,14 @@ public class ProductDto {
     @Setter
     public static class updateProductForm {
 
-        private Long id; //pk
+        private Long productId; //pk
 
         @NotBlank(message = "제목을 입력해주세요")
         private String title;
 
-        private MultipartFile thumbnail;
+        private String uploadFileName;
+
+        private MultipartFile uploadFile;
 
         @NotBlank(message = "상품 설명을 작성해주세요")
         private String intro;
@@ -66,6 +64,13 @@ public class ProductDto {
         @NotNull(message = "카테고리를 선택해주세요")
         private CategoryList categoryList;
 
+        public updateProductForm(Long productId, String title, String thumbnail, String intro, int price) {
+            this.productId = productId;
+            this.title = title;
+            this.uploadFileName = thumbnail;
+            this.intro = intro;
+            this.price = price;
+        }
     }
 
     /**
@@ -74,6 +79,8 @@ public class ProductDto {
     @Getter @Setter
     @AllArgsConstructor
     public static class ProductDetailData {
+
+        private Long productId;
 
         private String nickName; // 작성자 닉네임
 
