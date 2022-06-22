@@ -120,11 +120,11 @@ public class ProductController {
         String uploadFile = fileUpload.serverUploadFile(form.getUploadFile(), realPath);
 
         //데이터 베이스에 저장
-        productService.updateProduct(productId,form);
+        productService.updateProduct(productId,form, uploadFile);
 
         redirectAttributes.addAttribute("productId", productId);
 
-        return "redirect:/product/detail/{productId}";
+        return "redirect:/product/detail/{productId}"; // 상품디테일 페이지로 넘어가게
     }
 
 }

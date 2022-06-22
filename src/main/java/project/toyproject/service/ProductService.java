@@ -43,9 +43,9 @@ public class ProductService {
      * 트렌젝션이 종료될 때 변경된 부분에 대한 update query를 날린다.
      */
     @Transactional
-    public void updateProduct(Long productId, ProductDto.updateProductForm form) {
+    public void updateProduct(Long productId, ProductDto.updateProductForm form, String thumbnail) {
         Product findProduct = productRepository.findSingleProduct(productId);
-        findProduct.change(form.getTitle(), form.getUploadFileName(), findProduct.getIntro(), form.getPrice());
+        findProduct.change(form.getTitle(), thumbnail, findProduct.getIntro(), form.getPrice());
 
     }
 
