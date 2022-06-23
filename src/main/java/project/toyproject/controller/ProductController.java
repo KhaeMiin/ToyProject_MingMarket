@@ -20,6 +20,7 @@ import project.toyproject.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
@@ -117,7 +118,16 @@ public class ProductController {
         }
 
         String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
-        String uploadFile = fileUpload.serverUploadFile(form.getUploadFile(), realPath);
+        String uploadFile = "";
+
+        if (form.getUploadFile().getOriginalFilename().equals("")) { // 이미지 수정 안할경우
+            uploadFile = form.getUploadFileName();
+        } else {
+            File file = new File(realPath + form.getUploadFileName());
+            file.delete(); //기존 이미지 삭제하기
+
+            uploadFile = fileUpload.serverUploadFile(form.getUploadFile(), realPath);
+        }
 
         //데이터 베이스에 저장
         productService.updateProduct(productId,form, uploadFile);
