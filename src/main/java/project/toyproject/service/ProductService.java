@@ -58,4 +58,9 @@ public class ProductService {
     public Product findSingleProduct(Long productId) {
         return productRepository.findSingleProduct(productId);
     }
+
+    @Transactional
+    public void removeProduct(Long productId) {
+        productRepository.removeProduct(productId);
+    }
 }

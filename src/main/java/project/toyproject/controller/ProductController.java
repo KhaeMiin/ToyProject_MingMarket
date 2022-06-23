@@ -53,7 +53,7 @@ public class ProductController {
                          @LoginCheck MemberDto.SessionMemberData loginMember,
                          RedirectAttributes redirectAttributes,
                          HttpServletRequest request
-                         ) throws IOException {
+    ) throws IOException {
         if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
             return "product/createProductForm"; //다시 폼으로 이동
         }
@@ -75,7 +75,7 @@ public class ProductController {
     @GetMapping("/detail/{productId}")
     public String ProductDetail(@PathVariable Long productId, Model model) {
         Product singleProduct = productService.findSingleProduct(productId);
-        
+
         // 작성자 닉네임 구하기
         Member writer = memberService.findOneMember(singleProduct.getMember().getId());
         String writerNickname = writer.getNickname();
@@ -130,11 +130,22 @@ public class ProductController {
         }
 
         //데이터 베이스에 저장
-        productService.updateProduct(productId,form, uploadFile);
+        productService.updateProduct(productId, form, uploadFile);
 
         redirectAttributes.addAttribute("productId", productId);
 
         return "redirect:/product/detail/{productId}"; // 상품디테일 페이지로 넘어가게
     }
 
+    @GetMapping("/{productId}/delect")
+    public String removeProduct(@PathVariable("productId") Long productId, HttpServletRequest request) {
+        Product singleProduct = productService.findSingleProduct(productId);
+        String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
+
+        File file = new File(realPath + singleProduct.getThumbnail());
+        file.delete(); // 대표 이미지 파일 지우기
+
+        productService.removeProduct(productId);
+        return "redirect:/";
+    }
 }

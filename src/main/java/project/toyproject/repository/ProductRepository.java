@@ -37,4 +37,10 @@ public class ProductRepository {
     public List<Product> searchProduct(String productName) {
         return null;
     }
+
+    // 상품 삭제
+    public void removeProduct(Long productId) {
+        Product singleProduct = findSingleProduct(productId);
+        em.remove(singleProduct);
+    }
 }
