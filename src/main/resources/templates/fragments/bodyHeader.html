@@ -14,9 +14,13 @@
                 로그아웃
             </button>
         </form>
-        <div th:if="${session.userLoginId} == 'admin'">
+        <div th:if="${session.loginMember.userId} == 'admin'">
             <a href="#" th:href="@{/members/list}"
                class="btn btn-primary" role="button">회원 관리</a>
+        </div>
+        <div th:if="${session.loginMember.userId} != null">
+            <a href="#" th:href="@{/members/myPage/{memberId}(memberId=${session.loginMember.memberId})}"
+               class="btn btn-primary" role="button">마이페이지</a>
         </div>
     <a href="/product/new"><h3 class="text-muted">NEW PRODUCT</h3></a>
     </div>

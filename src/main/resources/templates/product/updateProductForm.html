@@ -46,7 +46,7 @@
     });
 </script>
 <div class="container">
-    <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.nickname})}" />
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
     <div class="jumbotron">
         <form th:object="${form}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{productId}">
@@ -59,7 +59,7 @@
             </div>
 
             <!--대표이미지-->
-            <input type="hidden" th:field="*{uploadFileName}" th:text="*{uploadFileName}">
+            <input type="hidden" th:field="*{uploadFileName}">
             <div th:id="imgViewArea" th:class="imgView">
                 <img th:id="imgArea" th:class="imgView" th:onerror="imgAreaError()"/>
             </div>

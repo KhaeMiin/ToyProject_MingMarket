@@ -96,7 +96,7 @@ public class MemberDto {
     }
 
     /**
-     * List 출력
+     * 회원정보 출력
      */
     @Getter
     @Setter

@@ -29,8 +29,10 @@ public class TestDataInit {
         Member member2 = new Member("admin", "관리자", "test", "김관리자", 01022223333, address);
         memberService.join(member2);
 
-        for (int i = 1; i < 17; i++) {
+        for (int i = 1; i < 16; i++) {
             productService.saveProduct(member.getId(), "test" + i, i + ".jpg", "test" + i, 10000);
+            Member memberData = new Member("test" + i, "닉네임" + i, "test" + i, "김성함" + i, 01022223333, address);
+            memberService.join(memberData);
         }
     }
 }

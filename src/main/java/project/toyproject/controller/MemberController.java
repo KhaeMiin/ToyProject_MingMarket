@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.MemberDto;
@@ -36,7 +33,7 @@ public class MemberController {
     public String join(@Valid @ModelAttribute("memberForm") MemberDto.CreateMemberForm form, BindingResult result) { //form 안에 에러가 있으면 튕겨내지말고 result에 담음
 
         if (!form.getPassword().equals(form.getPasswordCheck())) {
-            result.reject("passwordFail","비밀번호가 일치하지 않습니다.");
+            result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
         }
 
         if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
@@ -63,5 +60,32 @@ public class MemberController {
         }
         model.addAttribute("members", listMemberData);
         return "members/list";
+    }
+
+    /**
+     * 마이페이지
+     */
+    @GetMapping("/myPage/{memberId}")
+    public String myPage(@PathVariable("memberId") Long memberId, Model model) {
+        Member member = memberService.findOneMember(memberId);
+        MemberDto.SelectMemberData memberData = new MemberDto.SelectMemberData(member.getId(), member.getUserId(), member.getUsername(), member.getHp(), member.getAddress());
+        model.addAttribute("member", memberData);
+        return "members/myPage";
+    }
+
+    /**
+     * 회원정보 수정
+     */
+    @GetMapping("{memberId}/editInformation")
+    public String editInformation(@PathVariable("memberId") Long memberId, Model model) {
+        return "members/updateMemberForm";
+    }
+
+    /**
+     * 비밀번호 수정
+     */
+    @GetMapping("{memberId}/editPassword")
+    public String editPassword(@PathVariable("memberId") Long memberId, Model model) {
+        return "members/updatePasswordForm";
     }
 }

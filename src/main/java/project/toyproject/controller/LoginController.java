@@ -67,10 +67,6 @@ public class LoginController {
         //세션에 로그인 회원 정보를 보관 (쿠키에 key: JSESSIONID , value: UUID 로 들어감)
         session.setAttribute(LOGIN_MEMBER, memberData);
 
-        //세션에 자주 쓰이는 로그인회원 닉네임과 아이디 담기
-        session.setAttribute("nickname", memberData.getNickname());
-        session.setAttribute("userLoginId", memberData.getUserId());
-
         return "redirect:" + redirectURL;
     }
 

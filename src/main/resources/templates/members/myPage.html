@@ -25,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="member : ${members}">
+                <tr th:each="member : ${member}">
                     <td th:text="${member.memberId}"></td>
                     <td th:text="${member.userId}"></td>
                     <td th:text="${member.username}"></td> <!--?문법:null이거나 데이터가 없으면 진행하지 않음. -->
@@ -35,7 +35,12 @@
                 </tbody>
             </table>
         </div>
-        <div th:replace="fragments/footer :: footer" />
-    </div> <!-- /container -->
+        <a href="#" th:href="@{/member/{memberId}/editInformation (memberId=${session.loginMember.memberId})}"
+           class="btn btn-primary" role="button">내정보 수정</a>
+        <a href="#" th:href="@{/member/{memberId}/editPassword (memberId=${session.loginMember.memberId})}"
+           class="btn btn-primary" role="button">비밀번호 수정</a>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
 </body>
 </html>
