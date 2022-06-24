@@ -39,20 +39,22 @@ public class LoginController {
      */
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("form") LoginDto form,
-                        @RequestParam(defaultValue = "/") String redirectURL,
                         BindingResult result,
+                        @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request) {
         if (result.hasErrors()) {
             return "/members/login";
         }
 
         Member loginMember = loginService.login(form.getUserId(), form.getPassword());
+        log.info("로그인결과는?={}", loginMember);
 
 
         //로그인 실패시 (null)
         if (loginMember == null) {
+            log.info("로그인결과는2?={}", loginMember);
             result.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");
-            return "/members/login" + redirectURL;
+            return "/members/login";
         }
 
         //로그인 성공처리
@@ -69,7 +71,7 @@ public class LoginController {
         session.setAttribute("nickname", memberData.getNickname());
         session.setAttribute("userLoginId", memberData.getUserId());
 
-        return "redirect:/";
+        return "redirect:" + redirectURL;
     }
 
     @PostMapping("/logout")

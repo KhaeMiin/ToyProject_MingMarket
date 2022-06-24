@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+<body>
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.nickname})}" />
+    <div class="jumbotron">
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>연락처</th>
+                    <th>주소</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${members}">
+                    <td th:text="${member.memberId}"></td>
+                    <td th:text="${member.userId}"></td>
+                    <td th:text="${member.username}"></td> <!--?문법:null이거나 데이터가 없으면 진행하지 않음. -->
+                    <td th:text="${member.hp}"></td>
+                    <td th:text="${member.address.address} + ${member.address.detailedAddress}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:replace="fragments/footer :: footer" />
+    </div> <!-- /container -->
+</body>
+</html>

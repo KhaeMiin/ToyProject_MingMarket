@@ -1,6 +1,7 @@
 package project.toyproject.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +15,10 @@ import project.toyproject.dto.MemberDto;
 import project.toyproject.service.MemberService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/members")
@@ -43,5 +47,21 @@ public class MemberController {
                 form.getUsername(), form.getHp(), address);
         memberService.join(member);
         return "redirect:/";
+    }
+
+    /**
+     * 회원목록 출력 (관리자만 사용 가능)
+     */
+    @GetMapping("/list")
+    public String memberList(Model model) {
+        List<Member> members = memberService.findMembers();
+        List<MemberDto.SelectMemberData> listMemberData = new ArrayList<>();
+        for (Member member : members) {
+            MemberDto.SelectMemberData selectMemberData = new MemberDto.SelectMemberData(member.getId(), member.getUserId(),
+                    member.getUsername(), member.getHp(), member.getAddress());
+            listMemberData.add(selectMemberData);
+        }
+        model.addAttribute("members", listMemberData);
+        return "members/list";
     }
 }

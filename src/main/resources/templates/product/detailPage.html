@@ -27,7 +27,7 @@
     <div th:if="${session.userLoginId} == ${writerId}">
         <a href="#" th:href="@{/product/{id}/edit (id=${singleProduct.productId})}"
            class="btn btn-primary" role="button">수정</a>
-        <a href="#" th:href="@{/product/{id}/delect (id=${singleProduct.productId})}"
+        <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
            class="btn btn-primary" role="button">삭제</a>
     </div>
     <div th:replace="fragments/footer :: footer" />

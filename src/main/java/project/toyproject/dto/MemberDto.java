@@ -1,6 +1,7 @@
 package project.toyproject.dto;
 
 import lombok.*;
+import project.toyproject.domain.Address;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -92,6 +93,20 @@ public class MemberDto {
 
         private String username;
 
+    }
+
+    /**
+     * List 출력
+     */
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class SelectMemberData {
+        private Long memberId;
+        private String userId;
+        private String username;
+        private int hp;
+        private Address address;
     }
 
 }

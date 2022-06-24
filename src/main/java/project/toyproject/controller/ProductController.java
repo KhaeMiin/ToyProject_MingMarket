@@ -137,7 +137,7 @@ public class ProductController {
         return "redirect:/product/detail/{productId}"; // 상품디테일 페이지로 넘어가게
     }
 
-    @GetMapping("/{productId}/delect")
+    @GetMapping("/{productId}/delete")
     public String removeProduct(@PathVariable("productId") Long productId, HttpServletRequest request) {
         Product singleProduct = productService.findSingleProduct(productId);
         String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
