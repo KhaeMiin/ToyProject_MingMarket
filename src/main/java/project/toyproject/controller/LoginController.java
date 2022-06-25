@@ -52,7 +52,6 @@ public class LoginController {
 
         //로그인 실패시 (null)
         if (loginMember == null) {
-            log.info("로그인결과는2?={}", loginMember);
             result.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");
             return "/members/login";
         }

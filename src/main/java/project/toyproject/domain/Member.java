@@ -41,4 +41,17 @@ public class Member extends BaseEntity {
         this.address = address;
     }
 
+    // 회원정보 수정메서드
+    public void change(String nickname, String username, int hp, Address address) {
+        this.nickname = nickname;
+        this.username = username;
+        this.hp = hp;
+        this.address = address;
+    }
+
+    //비밀번호 수정메서드
+    public void passwordChange(String pass) {
+        this.pass = pass;
+    }
+
 }

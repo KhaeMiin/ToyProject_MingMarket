@@ -55,13 +55,24 @@ public class MemberDto {
         @NotBlank(message = "회원이름은 필수입니다.")
         private String username;
 
-        @NotBlank(message = "연락처는 필수입니다.")
+        @NotNull(message = "연락처는 필수입니다.")
         private int hp;
 
         @NotBlank(message = "주소를 입력해주세요")
         private String address;
         @NotBlank(message = "상세주소를 입력해주세요")
         private String detailedAddress;
+
+        @NotBlank(message = "현재 비밀번호를 입력해주세요.")
+        private String pass;
+
+        public UpdateMemberForm(String nickname, String username, int hp, String address, String detailedAddress) {
+            this.nickname = nickname;
+            this.username = username;
+            this.hp = hp;
+            this.address = address;
+            this.detailedAddress = detailedAddress;
+        }
     }
 
     /**
@@ -69,11 +80,19 @@ public class MemberDto {
      * 비밀번호 변경 요청 사항 더 고민해보기
      */
     @Getter @Setter
-    public static class UpdateUserPass {
+    public static class UpdateUserPassForm {
 
+        @NotBlank(message = "현재 비밀번호를 입력해주세요.")
+        @Size(min = 10, max = 20, message = "잘못된 입력입니다.")
+        private String pass;
+
+        // == 수정 비밀번호 ==//
         @NotBlank(message = "비밀번호는 필수입니다.")
         @Size(min = 10, max = 20, message = "비밀번호는 10 ~ 20자 이여야 합니다!")
-        private String pass;
+        private String editYourPassword;
+        @NotBlank(message = "비밀번호는 필수입니다.")
+        @Size(min = 10, max = 20, message = "비밀번호는 10 ~ 20자 이여야 합니다!")
+        private String editPasswordCheck;
 
     }
 

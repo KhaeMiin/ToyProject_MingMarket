@@ -43,7 +43,7 @@ public class ProductDto {
      */
     @Getter
     @Setter
-    public static class updateProductForm {
+    public static class UpdateProductForm {
 
         private Long productId; //pk
 
@@ -64,7 +64,7 @@ public class ProductDto {
         @NotNull(message = "카테고리를 선택해주세요")
         private CategoryList categoryList;
 
-        public updateProductForm(Long productId, String title, String thumbnail, String intro, int price) {
+        public UpdateProductForm(Long productId, String title, String thumbnail, String intro, int price) {
             this.productId = productId;
             this.title = title;
             this.uploadFileName = thumbnail;

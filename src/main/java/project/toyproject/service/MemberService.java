@@ -3,7 +3,9 @@ package project.toyproject.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
 import java.util.List;
@@ -38,13 +40,28 @@ public class MemberService {
         }
     }
 
-    //회원 전체 조회
+    /**
+     * 회원 전체 조회
+     */
     public List<Member> findMembers() {
         return memberRepository.findAllMembers();
     }
 
-    //회원 단건 조회
+    /**
+     * 회원 단건 조회
+     */
     public Member findOneMember(Long memberId) {
         return memberRepository.findOneMember(memberId);
+    }
+
+    /**
+     * 회원 정보 수정
+     */
+    @Transactional
+    public void editInformation(Long memberId, MemberDto.UpdateMemberForm form) {
+        Member findMember = memberRepository.findOneMember(memberId);
+        Address address = new Address(form.getAddress(), form.getDetailedAddress());
+        findMember.change(form.getNickname(), form.getUsername(),form.getHp(), address);
+
     }
 }

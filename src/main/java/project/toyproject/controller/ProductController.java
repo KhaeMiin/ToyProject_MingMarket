@@ -2,8 +2,6 @@ package project.toyproject.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static project.toyproject.dto.ProductDto.*;
@@ -99,7 +95,7 @@ public class ProductController {
     public String updateProductForm(@PathVariable("productId") Long productId, Model model) {
         Product singleProduct = productService.findSingleProduct(productId);
 
-        updateProductForm form = new updateProductForm(productId, singleProduct.getTitle(),
+        UpdateProductForm form = new UpdateProductForm(productId, singleProduct.getTitle(),
                 singleProduct.getThumbnail(), singleProduct.getIntro(), singleProduct.getPrice());
 
         model.addAttribute("form", form);
@@ -108,7 +104,7 @@ public class ProductController {
 
     @PostMapping("/{productId}/edit")
     public String update(@PathVariable Long productId,
-                         @Valid @ModelAttribute("form") updateProductForm form, BindingResult result,
+                         @Valid @ModelAttribute("form") ProductDto.UpdateProductForm form, BindingResult result,
                          RedirectAttributes redirectAttributes,
                          HttpServletRequest request
     ) throws IOException {
