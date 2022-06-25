@@ -10,6 +10,8 @@ import project.toyproject.repository.MemberRepository;
 
 import java.util.List;
 
+import static project.toyproject.dto.MemberDto.*;
+
 @Service //Component > 자동 빈 등록(기본적인 내용이지만 적어둠)
 @Transactional(readOnly = true) //스프링이 제공하는 트렌젝션
 @RequiredArgsConstructor //final 붙은 필드만 가지고 생성자 만든다.
@@ -58,10 +60,19 @@ public class MemberService {
      * 회원 정보 수정
      */
     @Transactional
-    public void editInformation(Long memberId, MemberDto.UpdateMemberForm form) {
+    public void editInformation(Long memberId, UpdateMemberForm form) {
         Member findMember = memberRepository.findOneMember(memberId);
         Address address = new Address(form.getAddress(), form.getDetailedAddress());
         findMember.change(form.getNickname(), form.getUsername(),form.getHp(), address);
 
+    }
+
+    /**
+     * 비밀번호 수정
+     */
+    @Transactional
+    public void editPassword(Long memberId, UpdateUserPassForm form) {
+        Member findMember = memberRepository.findOneMember(memberId);
+        findMember.passwordChange(form.getEditYourPassword());
     }
 }

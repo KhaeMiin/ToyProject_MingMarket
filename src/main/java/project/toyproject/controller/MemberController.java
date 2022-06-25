@@ -58,7 +58,7 @@ public class MemberController {
         List<SelectMemberData> listMemberData = new ArrayList<>();
         for (Member member : members) {
             SelectMemberData selectMemberData = new SelectMemberData(member.getId(), member.getUserId(),
-                    member.getUsername(), member.getHp(), member.getAddress());
+                    member.getUsername(),member.getNickname(), member.getHp(), member.getAddress());
             listMemberData.add(selectMemberData);
         }
         model.addAttribute("members", listMemberData);
@@ -71,7 +71,7 @@ public class MemberController {
     @GetMapping("/myPage/{memberId}")
     public String myPage(@PathVariable("memberId") Long memberId, Model model) {
         Member member = memberService.findOneMember(memberId);
-        SelectMemberData memberData = new SelectMemberData(member.getId(), member.getUserId(), member.getUsername(), member.getHp(), member.getAddress());
+        SelectMemberData memberData = new SelectMemberData(member.getId(), member.getUserId(), member.getUsername(), member.getNickname(), member.getHp(), member.getAddress());
         model.addAttribute("member", memberData);
         return "members/myPage";
     }
@@ -83,7 +83,7 @@ public class MemberController {
     public String editInformationForm(@PathVariable("memberId") Long memberId, Model model) {
         Member findMember = memberService.findOneMember(memberId);
         UpdateMemberForm memberForm = new UpdateMemberForm(findMember.getNickname(),
-                findMember.getUsername(), findMember.getHp(), findMember.getAddress().getAddress(),findMember.getAddress().getDetailedAddress());
+                findMember.getUsername(), findMember.getHp(), findMember.getAddress().getAddress(), findMember.getAddress().getDetailedAddress());
         model.addAttribute("memberForm", memberForm);
         return "members/updateMemberForm";
     }
@@ -93,10 +93,10 @@ public class MemberController {
                                   @Valid @ModelAttribute("memberForm") UpdateMemberForm form,
                                   BindingResult result,
                                   RedirectAttributes redirectAttributes
-                                  ) {
+    ) {
         Member findMember = memberService.findOneMember(memberId);
         if (!form.getPass().equals(findMember.getPass())) { //비밀번호가 일치하지 않으면
-            result.reject("errorMessage", "비밀번호가 일치하지 않습니다.");
+            result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
             return "members/updateMemberForm";
         }
 
@@ -118,5 +118,32 @@ public class MemberController {
     public String editPasswordForm(@PathVariable("memberId") Long memberId, Model model) {
         model.addAttribute("passwordForm", new UpdateUserPassForm());
         return "members/updatePasswordForm";
+    }
+
+    @PostMapping("/{memberId}/editPassword")
+    public String editPassword(@PathVariable Long memberId,
+                               @Valid @ModelAttribute("passwordForm") UpdateUserPassForm form,
+                               BindingResult result,
+                               RedirectAttributes redirectAttributes) {
+        // 현재 비밀번호 일치 확인
+        Member findMember = memberService.findOneMember(memberId);
+        if (!form.getPass().equals(findMember.getPass())) { //비밀번호가 일치하지 않으면
+            result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
+            return "members/updatePasswordForm";
+        }
+
+        // 변경 비밀번호 (재확인 비밀번호) 일치 확인
+        if (!form.getEditYourPassword().equals(form.getEditPasswordCheck())) {
+            result.reject("passwordFail2", "변경할 비밀번호가 일치하지 않습니다.");
+        }
+        if (result.hasErrors()) {
+            return "members/updatePasswordForm";
+        }
+
+        memberService.editPassword(memberId, form);
+
+        redirectAttributes.addAttribute("memberId", memberId);
+
+        return "redirect:/members/myPage/{memberId}";
     }
 }

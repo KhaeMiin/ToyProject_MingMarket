@@ -83,7 +83,6 @@ public class MemberDto {
     public static class UpdateUserPassForm {
 
         @NotBlank(message = "현재 비밀번호를 입력해주세요.")
-        @Size(min = 10, max = 20, message = "잘못된 입력입니다.")
         private String pass;
 
         // == 수정 비밀번호 ==//
@@ -124,6 +123,7 @@ public class MemberDto {
         private Long memberId;
         private String userId;
         private String username;
+        private String nickname;
         private int hp;
         private Address address;
     }
