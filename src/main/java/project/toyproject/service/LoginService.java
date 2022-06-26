@@ -2,6 +2,7 @@ package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Member;
@@ -17,12 +18,10 @@ public class LoginService {
 
     private final MemberRepository memberRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     /**
      * 로그인
-     * TODO
-     * 코드 리팩토링 예정
-     * 람다, stream 사용해보기
-     * Optional 공부하기! get()말고 다른거 찾아보기
      */
     public Member login(String userId, String password) {
         Optional<Member> findMemberOptional = memberRepository.findByloginId(userId);
@@ -34,10 +33,22 @@ public class LoginService {
 
         Member member = findMemberOptional.get();
 
-        if (member.getPass().equals(password)) { //비밀번호가 (일치) 있을 경우
+        /**
+         * 비밀번호 확인 (스프링 시큐리티)
+         * password 암호화 이전의 비밀번호
+         * member.getPass() 암호화에 사용된 클래스
+         * @return true/ false
+         */
+        if (passwordEncoder.matches(password, member.getPass())) {
             return member;
         } else {
             return null; //비밀번호가 일치하지 않을 경우 null 반환
         }
+
+/*        if (member.getPass().equals(password)) { //비밀번호가 (일치) 있을 경우
+            return member;
+        } else {
+            return null; //비밀번호가 일치하지 않을 경우 null 반환
+        }*/
     }
 }

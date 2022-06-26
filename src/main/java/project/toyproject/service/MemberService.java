@@ -1,6 +1,7 @@
 package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
@@ -18,6 +19,7 @@ import static project.toyproject.dto.MemberDto.*;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 회원가입
@@ -25,6 +27,7 @@ public class MemberService {
     @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);
+        member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
         memberRepository.save(member);
         return member.getId();
     }

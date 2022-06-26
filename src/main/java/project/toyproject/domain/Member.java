@@ -3,6 +3,7 @@ package project.toyproject.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -20,7 +21,6 @@ public class Member extends BaseEntity {
     @Column(length = 10)
     private String nickname; //닉네임
 
-    @Column(length = 32) //최대 길이 정해두기
     private String pass;
     private String username;
     private int hp;
@@ -53,5 +53,26 @@ public class Member extends BaseEntity {
     public void passwordChange(String pass) {
         this.pass = pass;
     }
+
+    /**
+     * 비밀번호를 암호화
+     * @param passwordEncoder
+     * @return
+     */
+    public Member hashPassword(PasswordEncoder passwordEncoder) {
+        this.pass = passwordEncoder.encode(this.pass);
+        return this;
+    }
+
+    /**
+     * 비밀번호 확인
+     * @param plainPassword 암호화 이전의 비밀번호
+     * @param passwordEncoder 암호화에 사용된 클래스
+     * @return true/ false
+     */
+/*    public boolean checkPassword(String plainPassword, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(plainPassword, this.pass);
+    }*/
+
 
 }
