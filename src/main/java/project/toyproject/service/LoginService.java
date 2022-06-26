@@ -1,6 +1,7 @@
 package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Member;
@@ -8,6 +9,7 @@ import project.toyproject.repository.MemberRepository;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -26,7 +28,12 @@ public class LoginService {
         Optional<Member> findMemberOptional = memberRepository.findByloginId(userId);
 
         //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
-        Member member = findMemberOptional.get(); //get()말고 다른거 알아보기
+        if (!findMemberOptional.isPresent()) {
+            return null;
+        }
+
+        Member member = findMemberOptional.get();
+
         if (member.getPass().equals(password)) { //비밀번호가 (일치) 있을 경우
             return member;
         } else {

@@ -47,7 +47,6 @@ public class LoginController {
         }
 
         Member loginMember = loginService.login(form.getUserId(), form.getPassword());
-        log.info("로그인결과는?={}", loginMember);
 
 
         //로그인 실패시 (null)
