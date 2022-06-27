@@ -77,5 +77,6 @@ public class MemberService {
     public void editPassword(Long memberId, UpdateUserPassForm form) {
         Member findMember = memberRepository.findOneMember(memberId);
         findMember.passwordChange(form.getEditYourPassword());
+        findMember.hashPassword(passwordEncoder); //시큐리티 암호화
     }
 }

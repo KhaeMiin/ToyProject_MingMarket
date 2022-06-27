@@ -64,15 +64,5 @@ public class Member extends BaseEntity {
         return this;
     }
 
-    /**
-     * 비밀번호 확인
-     * @param plainPassword 암호화 이전의 비밀번호
-     * @param passwordEncoder 암호화에 사용된 클래스
-     * @return true/ false
-     */
-/*    public boolean checkPassword(String plainPassword, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(plainPassword, this.pass);
-    }*/
-
 
 }

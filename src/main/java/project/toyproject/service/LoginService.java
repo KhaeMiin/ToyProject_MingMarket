@@ -51,4 +51,23 @@ public class LoginService {
             return null; //비밀번호가 일치하지 않을 경우 null 반환
         }*/
     }
+
+    /**
+     * 비밀번호 체크 (비밀번호 수정시 사용)
+     */
+    public Member passwordCheck(Long memberId, String password) {
+        Member member = memberRepository.findOneMember(Long.valueOf(memberId));
+
+        /**
+         * 비밀번호 확인 (스프링 시큐리티)
+         * password 암호화 이전의 비밀번호
+         * member.getPass() 암호화에 사용된 클래스
+         * @return passwordEncoder.matches = true/ false
+         */
+        if (passwordEncoder.matches(password, member.getPass())) {
+            return member;
+        } else {
+            return null; //비밀번호가 일치하지 않을 경우 null 반환
+        }
+    }
 }

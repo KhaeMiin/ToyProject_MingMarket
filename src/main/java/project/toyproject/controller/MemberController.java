@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.MemberDto;
+import project.toyproject.service.LoginService;
 import project.toyproject.service.MemberService;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ import static project.toyproject.dto.MemberDto.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final LoginService loginService;
 
     @GetMapping("/join")
     public String createForm(Model model) {
@@ -94,10 +96,16 @@ public class MemberController {
                                   BindingResult result,
                                   RedirectAttributes redirectAttributes
     ) {
-        Member findMember = memberService.findOneMember(memberId);
+        /*Member findMember = memberService.findOneMember(memberId);
         if (!form.getPass().equals(findMember.getPass())) { //비밀번호가 일치하지 않으면
             result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
             return "members/updateMemberForm";
+        }
+*/
+        Member member = loginService.passwordCheck(memberId, form.getPass());
+        if (member == null) {
+            result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
+            return "members/updatePasswordForm";
         }
 
         if (result.hasErrors()) {
@@ -126,8 +134,14 @@ public class MemberController {
                                BindingResult result,
                                RedirectAttributes redirectAttributes) {
         // 현재 비밀번호 일치 확인
-        Member findMember = memberService.findOneMember(memberId);
+/*        Member findMember = memberService.findOneMember(memberId);
         if (!form.getPass().equals(findMember.getPass())) { //비밀번호가 일치하지 않으면
+            result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
+            return "members/updatePasswordForm";
+        }*/
+
+        Member member = loginService.passwordCheck(memberId, form.getPass());
+        if (member == null) {
             result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
             return "members/updatePasswordForm";
         }
