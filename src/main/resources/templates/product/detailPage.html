@@ -30,6 +30,11 @@
         <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
            class="btn btn-primary" role="button">삭제</a>
     </div>
+    <div th:if="${session.loginMember.userId} != null">
+        <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
+           class="btn btn-primary" role="button">상품 문의하기</a>
+    </div>
+
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
