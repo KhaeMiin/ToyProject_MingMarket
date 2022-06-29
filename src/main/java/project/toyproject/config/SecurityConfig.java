@@ -1,10 +1,12 @@
 package project.toyproject.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import project.toyproject.service.LoginService;
 
 /**
  * Spring Security 사용을 위한 Configuration Class를 작성하기 위해서
@@ -13,6 +15,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("admin").password(bCryptPasswordEncoder().encode("admin123")).roles("ADMIN","SUPERADMIN")
+                .and()
+                .withUser("user").password(bCryptPasswordEncoder().encode("user123")).roles("USER")
+                .and()
+                .withUser("manager").password(bCryptPasswordEncoder().encode("manager123")).roles("MANAGER","ADMIN");
+    }
+
     /**
      * PasswordEncoder를 Bean으로 등록
      */
@@ -32,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/*.ico", "/error", "/",
                         "/webapp/**", "/upload/**", "/product/**",
                         "/login", "/logout", "/members/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 }

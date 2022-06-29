@@ -54,7 +54,7 @@ public class MemberController {
     /**
      * 회원목록 출력 (관리자만 사용 가능)
      */
-    @GetMapping("/list")
+    @GetMapping("/admin")
     public String memberList(Model model) {
         List<Member> members = memberService.findMembers();
         List<SelectMemberData> listMemberData = new ArrayList<>();

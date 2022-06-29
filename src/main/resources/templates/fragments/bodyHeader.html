@@ -15,7 +15,7 @@
             </button>
         </form>
         <div th:if="${session.loginMember.userId} == 'admin'">
-            <a href="#" th:href="@{/members/list}"
+            <a href="#" th:href="@{/members/admin}"
                class="btn btn-primary" role="button">회원 관리</a>
         </div>
         <div th:if="${session.loginMember.userId} != null">

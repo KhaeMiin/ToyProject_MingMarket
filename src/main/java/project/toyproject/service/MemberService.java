@@ -28,10 +28,21 @@ public class MemberService {
     public Long join(Member member) {
         validateDuplicateMember(member);
         member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
+        member.userRole(); //권한
         memberRepository.save(member);
         return member.getId();
     }
-
+    /**
+     * 회원가입
+     */
+    @Transactional
+    public Long adminJoin(Member member) {
+        validateDuplicateMember(member);
+        member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
+        member.adminRole(); //권한
+        memberRepository.save(member);
+        return member.getId();
+    }
     /**
      * 중복 아이디 검증 메서드
      */

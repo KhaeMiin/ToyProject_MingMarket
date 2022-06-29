@@ -27,7 +27,7 @@ public class TestDataInit {
         memberService.join(member);
 
         Member member2 = new Member("admin", "관리자", "test", "김관리자", 01022223333, address);
-        memberService.join(member2);
+        memberService.adminJoin(member2);
 
         for (int i = 1; i < 16; i++) {
             productService.saveProduct(member.getId(), "test" + i, i + ".jpg", "test" + i, 10000);
