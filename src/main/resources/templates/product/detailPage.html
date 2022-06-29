@@ -6,10 +6,10 @@
 </head>
 <body>
 <div class="container">
-    <div th:if="${session.loginMember.userId} == null"> <!--로그인 안된 상태-->
+    <div th:if="${session?.loginMember} == null"> <!--로그인 안된 상태-->
         <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
     </div>
-    <div th:if="${session.loginMember.userId} != null">
+    <div th:if="${session?.loginMember} != null">
         <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
     </div>
     <div class="jumbotron">
@@ -24,17 +24,18 @@
         상세 설명: <span th:text="${singleProduct.intro}">상세설명</span><br>
 
     </div>
-    <div th:if="${session.loginMember.userId} == ${writerId}">
-        <a href="#" th:href="@{/product/{id}/edit (id=${singleProduct.productId})}"
-           class="btn btn-primary" role="button">수정</a>
-        <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
-           class="btn btn-primary" role="button">삭제</a>
+    <div th:if="${session?.loginMember} != null">
+        <div th:if="${session?.loginMember.userId} == ${writerId}">
+            <a href="#" th:href="@{/product/{id}/edit (id=${singleProduct.productId})}"
+               class="btn btn-primary" role="button">수정</a>
+            <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
+               class="btn btn-primary" role="button">삭제</a>
+        </div>
+        <div th:if="${session?.loginMember.userId} != ${writerId}">
+            <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
+               class="btn btn-primary" role="button">상품 문의하기</a>
+        </div>
     </div>
-    <div th:if="${session.loginMember.userId} != null">
-        <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
-           class="btn btn-primary" role="button">상품 문의하기</a>
-    </div>
-
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
