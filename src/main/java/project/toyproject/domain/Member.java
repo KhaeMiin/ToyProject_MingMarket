@@ -73,13 +73,4 @@ public class Member extends BaseEntity {
         this.pass = passwordEncoder.encode(this.pass);
         return this;
     }
-
-    public void userRole() {
-        role = Role.USER.getValue();
-    }
-
-    public void adminRole() {
-        role = Role.ADMIN.getValue();
-    }
-
 }

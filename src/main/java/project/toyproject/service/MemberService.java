@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
-import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
 import java.util.List;
@@ -28,18 +27,16 @@ public class MemberService {
     public Long join(Member member) {
         validateDuplicateMember(member);
         member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
-        member.userRole(); //권한
         memberRepository.save(member);
         return member.getId();
     }
     /**
-     * 회원가입
+     * 회원가입 (관리자)
      */
     @Transactional
     public Long adminJoin(Member member) {
         validateDuplicateMember(member);
         member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
-        member.adminRole(); //권한
         memberRepository.save(member);
         return member.getId();
     }

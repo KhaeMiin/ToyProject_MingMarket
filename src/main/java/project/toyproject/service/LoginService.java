@@ -19,25 +19,11 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class LoginService implements UserDetailsService {
+public class LoginService{
 
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> findMemberOptional = memberRepository.findByloginId(username);
-
-        //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
-        if (!findMemberOptional.isPresent()) {
-            return null;
-        }
-
-        Member member = findMemberOptional.get();
-
-        return new MemberDto.MyUserDetail(member);
-    }
 
     /**
      * 로그인
