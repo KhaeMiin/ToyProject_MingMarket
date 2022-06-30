@@ -1,11 +1,17 @@
 package project.toyproject.dto;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import project.toyproject.domain.Address;
+import project.toyproject.domain.Member;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MemberDto {
 
@@ -40,7 +46,77 @@ public class MemberDto {
         private String address;
         private String detailedAddress;
     }
+    @Getter @Setter
+    public static class MyUserDetail implements UserDetails {
 
+        @NotBlank(message = "회원아이디는 필수입니다.")
+        @Size(min = 6, max = 15, message = "아이디는 6 ~ 15자 이여야 합니다!")
+        private String userId;
+
+        @NotBlank(message = "닉네임을 입력해주세요")
+        @Size(min = 1, max = 10, message = "닉네임은 1 ~ 10자 이여야 합니다!")
+        private String nickname;
+
+        @NotBlank(message = "비밀번호는 필수입니다.")
+        @Size(min = 10, max = 20, message = "비밀번호는 10 ~ 20자 이여야 합니다!")
+        private String password;
+
+        @NotBlank(message = "비밀번호는 필수입니다.")
+        @Size(min = 10, max = 20, message = "비밀번호는 10 ~ 20자 이여야 합니다!")
+        private String passwordCheck;
+
+        @NotBlank(message = "회원이름은 필수입니다.")
+        private String username;
+
+        @NotNull(message = "연락처는 필수입니다.")
+        private int hp;
+
+        private String address;
+        private String detailedAddress;
+
+        private String auth;
+
+        public MyUserDetail(Member member) {
+            this.userId = member.getUserId();
+            this.password = member.getPass();
+            this.auth = "ROLE_" + member.getRole();
+        }
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return Collections.singletonList(new SimpleGrantedAuthority(this.auth));
+        }
+
+        @Override
+        public String getPassword() {
+            return this.password;
+        }
+
+        @Override
+        public String getUsername() {
+            return this.userId;
+        }
+
+        @Override
+        public boolean isAccountNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isAccountNonLocked() {
+            return true;
+        }
+
+        @Override
+        public boolean isCredentialsNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
+    }
     /**
      * 회원 정보 수정 DTO
      * 닉네임, 회원이름, 연락처, 주소만 수정 가능

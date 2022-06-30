@@ -46,6 +46,7 @@ public class LoginController {
             return "/members/login";
         }
 
+        loginService.loadUserByUsername(form.getUserId());
         Member loginMember = loginService.login(form.getUserId(), form.getPassword());
 
 

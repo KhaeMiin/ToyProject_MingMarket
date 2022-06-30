@@ -2,10 +2,15 @@ package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Member;
+import project.toyproject.dto.LoginDto;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
 import java.util.Optional;
@@ -14,11 +19,25 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class LoginService {
+public class LoginService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Member> findMemberOptional = memberRepository.findByloginId(username);
+
+        //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
+        if (!findMemberOptional.isPresent()) {
+            return null;
+        }
+
+        Member member = findMemberOptional.get();
+
+        return new MemberDto.MyUserDetail(member);
+    }
 
     /**
      * 로그인
@@ -70,4 +89,6 @@ public class LoginService {
             return null; //비밀번호가 일치하지 않을 경우 null 반환
         }
     }
+
+
 }

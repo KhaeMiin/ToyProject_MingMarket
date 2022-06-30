@@ -16,17 +16,6 @@ import project.toyproject.service.LoginService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password(bCryptPasswordEncoder().encode("admin123")).roles("ADMIN","SUPERADMIN")
-                .and()
-                .withUser("user").password(bCryptPasswordEncoder().encode("user123")).roles("USER")
-                .and()
-                .withUser("manager").password(bCryptPasswordEncoder().encode("manager123")).roles("MANAGER","ADMIN");
-    }
-
     /**
      * PasswordEncoder를 Bean으로 등록
      */
@@ -45,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/*.ico", "/error", "/",
                         "/webapp/**", "/upload/**", "/product/**",
-                        "/login", "/logout", "/members/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                        "/login", "/logout").permitAll()
+                .antMatchers("/members/**").hasRole("USER")
                 .anyRequest().authenticated();
     }
 }
