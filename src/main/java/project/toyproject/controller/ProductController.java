@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static project.toyproject.dto.ProductDto.*;
 
@@ -143,5 +144,12 @@ public class ProductController {
 
         productService.removeProduct(productId);
         return "redirect:/";
+    }
+
+    @GetMapping("/shop/{memberId}")
+    public String userProductList(@PathVariable("memberId") Long memberId, Model model) {
+        List<SelectProducts> selectProducts = productService.userProductsList(memberId);
+        model.addAttribute("products", selectProducts);
+        return "product/myProductList";
     }
 }

@@ -5,11 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static project.toyproject.dto.ProductDto.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -43,18 +45,22 @@ public class ProductService {
      * 트렌젝션이 종료될 때 변경된 부분에 대한 update query를 날린다.
      */
     @Transactional
-    public void updateProduct(Long productId, ProductDto.UpdateProductForm form, String thumbnail) {
+    public void updateProduct(Long productId, UpdateProductForm form, String thumbnail) {
         Product findProduct = productRepository.findSingleProduct(productId);
         findProduct.change(form.getTitle(), thumbnail, findProduct.getIntro(), form.getPrice());
 
     }
 
-    // 모든 상품 조회
+    /**
+     * 모든 상품 조회
+     */
     public List<Product> findProducts() {
         return productRepository.findAllProducts();
     }
 
-    //상품 단일 조회
+    /**
+     * 단일 상품 조회
+     */
     public Product findSingleProduct(Long productId) {
         return productRepository.findSingleProduct(productId);
     }
@@ -62,5 +68,18 @@ public class ProductService {
     @Transactional
     public void removeProduct(Long productId) {
         productRepository.removeProduct(productId);
+    }
+
+    /**
+     * 내가 올린 상품 리스트
+     */
+    public List<SelectProducts> userProductsList(Long memberId) {
+        List<Product> products = productRepository.userProducts(memberId);
+        List<SelectProducts> userProductList = new ArrayList<>();
+        for (Product product : products) {
+            SelectProducts selectProductData = new SelectProducts(product.getId(), product.getTitle(), product.getThumbnail(), product.getIntro(), product.getPrice(), product.getMember());
+            userProductList.add(selectProductData);
+        }
+        return userProductList;
     }
 }

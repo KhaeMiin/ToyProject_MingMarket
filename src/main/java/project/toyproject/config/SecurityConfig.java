@@ -1,12 +1,10 @@
 package project.toyproject.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import project.toyproject.service.LoginService;
 
 /**
  * Spring Security 사용을 위한 Configuration Class를 작성하기 위해서
@@ -34,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/*.ico", "/error", "/",
                         "/webapp/**", "/upload/**", "/product/**",
-                        "/login", "/logout").permitAll()
-                .antMatchers("/members/**").hasRole("USER")
+                        "/login", "/logout", "/members/**").permitAll()
                 .anyRequest().authenticated();
     }
 }

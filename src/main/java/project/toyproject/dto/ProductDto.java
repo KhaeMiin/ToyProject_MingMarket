@@ -101,6 +101,7 @@ public class ProductDto {
      * 상품 출력
      */
     @Getter
+    @AllArgsConstructor
     public static class SelectProducts {
 
         private Long id; //pk
@@ -109,6 +110,6 @@ public class ProductDto {
         private String thumbnail; //섬네일
         private String intro; //설명(게시판)
         private int Price; //상품가격
-        private Member member; //fk
+        private Member member;
     }
 }
