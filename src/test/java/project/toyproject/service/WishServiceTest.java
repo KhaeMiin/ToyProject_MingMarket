@@ -15,17 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Transactional(readOnly = true)
-class OrderServiceTest {
+class WishServiceTest {
 
-    @Autowired OrderService orderService;
+    @Autowired
+    WishService wishService;
     @Autowired
     EntityManager em;
 
     /**
-     * 상품 예약하기
+     * 상품 찜하기
      */
     @Test
-    void 상품예약() {
+    void 상품찜추가() {
         //given
         Member member = createMember("test", "min", "1234", "해민", 01000000000);//주문자
         Member member2 = createMember("admin", "admin", "1234", "admin", 01000000000);//판매자
@@ -33,12 +34,12 @@ class OrderServiceTest {
         Product product = createProduct(member2);
 
         //when
-        Long orderId = orderService.order(member.getId(), product.getId());
+        Long wishId = wishService.addWishList(member.getId(), product.getId());
 
         //then
-        Order getOrder = orderService.findOneOrder(orderId);
-        assertEquals(getOrder.getMember(), member);
-        assertEquals(getOrder.getStatus(), OrderStatus.RESERVATION); //주문상태가 예약으로 바뀌었는지
+        WishItem getWishItem = wishService.findOneOrder(wishId);
+        assertEquals(getWishItem.getMember(), member);
+        assertEquals(getWishItem.getStatus(), WishItemStatus.WISH); //주문상태가 예약으로 바뀌었는지
 
     }
 
@@ -48,15 +49,16 @@ class OrderServiceTest {
         Member member = createMember("aaa", "name", "1234", "kim", 01000000000);
         Product product = createProduct(member);
 
-        Long orderId = orderService.order(member.getId(), product.getId());
+        Long wishId = wishService.addWishList(member.getId(), product.getId());
 
         //when
-        orderService.cancelOrder(orderId);
+        wishService.cancelWishItem(wishId);
 
         //then
-        Order getOrder = orderService.findOneOrder(orderId);
+        WishItem getWishItem = wishService.findOneOrder(wishId);
 
-        assertEquals(OrderStatus.CANCEL, getOrder.getStatus()); //예약 취소시 상태는 예약 취소
+        assertThrows(NullPointerException.class, () -> getWishItem.getMember()); //찜 상품에서 삭제되었으니까 null
+        assertThrows(NullPointerException.class, () -> getWishItem.getProduct());
     }
 
     private Member createMember(String userId, String name, String pass, String username, int hp) {

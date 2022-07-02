@@ -19,6 +19,7 @@
 
         $("#myOrderBtn").click(function () {
             $("#myOrders").show();
+            $("#myProducts").hide();
         });
     });
 </script>
@@ -26,7 +27,7 @@
     <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
     <div class="jumbotron">
         <button type="button" class="btn btn-primary" id="myProductBtn">내 상품</button>
-        <button type="button" class="btn btn-primary" id="myOrderBtn">문의한 상품</button>
+        <button type="button" class="btn btn-primary" id="myOrderBtn">주문한 상품</button>
 
         <div id="myProducts">
             <h2>내가 올린 상품</h2>
