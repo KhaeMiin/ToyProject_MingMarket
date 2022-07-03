@@ -25,13 +25,13 @@ public class WishItem {
     private LocalDateTime wishDate;
 
     @Enumerated(EnumType.STRING)
-    private WishItemStatus status; //현재 주문 상태
+    private ProductStatus status; //현재 상태
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "product_id")
     private Product product; //FK 찜 한번에 하나의 상품을 가질 수 있다.
 
-    public WishItem(Member member, LocalDateTime wishDate, WishItemStatus status, Product product) {
+    public WishItem(Member member, LocalDateTime wishDate, ProductStatus status, Product product) {
         this.member = member;
         this.wishDate = wishDate;
         this.status = status;
@@ -40,7 +40,7 @@ public class WishItem {
 
     //==생성 메서드==//
     public static WishItem addWishItem(Member member, Product product) {
-        WishItem wishItem = new WishItem(member, LocalDateTime.now(), WishItemStatus.WISH, product); //생성시(찜하기) 상태: WISH 으로 초기화
+        WishItem wishItem = new WishItem(member, LocalDateTime.now(), ProductStatus.WISH, product); //생성시(찜하기) 상태: WISH 으로 초기화
         return wishItem;
     }
 }

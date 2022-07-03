@@ -31,23 +31,28 @@ public class Product extends BaseEntity { //상품
     @Enumerated(EnumType.STRING)
     private CategoryList categoryList;
 
+
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus;
+
     /**
      * 무한카테고리(현재는 구현 안 할 예정) > 나중에 다시 구현하자
      */
 /*    @OneToOne(fetch = LAZY) @JoinColumn(name = "category_id")
     private Category category; //fk*/
 
-    private Product(String title, String thumbnail, String intro, int price, Member member) {
+    public Product(String title, String thumbnail, String intro, int price, Member member, ProductStatus productStatus) {
         this.title = title;
         this.thumbnail = thumbnail;
         this.intro = intro;
         this.Price = price;
         this.member = member;
+        this.productStatus = productStatus;
     }
 
     //생성 메서드
     public static Product createProduct(String title, String thumbnail, String intro, int price, Member member) {
-        Product product = new Product(title, thumbnail, intro, price, member);
+        Product product = new Product(title, thumbnail, intro, price, member, ProductStatus.PRODUCT);
         product.createDate(LocalDateTime.now());
         return product;
     }

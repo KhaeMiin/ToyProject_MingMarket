@@ -9,16 +9,16 @@
 <script type="text/javascript" th:inline="javascript">
     $(function () {
         $("#myProducts").hide();
-        $("#myOrders").hide();
+        $("#myWishList").hide();
 
         $("#myProductBtn").click(function () {
             $("#myProducts").show();
-            $("#myOrders").hide();
+            $("#myWishList").hide();
 
         });
 
-        $("#myOrderBtn").click(function () {
-            $("#myOrders").show();
+        $("#myWishListBtn").click(function () {
+            $("#myWishList").show();
             $("#myProducts").hide();
         });
     });
@@ -27,7 +27,7 @@
     <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
     <div class="jumbotron">
         <button type="button" class="btn btn-primary" id="myProductBtn">내 상품</button>
-        <button type="button" class="btn btn-primary" id="myOrderBtn">주문한 상품</button>
+        <button type="button" class="btn btn-primary" id="myWishListBtn">주문한 상품</button>
 
         <div id="myProducts">
             <h2>내가 올린 상품</h2>
@@ -37,12 +37,13 @@
                         <img th:src="@{/webapp/upload/} + ${product.thumbnail}" width="300" height="300">
                     </a>
                     <a th:text="${product.title}" th:href="@{/product/detail/{productId}(productId=${product.id})}">제목입니다.</a>
+                    <span th:text="${product.productStatus}">주문상태입니다.</span>
                 </div>
             </div>
         </div>
 
-        <div id="myOrders">
-            <h2>내가 문의한 상품들</h2>
+        <div id="myWishList">
+            <h2>WISH LIST</h2>
             <div th:each="product : ${products}">
                 <div>
                     <a th:href="@{/product/detail/{productId}(productId=${product.id})}">

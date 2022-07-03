@@ -77,7 +77,10 @@ public class ProductService {
         List<Product> products = productRepository.userProducts(memberId);
         List<SelectProducts> userProductList = new ArrayList<>();
         for (Product product : products) {
-            SelectProducts selectProductData = new SelectProducts(product.getId(), product.getTitle(), product.getThumbnail(), product.getIntro(), product.getPrice(), product.getMember());
+            SelectProducts selectProductData = new SelectProducts(
+                    product.getId(), product.getTitle(), product.getThumbnail(),
+                    product.getIntro(), product.getPrice(), product.getMember(),
+                    product.getProductStatus());
             userProductList.add(selectProductData);
         }
         return userProductList;

@@ -39,7 +39,7 @@ class WishServiceTest {
         //then
         WishItem getWishItem = wishService.findOneOrder(wishId);
         assertEquals(getWishItem.getMember(), member);
-        assertEquals(getWishItem.getStatus(), WishItemStatus.WISH); //주문상태가 예약으로 바뀌었는지
+        assertEquals(getWishItem.getStatus(), ProductStatus.WISH); //주문상태가 예약으로 바뀌었는지
 
     }
 

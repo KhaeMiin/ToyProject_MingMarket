@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
+import project.toyproject.domain.ProductStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -111,5 +112,6 @@ public class ProductDto {
         private String intro; //설명(게시판)
         private int Price; //상품가격
         private Member member;
+        private ProductStatus productStatus;
     }
 }
