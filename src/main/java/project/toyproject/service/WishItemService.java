@@ -1,21 +1,22 @@
 package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
 import project.toyproject.repository.MemberRepository;
-import project.toyproject.repository.WishRepository;
+import project.toyproject.repository.WishItemRepository;
 import project.toyproject.repository.ProductRepository;
 
 import java.util.List;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class WishService {
+public class WishItemService {
 
-    private final WishRepository wishRepository;
+    private final WishItemRepository wishItemRepository;
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
 
@@ -23,7 +24,7 @@ public class WishService {
      * 상품 찜하기
      */
     @Transactional
-    public Long addWishList(Long memberId, Long productId) {
+    public Long addWishItem(Long memberId, Long productId) {
 
         //엔티티 조회
         Member member = memberRepository.findOneMember(memberId);
@@ -32,9 +33,12 @@ public class WishService {
         //찜상품 생성
         WishItem wish = WishItem.addWishItem(member, product);
 
+        log.info("service에서={}", member.getId());
+        log.info("service에서={}", product.getId());
+
 
         //찜상품 저장
-        wishRepository.addWishList(wish);
+        wishItemRepository.addWishList(wish);
         return wish.getId();
     }
 
@@ -43,22 +47,30 @@ public class WishService {
      */
     @Transactional
     public void cancelWishItem(Long wishId) {
-        wishRepository.cancel(wishId);
+        wishItemRepository.cancel(wishId);
     }
 
     /**
      * 찜상품 조회 (단건)
      */
     public WishItem findOneOrder(Long wishId) {
-        WishItem wishList = wishRepository.findOne(wishId);
+        WishItem wishList = wishItemRepository.findOne(wishId);
         return wishList;
+    }
+
+    /**
+     * 찜상품 조회(회원,상품)
+     */
+    public WishItem findOneWishItem(Long memberId, Long productId) {
+        WishItem wishItem = wishItemRepository.findOneItem(memberId, productId);
+        return wishItem;
     }
 
     /**
      * 주문 조회 (회원 한명이 주문한 목록 리스트)
      */
     public List<WishItem> findMembers(String userId) {
-        return wishRepository.findAll(userId);
+        return wishItemRepository.findAll(userId);
     }
 
 }

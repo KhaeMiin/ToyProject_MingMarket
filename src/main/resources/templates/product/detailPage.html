@@ -5,6 +5,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+       $("#addWishItemBtn").click(function () {
+           var memberId = $("#memberId").val();
+           var productId = $("#productId").val();
+
+           $.ajax({
+               type: "post",
+               dataType: "text",
+               url: "/product/addWishItem",
+               data: {"memberId":memberId, "productId":productId },
+               success : function (data){
+                   alert("찜상품 추가!");
+                   $("#addWishItemBtn").hide();
+                   var dynamicTag = '<button type="button" th:id="cancelWishItemBtn" class="btn btn-primary">상품 찜취소</button>';
+                   $("wish").html(dynamicTag);
+               },
+               error: function (request, status, error) {
+                   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               }
+           })
+       })
+    });
+</script>
 <div class="container">
     <div th:if="${session?.loginMember} == null"> <!--로그인 안된 상태-->
         <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
@@ -36,8 +61,16 @@
                class="btn btn-primary" role="button">상품 문의하기</a>
         </div>
         <div th:if="${session?.loginMember.userId} != ${writerId}">
-            <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
-               class="btn btn-primary" role="button">상품 찜하기</a>
+            <input type="hidden" th:id="memberId" th:value="${session?.loginMember.memberId}">
+            <input type="hidden" th:id="productId" th:value="${singleProduct.productId}">
+            <div th:id="wish">
+                <div th:if="${wishItem?.id} == null">
+                    <button type="button" th:id="addWishItemBtn" class="btn btn-primary">상품 찜하기</button>
+                </div>
+                <div th:if="${wishItem?.id} != null">
+                    <button type="button" th:id="cancelWishItemBtn" class="btn btn-primary">상품 찜취소</button>
+                </div>
+            </div>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer" />

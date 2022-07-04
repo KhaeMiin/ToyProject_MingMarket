@@ -22,6 +22,7 @@ public class WishItem {
     @ManyToOne(fetch = LAZY) //어떤 관계인지
     @JoinColumn(name = "member_id") //Join할 컬럼 명
     private Member member; //FK (현재 클래스가 연관관계 주인) : 회원 한명은 여러개의 상품을 찜할 수 있다.
+
     private LocalDateTime wishDate;
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +32,7 @@ public class WishItem {
     @JoinColumn(name = "product_id")
     private Product product; //FK 찜 한번에 하나의 상품을 가질 수 있다.
 
-    public WishItem(Member member, LocalDateTime wishDate, ProductStatus status, Product product) {
+    private WishItem(Member member, LocalDateTime wishDate, ProductStatus status, Product product) {
         this.member = member;
         this.wishDate = wishDate;
         this.status = status;

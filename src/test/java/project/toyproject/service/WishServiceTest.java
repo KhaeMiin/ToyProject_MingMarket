@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WishServiceTest {
 
     @Autowired
-    WishService wishService;
+    WishItemService wishService;
     @Autowired
     EntityManager em;
 
@@ -34,7 +34,7 @@ class WishServiceTest {
         Product product = createProduct(member2);
 
         //when
-        Long wishId = wishService.addWishList(member.getId(), product.getId());
+        Long wishId = wishService.addWishItem(member.getId(), product.getId());
 
         //then
         WishItem getWishItem = wishService.findOneOrder(wishId);
@@ -49,7 +49,7 @@ class WishServiceTest {
         Member member = createMember("aaa", "name", "1234", "kim", 01000000000);
         Product product = createProduct(member);
 
-        Long wishId = wishService.addWishList(member.getId(), product.getId());
+        Long wishId = wishService.addWishItem(member.getId(), product.getId());
 
         //when
         wishService.cancelWishItem(wishId);

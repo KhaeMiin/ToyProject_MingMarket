@@ -11,18 +11,22 @@ import project.toyproject.FileUpload;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.domain.WishItem;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
+import project.toyproject.service.WishItemService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static project.toyproject.dto.MemberDto.*;
 import static project.toyproject.dto.ProductDto.*;
 
 @Slf4j
@@ -32,6 +36,7 @@ import static project.toyproject.dto.ProductDto.*;
 public class ProductController {
 
     private final ProductService productService;
+    private final WishItemService wishItemService;
     private final FileUpload fileUpload;
     private final MemberService memberService;
 
@@ -47,7 +52,7 @@ public class ProductController {
 
     @PostMapping("/new")
     public String create(@Valid @ModelAttribute("form") CreateProductForm form, BindingResult result,
-                         @LoginCheck MemberDto.SessionMemberData loginMember,
+                         @LoginCheck SessionMemberData loginMember,
                          RedirectAttributes redirectAttributes,
                          HttpServletRequest request
     ) throws IOException {
@@ -70,7 +75,7 @@ public class ProductController {
      * 상세 페이지
      */
     @GetMapping("/detail/{productId}")
-    public String ProductDetail(@PathVariable Long productId, Model model) {
+    public String ProductDetail(@PathVariable Long productId, Model model, HttpServletRequest request) {
         Product singleProduct = productService.findSingleProduct(productId);
 
         // 작성자 닉네임 구하기
@@ -86,6 +91,20 @@ public class ProductController {
 
         model.addAttribute("writerId", writerId);
         model.addAttribute("singleProduct", productDetailPage);
+
+        //찜상품인지 체크
+        HttpSession session = request.getSession(false);
+        SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
+        WishItem wishItem = null;
+        try {
+            wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        if (wishItem != null) {
+            model.addAttribute("wishItem", wishItem);
+        }
+
         return "product/detailPage";
     }
 
@@ -134,6 +153,9 @@ public class ProductController {
         return "redirect:/product/detail/{productId}"; // 상품디테일 페이지로 넘어가게
     }
 
+    /**
+     * 상품 삭제
+     */
     @GetMapping("/{productId}/delete")
     public String removeProduct(@PathVariable("productId") Long productId, HttpServletRequest request) {
         Product singleProduct = productService.findSingleProduct(productId);
@@ -146,10 +168,32 @@ public class ProductController {
         return "redirect:/";
     }
 
+    /**
+     * 내 상점(내가 올린 상품 || 내가 찜한 상품(관심 상품)
+     */
     @GetMapping("/shop/{memberId}")
     public String userProductList(@PathVariable("memberId") Long memberId, Model model) {
         List<SelectProducts> selectProducts = productService.userProductsList(memberId);
         model.addAttribute("products", selectProducts);
         return "product/myProductList";
+    }
+
+    /**
+     * 찜하기
+     */
+    @ResponseBody
+    @PostMapping("/addWishItem")
+    public void addWishItem(@RequestParam("productId") Long productId,
+                              @RequestParam("memberId") Long memberId) {
+        WishItem findWishItem = null;
+        try {
+            findWishItem = wishItemService.findOneWishItem(memberId, productId);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        if (findWishItem != null) { //이미 찜한 상품이면
+            return;
+        }
+        wishItemService.addWishItem(memberId, productId);
     }
 }

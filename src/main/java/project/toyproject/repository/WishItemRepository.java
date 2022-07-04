@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class WishRepository {
+public class WishItemRepository {
 
     private final EntityManager em;
 
@@ -25,6 +25,16 @@ public class WishRepository {
      */
     public WishItem findOne(Long id) {
         return em.find(WishItem.class, id);
+    }
+
+    /**
+     * 찜상품 조회(회원, 상품)
+     */
+    public WishItem findOneItem(Long memberId, Long productId) {
+        return em.createQuery("select w from WishItem w where w.member.id = :userId and w.product.id = :productId", WishItem.class)
+                .setParameter("userId", memberId)
+                .setParameter("productId", productId)
+                .getSingleResult();
     }
 
     /**
