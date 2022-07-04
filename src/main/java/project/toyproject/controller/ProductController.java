@@ -94,9 +94,9 @@ public class ProductController {
 
         //찜상품인지 체크
         HttpSession session = request.getSession(false);
-        SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
         WishItem wishItem = null;
         try {
+            SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
             wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
         } catch (Exception e) {
             e.getMessage();
@@ -183,17 +183,18 @@ public class ProductController {
      */
     @ResponseBody
     @PostMapping("/addWishItem")
-    public void addWishItem(@RequestParam("productId") Long productId,
+    public Long addWishItem(@RequestParam("productId") Long productId,
                               @RequestParam("memberId") Long memberId) {
-        WishItem findWishItem = null;
-        try {
-            findWishItem = wishItemService.findOneWishItem(memberId, productId);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        if (findWishItem != null) { //이미 찜한 상품이면
-            return;
-        }
-        wishItemService.addWishItem(memberId, productId);
+        Long wishId = wishItemService.addWishItem(memberId, productId);
+        return wishId;
+    }
+
+    /**
+     * 찜 취소
+     */
+    @ResponseBody
+    @PostMapping("/cancelWishItem")
+    public void cancelWishItem(@RequestParam("wishId") Long wishId) {
+        wishItemService.cancelWishItem(wishId);
     }
 }

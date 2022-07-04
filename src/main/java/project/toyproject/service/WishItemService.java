@@ -26,6 +26,17 @@ public class WishItemService {
     @Transactional
     public Long addWishItem(Long memberId, Long productId) {
 
+        //이미 찜한 상품인지 확인하기
+        WishItem findWishItem = null;
+        try {
+            findWishItem = wishItemRepository.findOneItem(memberId, productId);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        if (findWishItem != null) { //이미 찜한 상품이면
+            return null;
+        }
+
         //엔티티 조회
         Member member = memberRepository.findOneMember(memberId);
         Product product = productRepository.findSingleProduct(productId);

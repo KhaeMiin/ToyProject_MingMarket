@@ -8,7 +8,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" th:inline="javascript">
     $(function () {
-       $("#addWishItemBtn").click(function () {
+        $(document).on("click","#addWishItemBtn",function(){
            var memberId = $("#memberId").val();
            var productId = $("#productId").val();
 
@@ -20,13 +20,35 @@
                success : function (data){
                    alert("찜상품 추가!");
                    $("#addWishItemBtn").hide();
-                   var dynamicTag = '<button type="button" th:id="cancelWishItemBtn" class="btn btn-primary">상품 찜취소</button>';
-                   $("wish").html(dynamicTag);
+                   var dynamicTag = '<button type="button" id="cancelWishItemBtn" class="btn btn-primary">상품 찜취소</button>';
+                   $("#wish").html(dynamicTag);
+                   $("#wishId").val(data);
                },
                error: function (request, status, error) {
                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                }
-           })
+           });
+       });
+
+       $(function () {
+           $(document).on("click","#cancelWishItemBtn",function(){
+               var wishId = $("#wishId").val();
+               $.ajax({
+                   type: "post",
+                   dataType: "text",
+                   url: "/product/cancelWishItem",
+                   data: {"wishId":wishId },
+                   success : function (data){
+                       alert("찜하기 취소");
+                       $("#cancelWishItemBtn").hide();
+                       var dynamicTag = '<button type="button" id="addWishItemBtn" class="btn btn-primary">상품 찜하기</button>';
+                       $("#wish").html(dynamicTag);
+                   },
+                   error: function (request, status, error) {
+                       alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                   }
+               });
+           });
        })
     });
 </script>
@@ -63,6 +85,7 @@
         <div th:if="${session?.loginMember.userId} != ${writerId}">
             <input type="hidden" th:id="memberId" th:value="${session?.loginMember.memberId}">
             <input type="hidden" th:id="productId" th:value="${singleProduct.productId}">
+            <input type="hidden" th:id="wishId" th:value="${wishItem?.id}">
             <div th:id="wish">
                 <div th:if="${wishItem?.id} == null">
                     <button type="button" th:id="addWishItemBtn" class="btn btn-primary">상품 찜하기</button>
