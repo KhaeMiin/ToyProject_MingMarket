@@ -44,10 +44,7 @@ public class MemberController {
         if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
             return "members/joinMemberForm"; //다시 폼으로 이동
         }
-        Address address = new Address(form.getAddress(), form.getDetailedAddress());
-        Member member = new Member(form.getUserId(), form.getNickname(), form.getPassword(),
-                form.getUsername(), form.getHp(), address);
-        memberService.join(member);
+        memberService.join(form);
         return "redirect:/";
     }
 

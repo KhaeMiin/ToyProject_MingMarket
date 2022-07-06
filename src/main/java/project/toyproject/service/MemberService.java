@@ -24,7 +24,10 @@ public class MemberService {
      * 회원가입
      */
     @Transactional
-    public Long join(Member member) {
+    public Long join(CreateMemberForm form) {
+        Address address = new Address(form.getAddress(), form.getDetailedAddress());
+        Member member = new Member(form.getUserId(), form.getNickname(), form.getPassword(),
+                form.getUsername(), form.getHp(), address);
         validateDuplicateMember(member);
         member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
         memberRepository.save(member);

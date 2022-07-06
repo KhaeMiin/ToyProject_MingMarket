@@ -8,12 +8,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.LoginDto;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
 import java.util.Optional;
+
+import static project.toyproject.dto.MemberDto.*;
 
 @Slf4j
 @Service
@@ -28,7 +31,7 @@ public class LoginService{
     /**
      * 로그인
      */
-    public Member login(String userId, String password) {
+    public SessionMemberData login(String userId, String password) {
         Optional<Member> findMemberOptional = memberRepository.findByloginId(userId);
 
         //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
@@ -45,7 +48,10 @@ public class LoginService{
          * @return true/ false
          */
         if (passwordEncoder.matches(password, member.getPass())) {
-            return member;
+            Address address = member.getAddress();
+            SessionMemberData memberData = new SessionMemberData(
+                    member.getId(), member.getUserId(), member.getNickname(), member.getUsername());
+            return memberData;
         } else {
             return null; //비밀번호가 일치하지 않을 경우 null 반환
         }

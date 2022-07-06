@@ -45,6 +45,17 @@ public class MemberDto {
 
         private String address;
         private String detailedAddress;
+
+        public void createMethod(String userId, String nickname, String password, String passwordCheck, String username, int hp, String address, String detailedAddress) {
+            this.userId = userId;
+            this.nickname = nickname;
+            this.password = password;
+            this.passwordCheck = passwordCheck;
+            this.username = username;
+            this.hp = hp;
+            this.address = address;
+            this.detailedAddress = detailedAddress;
+        }
     }
 
     /**

@@ -5,10 +5,13 @@ import org.springframework.stereotype.Component;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
 
 import javax.annotation.PostConstruct;
+
+import static project.toyproject.dto.MemberDto.*;
 
 @Component
 @RequiredArgsConstructor
@@ -22,17 +25,23 @@ public class TestDataInit {
      */
     @PostConstruct
     public void init() {
+        CreateMemberForm member = new CreateMemberForm();
+        member.createMethod("test", "min",
+                "1234", "1234", "김성함", 0100000000, "머라구", "어쩌라는동");
+
+        Long memberId = memberService.join(member);
+
+
+
+
         Address address = new Address("자바시 JPA구", "스프링");
-        Member member = new Member("test", "닉네임", "test", "김성함", 01022223333, address);
-        memberService.join(member);
-
-        Member member2 = new Member("admin", "관리자", "test", "김관리자", 01022223333, address);
-        memberService.adminJoin(member2);
-
         for (int i = 1; i < 16; i++) {
-            productService.saveProduct(member.getId(), "test" + i, i + ".jpg", "test" + i, 10000);
-            Member memberData = new Member("test" + i, "닉네임" + i, "test" + i, "김성함" + i, 01022223333, address);
-            memberService.join(memberData);
+            productService.saveProduct(memberId, "test" + i, i + ".jpg", "test" + i, 10000);
+            CreateMemberForm memberData = new CreateMemberForm();
+/*            member.createMethod("test" + i, "user" + i,
+                    "1234", "1234", "김성함" + i, 0100000000, "머라구", "어쩌라는동");
+
+            memberService.join(memberData);*/
         }
     }
 }

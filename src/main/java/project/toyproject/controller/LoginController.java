@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import static project.toyproject.dto.MemberDto.*;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -46,7 +48,7 @@ public class LoginController {
             return "/members/login";
         }
 
-        Member loginMember = loginService.login(form.getUserId(), form.getPassword());
+        SessionMemberData loginMember = loginService.login(form.getUserId(), form.getPassword());
 
 
         //로그인 실패시 (null)
@@ -56,14 +58,10 @@ public class LoginController {
         }
 
         //로그인 성공처리
-        Address address = loginMember.getAddress();
-        MemberDto.SessionMemberData memberData = new MemberDto.SessionMemberData(
-                loginMember.getId(), loginMember.getUserId(), loginMember.getNickname(), loginMember.getUsername());
-
         //기존 세션이 있으면 세션을 반환, 없으면 새로운 세션을 생성
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보를 보관 (쿠키에 key: JSESSIONID , value: UUID 로 들어감)
-        session.setAttribute(LOGIN_MEMBER, memberData);
+        session.setAttribute(LOGIN_MEMBER, loginMember);
 
         return "redirect:" + redirectURL;
     }

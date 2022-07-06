@@ -9,11 +9,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
 import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static project.toyproject.dto.MemberDto.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -29,24 +31,30 @@ class MemberServiceTest {
     @Test
     void 회원가입() throws Exception {
         //given :이런게 주어지면
-        Address address = new Address("city", "street");
-        Member member = new Member("test", "min", "1234", "해민", 01000000000, address);
+        CreateMemberForm member = new CreateMemberForm();
+        member.createMethod("testA", "min",
+                "1234", "1234", "해민", 0100000000, "머라구", "어쩌라는동");
 
         //when : 이렇게 하면(실행)
         Long saveId = memberService.join(member);
 
         //then : 이렇게 된다(검증)
-        Assertions.assertThat(member).isEqualTo(memberService.findOneMember(saveId));
+        Assertions.assertThat(member.getUserId()).isEqualTo(memberService.findOneMember(saveId).getUserId());
+        Assertions.assertThat(member.getNickname()).isEqualTo(memberService.findOneMember(saveId).getNickname());
     }
 
     @Test
     void 중복_아이디_예외() throws Exception {
         //given :이런게 주어지면
-        Address address = new Address("city", "street");
-        Member member1 = new Member("test", "min", "1234", "해민", 01000000000, address);
+        CreateMemberForm member1 = new CreateMemberForm();
+        member1.createMethod("testA", "min",
+                "1234", "1234", "해민", 0100000000, "머라구", "어쩌라는동");
 
-        Address address2 = new Address("city", "street");
-        Member member2 = new Member("test", "min", "1234", "해민", 01000000000, address2);
+
+        CreateMemberForm member2 = new CreateMemberForm();
+        member2.createMethod("testA", "min",
+                "1234", "1234", "해민", 0100000000, "머라구", "어쩌라는동");
+
 
         //when : 이렇게 하면(실행)
         memberService.join(member1);
