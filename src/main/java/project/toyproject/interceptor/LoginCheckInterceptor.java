@@ -23,7 +23,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         if (session == null || session.getAttribute(LoginController.LOGIN_MEMBER) == null) {
             log.info("로그인 상태가 아닌 사용자 요청입니다.");
             //로그인폼으로 redirect
-            response.sendRedirect("/login?redirectURL" + requestURI); //로그인 후 다시 요청했던 페이지로 넘어올 수 있도록
+            response.sendRedirect("/login?redirectURL=" + requestURI); //로그인 후 다시 요청했던 페이지로 넘어올 수 있도록
         }
 
         return true;

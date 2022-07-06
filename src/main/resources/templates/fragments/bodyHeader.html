@@ -9,16 +9,16 @@
         <h4 th:text="${memberName}">
             로그인 사용자 이름
         </h4>
-        <form th:action="@{/logout}" method="post">
+        <form th:action="@{/userLogout}" method="post">
             <button class="w-100 btn btn-dark btn-lg" type="submit">
                 로그아웃
             </button>
         </form>
-        <div th:if="${session.loginMember.userId} == 'admin'">
+        <div th:if="${session?.loginMember.userId} == 'admin'">
             <a href="#" th:href="@{/members/admin}"
                class="btn btn-primary" role="button">회원 관리</a>
         </div>
-        <div th:if="${session.loginMember.userId} != null">
+        <div th:if="${session?.loginMember.userId} != null">
             <a href="#" th:href="@{/members/myPage/{memberId}(memberId=${session.loginMember.memberId})}"
                class="btn btn-primary" role="button">마이페이지</a>
             <a href="#" th:href="@{/product/shop/{memberId}(memberId=${session.loginMember.memberId})}"

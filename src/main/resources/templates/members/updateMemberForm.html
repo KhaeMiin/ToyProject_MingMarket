@@ -11,7 +11,9 @@
 </style>
 <body>
 <div class="container">
-    <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
+    <div th:if="${session?.loginMember} != null">
+        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session?.loginMember.nickname})}" />
+    </div>
     <div class="jumbotron">
         <div>
             <form role="form" th:object="${memberForm}" method="post">

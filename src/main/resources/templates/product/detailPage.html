@@ -57,7 +57,7 @@
         <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
     </div>
     <div th:if="${session?.loginMember} != null">
-        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
+        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session?.loginMember.nickname})}" />
     </div>
     <div class="jumbotron">
         <h2>상세 페이지</h2>

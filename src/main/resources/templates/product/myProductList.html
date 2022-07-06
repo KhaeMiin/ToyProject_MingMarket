@@ -23,7 +23,9 @@
     });
 </script>
 <div class="container">
-    <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
+    <div th:if="${session?.loginMember} != null">
+        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session?.loginMember.nickname})}" />
+    </div>
     <div class="jumbotron">
         <button type="button" class="btn btn-primary" id="myProductBtn">내 상품</button>
         <button type="button" class="btn btn-primary" id="myWishListBtn">관심 상품</button>

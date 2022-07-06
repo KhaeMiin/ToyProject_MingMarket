@@ -47,7 +47,6 @@ public class HomeController {
 
         model.addAttribute("products", products);
 
-        log.info("login check = {}", loginMember);
         //세션에 회원 데이터가 없으면
         if (loginMember == null) {
             return "home";

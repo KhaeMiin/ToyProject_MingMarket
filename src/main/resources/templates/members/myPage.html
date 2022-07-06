@@ -6,7 +6,9 @@
 </head>
 <body>
 <div class="container">
-    <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session.loginMember.nickname})}" />
+    <div th:if="${session?.loginMember} != null">
+        <div th:replace="~{fragments/bodyHeader :: bodyHeader (${session?.loginMember.nickname})}" />
+    </div>
     <div class="jumbotron">
         <div>
             <table class="table table-striped">
@@ -32,9 +34,9 @@
                 </tbody>
             </table>
         </div>
-        <a href="#" th:href="@{/members/{memberId}/editInformation (memberId=${session.loginMember.memberId})}"
+        <a href="#" th:href="@{/members/{memberId}/editInformation (memberId=${session?.loginMember.memberId})}"
            class="btn btn-primary" role="button">내정보 수정</a>
-        <a href="#" th:href="@{/members/{memberId}/editPassword (memberId=${session.loginMember.memberId})}"
+        <a href="#" th:href="@{/members/{memberId}/editPassword (memberId=${session?.loginMember.memberId})}"
            class="btn btn-primary" role="button">비밀번호 수정</a>
     </div>
     <div th:replace="fragments/footer :: footer" />

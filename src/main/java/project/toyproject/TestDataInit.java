@@ -2,10 +2,6 @@ package project.toyproject;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import project.toyproject.domain.Address;
-import project.toyproject.domain.Member;
-import project.toyproject.domain.Product;
-import project.toyproject.dto.MemberDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
 
@@ -27,21 +23,23 @@ public class TestDataInit {
     public void init() {
         CreateMemberForm member = new CreateMemberForm();
         member.createMethod("test", "min",
-                "1234", "1234", "김성함", 0100000000, "머라구", "어쩌라는동");
+                "1234", "1234", "김성함", 0100000000, "서울시", "231-2");
 
         Long memberId = memberService.join(member);
 
+        CreateMemberForm adminMember = new CreateMemberForm();
+        adminMember.createMethod("admin", "admin",
+                "1234", "1234", "관리자", 0100000000, "서울시 강남구 ", "밍마켓 123-3");
 
+        Long adminMemberId = memberService.join(adminMember);
 
-
-        Address address = new Address("자바시 JPA구", "스프링");
-        for (int i = 1; i < 16; i++) {
+        for (int i = 1; i <= 13; i++) {
             productService.saveProduct(memberId, "test" + i, i + ".jpg", "test" + i, 10000);
             CreateMemberForm memberData = new CreateMemberForm();
-/*            member.createMethod("test" + i, "user" + i,
-                    "1234", "1234", "김성함" + i, 0100000000, "머라구", "어쩌라는동");
+            memberData.createMethod("test" + i, "user" + i,
+                    "1234", "1234", "김성함" + i, 0100000000, "자바시 JPA구", "스프링");
 
-            memberService.join(memberData);*/
+            memberService.join(memberData);
         }
     }
 }

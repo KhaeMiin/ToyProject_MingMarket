@@ -12,7 +12,6 @@ import project.toyproject.annotation.LoginCheck;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
 import project.toyproject.domain.WishItem;
-import project.toyproject.dto.MemberDto;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;

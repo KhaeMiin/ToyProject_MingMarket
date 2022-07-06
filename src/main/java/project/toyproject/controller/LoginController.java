@@ -62,15 +62,18 @@ public class LoginController {
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보를 보관 (쿠키에 key: JSESSIONID , value: UUID 로 들어감)
         session.setAttribute(LOGIN_MEMBER, loginMember);
+        log.info("redirectURL={}",redirectURL);
 
         return "redirect:" + redirectURL;
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/userLogout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);//있는 세션 가져오게 하기. 없으면 null 가져오기
+        log.info("로그아웃 되었습니다!!!!!");
         if (session != null) {
             session.invalidate(); //데이터 날라감!
+        log.info("데이터 날라감!!!");
         }
 
         return "redirect:/"; //홈 화면으로!
