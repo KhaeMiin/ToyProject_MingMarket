@@ -8,6 +8,7 @@ import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.repository.MemberRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static project.toyproject.dto.MemberDto.*;
@@ -59,19 +60,28 @@ public class MemberService {
     /**
      * 회원 전체 조회
      */
-    public List<Member> findMembers() {
-        return memberRepository.findAllMembers();
+    public List<SelectMemberData> findMembers() {
+        List<Member> members = memberRepository.findAllMembers();
+        List<SelectMemberData> listMemberData = new ArrayList<>();
+        for (Member member : members) {
+            SelectMemberData selectMemberData = new SelectMemberData(member.getId(), member.getUserId(),
+                    member.getUsername(),member.getNickname(), member.getHp(), member.getAddress());
+            listMemberData.add(selectMemberData);
+        }
+        return listMemberData;
     }
 
     /**
      * 회원 단건 조회
      */
-    public Member findOneMember(Long memberId) {
-        return memberRepository.findOneMember(memberId);
+    public SelectMemberData findOneMember(Long memberId) {
+        Member member = memberRepository.findOneMember(memberId);
+        SelectMemberData memberData = new SelectMemberData(member.getId(), member.getUserId(), member.getUsername(), member.getNickname(), member.getHp(), member.getAddress());
+        return memberData;
     }
 
     /**
-     * 회원 정보 수정
+     * 회원 정보 수정 (변경 감지 사용)
      */
     @Transactional
     public void editInformation(Long memberId, UpdateMemberForm form) {

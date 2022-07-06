@@ -78,7 +78,7 @@ public class ProductController {
         Product singleProduct = productService.findSingleProduct(productId);
 
         // 작성자 닉네임 구하기
-        Member writer = memberService.findOneMember(singleProduct.getMember().getId());
+        SelectMemberData writer = memberService.findOneMember(singleProduct.getMember().getId());
         String writerNickname = writer.getNickname();
         String writerId = writer.getUserId();
 

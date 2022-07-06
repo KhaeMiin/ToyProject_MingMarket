@@ -51,14 +51,9 @@ public class MemberController {
      */
     @GetMapping("/admin")
     public String memberList(Model model) {
-        List<Member> members = memberService.findMembers();
-        List<SelectMemberData> listMemberData = new ArrayList<>();
-        for (Member member : members) {
-            SelectMemberData selectMemberData = new SelectMemberData(member.getId(), member.getUserId(),
-                    member.getUsername(),member.getNickname(), member.getHp(), member.getAddress());
-            listMemberData.add(selectMemberData);
-        }
-        model.addAttribute("members", listMemberData);
+        List<SelectMemberData> memberDataList = memberService.findMembers();
+
+        model.addAttribute("members", memberDataList);
         return "members/list";
     }
 
@@ -67,8 +62,7 @@ public class MemberController {
      */
     @GetMapping("/myPage/{memberId}")
     public String myPage(@PathVariable("memberId") Long memberId, Model model) {
-        Member member = memberService.findOneMember(memberId);
-        SelectMemberData memberData = new SelectMemberData(member.getId(), member.getUserId(), member.getUsername(), member.getNickname(), member.getHp(), member.getAddress());
+        SelectMemberData memberData = memberService.findOneMember(memberId);
         model.addAttribute("member", memberData);
         return "members/myPage";
     }
@@ -78,7 +72,7 @@ public class MemberController {
      */
     @GetMapping("/{memberId}/editInformation")
     public String editInformationForm(@PathVariable("memberId") Long memberId, Model model) {
-        Member findMember = memberService.findOneMember(memberId);
+        SelectMemberData findMember = memberService.findOneMember(memberId);
         UpdateMemberForm memberForm = new UpdateMemberForm(findMember.getNickname(),
                 findMember.getUsername(), findMember.getHp(), findMember.getAddress().getAddress(), findMember.getAddress().getDetailedAddress());
         model.addAttribute("memberForm", memberForm);
@@ -91,16 +85,16 @@ public class MemberController {
                                   BindingResult result,
                                   RedirectAttributes redirectAttributes
     ) {
-        /*Member findMember = memberService.findOneMember(memberId);
+        /*Long findMember = memberService.findOneMember(memberId);
         if (!form.getPass().equals(findMember.getPass())) { //비밀번호가 일치하지 않으면
             result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
             return "members/updateMemberForm";
         }
 */
-        Member member = loginService.passwordCheck(memberId, form.getPass());
+        Long member = loginService.passwordCheck(memberId, form.getPass());
         if (member == null) {
             result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
-            return "members/updatePasswordForm";
+            return "members/updateMemberForm";
         }
 
         if (result.hasErrors()) {
@@ -129,13 +123,13 @@ public class MemberController {
                                BindingResult result,
                                RedirectAttributes redirectAttributes) {
         // 현재 비밀번호 일치 확인
-/*        Member findMember = memberService.findOneMember(memberId);
+/*        Long findMember = memberService.findOneMember(memberId);
         if (!form.getPass().equals(findMember.getPass())) { //비밀번호가 일치하지 않으면
             result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
             return "members/updatePasswordForm";
         }*/
 
-        Member member = loginService.passwordCheck(memberId, form.getPass());
+        Long member = loginService.passwordCheck(memberId, form.getPass());
         if (member == null) {
             result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
             return "members/updatePasswordForm";

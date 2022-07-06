@@ -66,7 +66,7 @@ public class LoginService{
     /**
      * 비밀번호 체크 (비밀번호 수정시 사용)
      */
-    public Member passwordCheck(Long memberId, String password) {
+    public Long passwordCheck(Long memberId, String password) {
         Member member = memberRepository.findOneMember(Long.valueOf(memberId));
 
         /**
@@ -76,7 +76,7 @@ public class LoginService{
          * @return passwordEncoder.matches = true/ false
          */
         if (passwordEncoder.matches(password, member.getPass())) {
-            return member;
+            return member.getId();
         } else {
             return null; //비밀번호가 일치하지 않을 경우 null 반환
         }
