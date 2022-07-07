@@ -65,7 +65,7 @@
         <img th:src="@{/webapp/upload/} + ${singleProduct.getThumbnail()}">
         <br>
         글 제목: <span th:text="${singleProduct.title}">제목</span><br>
-        작성자: <span th:text="${singleProduct.nickName}">닉네임</span><br>
+        작성자: <span th:text="${singleProduct.member.nickname}">닉네임</span><br>
         날짜: <span th:text="${singleProduct.createDate}">날짜</span><br>
         가격: <span th:text="${singleProduct.price}">날짜</span><br>
         상세 설명: <span th:text="${singleProduct.intro}">상세설명</span><br>

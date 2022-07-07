@@ -74,7 +74,8 @@ public class MemberController {
     public String editInformationForm(@PathVariable("memberId") Long memberId, Model model) {
         SelectMemberData findMember = memberService.findOneMember(memberId);
         UpdateMemberForm memberForm = new UpdateMemberForm(findMember.getNickname(),
-                findMember.getUsername(), findMember.getHp(), findMember.getAddress().getAddress(), findMember.getAddress().getDetailedAddress());
+                findMember.getUsername(), findMember.getHp(), findMember.getAddress().getAddress(),
+                findMember.getAddress().getDetailedAddress());
         model.addAttribute("memberForm", memberForm);
         return "members/updateMemberForm";
     }

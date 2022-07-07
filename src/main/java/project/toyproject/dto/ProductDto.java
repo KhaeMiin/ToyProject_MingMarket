@@ -11,6 +11,7 @@ import project.toyproject.domain.ProductStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class ProductDto {
 
@@ -83,7 +84,7 @@ public class ProductDto {
 
         private Long productId;
 
-        private String nickName; // 작성자 닉네임
+        private Member member;
 
         private String title; // 글 제목
 

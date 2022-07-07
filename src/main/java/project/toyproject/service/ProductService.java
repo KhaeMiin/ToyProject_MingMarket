@@ -8,6 +8,7 @@ import project.toyproject.domain.Product;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductRepository;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,8 +62,17 @@ public class ProductService {
     /**
      * 단일 상품 조회
      */
-    public Product findSingleProduct(Long productId) {
-        return productRepository.findSingleProduct(productId);
+    public ProductDetailData findSingleProduct(Long productId) {
+        Product findProduct = productRepository.findSingleProduct(productId);
+
+        //게시글 작성 날짜 구하기
+        String createDate = findProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        ProductDetailData singleProduct = new ProductDetailData(productId, findProduct.getMember(),
+                findProduct.getTitle(), findProduct.getThumbnail(), findProduct.getIntro(), findProduct.getPrice(),
+                createDate);
+
+        return singleProduct;
     }
 
     @Transactional

@@ -5,11 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
+import project.toyproject.dto.WishItemDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.WishItemRepository;
 import project.toyproject.repository.ProductRepository;
 
 import java.util.List;
+
+import static project.toyproject.dto.WishItemDto.*;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -72,9 +76,11 @@ public class WishItemService {
     /**
      * 찜상품 조회(회원,상품)
      */
-    public WishItem findOneWishItem(Long memberId, Long productId) {
+    public FindWishItem findOneWishItem(Long memberId, Long productId) {
         WishItem wishItem = wishItemRepository.findOneItem(memberId, productId);
-        return wishItem;
+        FindWishItem findWishItem = new FindWishItem(wishItem.getId(), wishItem.getMember(), wishItem.getWishDate(), wishItem.getProduct());
+
+        return findWishItem;
     }
 
     /**

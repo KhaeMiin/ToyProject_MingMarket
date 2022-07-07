@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.toyproject.FileUpload;
 import project.toyproject.annotation.LoginCheck;
-import project.toyproject.domain.Member;
-import project.toyproject.domain.Product;
-import project.toyproject.domain.WishItem;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
@@ -22,11 +19,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static project.toyproject.dto.MemberDto.*;
 import static project.toyproject.dto.ProductDto.*;
+import static project.toyproject.dto.WishItemDto.*;
 
 @Slf4j
 @Controller
@@ -75,25 +72,17 @@ public class ProductController {
      */
     @GetMapping("/detail/{productId}")
     public String ProductDetail(@PathVariable Long productId, Model model, HttpServletRequest request) {
-        Product singleProduct = productService.findSingleProduct(productId);
+        ProductDetailData singleProduct = productService.findSingleProduct(productId);
 
         // 작성자 닉네임 구하기
         SelectMemberData writer = memberService.findOneMember(singleProduct.getMember().getId());
-        String writerNickname = writer.getNickname();
-        String writerId = writer.getUserId();
 
-        //게시글 작성 날짜 구하기
-        String createDate = singleProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        ProductDetailData productDetailPage = new ProductDetailData(
-                productId, writerNickname, singleProduct.getTitle(), singleProduct.getThumbnail(),
-                singleProduct.getIntro(), singleProduct.getPrice(), createDate);
-
-        model.addAttribute("writerId", writerId);
-        model.addAttribute("singleProduct", productDetailPage);
+        model.addAttribute("writerId", writer.getUserId());
+        model.addAttribute("singleProduct", singleProduct);
 
         //찜상품인지 체크
         HttpSession session = request.getSession(false);
-        WishItem wishItem = null;
+        FindWishItem wishItem = null;
         try {
             SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
             wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
@@ -112,10 +101,9 @@ public class ProductController {
      */
     @GetMapping("/{productId}/edit")
     public String updateProductForm(@PathVariable("productId") Long productId, Model model) {
-        Product singleProduct = productService.findSingleProduct(productId);
-
-        UpdateProductForm form = new UpdateProductForm(productId, singleProduct.getTitle(),
-                singleProduct.getThumbnail(), singleProduct.getIntro(), singleProduct.getPrice());
+        ProductDetailData findProduct = productService.findSingleProduct(productId);
+        UpdateProductForm form = new UpdateProductForm(productId, findProduct.getTitle(),
+                findProduct.getThumbnail(), findProduct.getIntro(), findProduct.getPrice());
 
         model.addAttribute("form", form);
         return "product/updateProductForm";
@@ -157,7 +145,7 @@ public class ProductController {
      */
     @GetMapping("/{productId}/delete")
     public String removeProduct(@PathVariable("productId") Long productId, HttpServletRequest request) {
-        Product singleProduct = productService.findSingleProduct(productId);
+        ProductDetailData singleProduct = productService.findSingleProduct(productId);
         String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
 
         File file = new File(realPath + singleProduct.getThumbnail());
