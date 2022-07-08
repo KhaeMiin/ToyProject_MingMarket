@@ -18,28 +18,31 @@
     - H2 Database
     - MySQL Driver
     - Spring Data JPA
-    - Sprign Security 2.4.5
+    - Spring Security 2.4.5
 #### `Front-end`
 - JavaScript
 - Thymeleaf
 - HTML5
 
-</br>
 
 ## 3. ERD 설계
 
-## 4. 핵심 기능
+## 4. 구현 요구사항
+
+## 5. 핵심 기능
+
+### 1. JPA를 활용한 웹 애플리케이션 개발
 <details>
-<summary><b>JPA를 활용한 웹 애플리케이션 개발</b></summary>
+<summary><b>기능 설명</b></summary>
 <div markdown="1">
 
-### 1. 도메인 설계/JPA 전략
 
 </div>
 </details>
 
+### 2. 상품등록, 회원가입 혹은 로그인시 Validation 검증
 <details>
-<summary><b>(상품,회원가입)등록 혹은 로그인시 Validation 검증 </b></summary>
+<summary><b>기능 설명</b></summary>
 <div markdown="1">
 
 ```
@@ -96,66 +99,103 @@ error-messages
 </div>
 </details>
 
+### 3. Spring Security 회원가입시 패스워드 암호화 적용하기
 <details>
-<summary><b>JPA를 활용한 웹 애플리케이션 개발</b></summary>
+<summary><b>기능 설명</b></summary>
+<div markdown="1">
+[블로그 정리](https://intelliy-min.tistory.com/49)
+
+
+
+
+</div>
+</details>
+
+### 4. 스프링이 제공하는 MultipartFile을 이용한 이미지 업로드
+<details>
+<summary><b>기능 설명</b></summary>
 <div markdown="1">
 
-### 1. 도메인 설계/JPA 전략
+내용
 
 </div>
 </details>
 
 
+### 5. 서블릿 HTTP 세션을 활용한 로그인 상태 유지
 <details>
-<summary><b>JPA를 활용한 웹 애플리케이션 개발</b></summary>
+<summary><b>기능 설명</b></summary>
 <div markdown="1">
 
-### 1. 도메인 설계/JPA 전략
+내용
+
+</div>
+</details>
+
+
+### 6. 스프링 인터셉터를 이용한 로그인 체크
+<details>
+<summary><b>기능 설명</b></summary>
+<div markdown="1">
+
+내용
 
 </div>
 </details>
 
 
 
+<br>
 
-</br>
-
-## 5. 핵심 트러블 슈팅
-### 5.1.
+## 6. 트러블 슈팅
 <details>
-<summary><b>기존 코드</b></summary>
+<summary><b>로그인 상태 유지시 경로 localhost:xxxx/; jsessionid=~~</b></summary>
 <div markdown="1">
+내용
+</div>
+</details>
+
+
+<details>
+<summary><b>JPA - merge를 이용하여 값 수정시 null</b></summary>
+<div markdown="1">
+내용
+</div>
+</details>
+
+
+<details>
+<summary><b>로그인 : 없는 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</b></summary>
+<div markdown="1">
+내용
+</div>
+</details>
+
+### 해결하지 못한 문제
+
+<details>
+<summary><b>로그아웃시 메인("/")페이지로 이동되지 않음("/login?logout"으로 location되는 상황)</b></summary>
+<div markdown="1">
+내용
+</div>
+</details>
+
+
+<br>
+
+## 7. 코드 리팩토링
+
+### 1. Controller에 노출되어 있는 Entity 객체 Service계층으로 옮기기
+<details>
+<summary><b>코드 설명</b></summary>
+<div markdown="1">
+
 
 </div>
 </details>
 
-<details>
-<summary><b>추가된 클래스</b></summary>
-<div markdown="1">
+## 8. 회고 / 느낀점
 
-</div>
-</details>
-
-</br>
-
-## 6. 그 외 트러블 슈팅
-<details>
-<summary>제목</summary>
-<div markdown="1">
-
-</div>
-</details>
-
-<details>
-<summary>~~때문에 에러가 납</summary>
-<div markdown="1">
-
-</div>
-</details>
-
-## 6. 회고 / 느낀점
-
-*블로그 회고글 중
 ### 간단한 KPT
 #### Keep
 
