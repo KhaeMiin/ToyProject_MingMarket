@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.toyproject.FileUpload;
+import project.toyproject.service.FileUpload;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.service.MemberService;

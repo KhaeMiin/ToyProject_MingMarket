@@ -1,4 +1,4 @@
-package project.toyproject;
+package project.toyproject.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -11,8 +11,6 @@ import java.util.UUID;
 @Component
 public class FileUpload {
 
-/*    @Value("${file.dir}")
-    private String fileDir;*/
 
     public String getFullPath(String filename, String fileDir) {
         return fileDir + filename;
@@ -24,8 +22,8 @@ public class FileUpload {
         }
         String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
 
-        String serverUploadFileName = createServerFileName(originalFilename);
-        multipartFile.transferTo(new File(getFullPath(serverUploadFileName, fileDir)));
+        String serverUploadFileName = createServerFileName(originalFilename); //uuid 생성해서 뒤에 원래파일명의 확장자명 붙이기
+        multipartFile.transferTo(new File(getFullPath(serverUploadFileName, fileDir)));//저장: (서버에 업로드되는 파일명, 업로드 되는 경로)
 
         return serverUploadFileName;
 
