@@ -29,136 +29,49 @@
 
 ## 4. 구현 요구사항
 
-## 5. 핵심 기능
+## 5. 핵심 기능 & 트러블 슈팅
 
 ### 1. JPA를 활용한 웹 애플리케이션 개발
 <details>
 <summary><b>기능 설명</b></summary>
 <div markdown="1">
+자바 진영의 ORM 기술 표준으로 사용되는 인터페이스의 모음인 JPA를 활용하여 웹 애플리 케이션을 개발하였다. <br>
+JPA 인터페이스의 구현체로 Hibervate 프레임 워크를 사용하였다. <br>
+이렇게 JPA를 사용함으로써 INSERT/UPDATE/SELECT 쿼리 등을 직접 작성하지 않아도 데이터를 저장할 수 있게 되었다.<br>
+SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어, 개발자는 객체 모델을 이용해서 비즈니스 로직을 구성하는데만 집중할 수 있었다. <br>
 
+특히 필드 변경이나 필드를 추가하게 될 경우 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월하다. <br>
+그리고 초반 개발단계에서는 H2 데이터베이스를 사용하였는데,
+나중에 데이터베이스를 MySQL로 변경하여도 쿼리를 수정하지 않아도 된다는 장점이 있었다.  <br>
+
+1. 도메인 모델 분석 (연관관계 매핑 분석)
+   - 회원(Member)과 상품(Product)
+     - 한명의 회원은 여러 상품을 등록할 수 있다.
+     - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
+   - 회원(Member)과 관심상품(WishItem)
+     - 한명의 회원은 여러개의 관심상품을 가질 수 있다.
+     - 관심상품(WishItem)이 연관관계 주인으로 다대일 관계를 갖는다.
+   - 관심상품(WishItem)과 상품(Product)
+     - 관심상품은 단 하나의 상품에 해당된다.
+     - 관심상품(WishItem)이 연관관계 주인으로 일대일 관계를 갖는다.
+   - 상품(Product)과 댓글(Comment)
+     - 하나의 상품에는 여러 댓글을 달 수 있다.
+     - 댓글(Comment)가 연관관계 주인으로 다대일 관계를 갖는다.
+   - 회원(Member)과 댓글(Comment)
+     - 한명의 회원은 여러 댓글을 달 수 있다.
+     - 댓글(Comment)가 연관관계 주인으로 다대일 관계를 갖는다.
+3. 테이블 설계
+4. 엔티티 개발
 
 </div>
 </details>
 
-### 2. 상품등록, 회원가입 그리고 로그인시 Validation 검증
 <details>
-<summary><b>기능 설명</b></summary>
+<summary><b>트러블 슈팅</b></summary>
 <div markdown="1">
-
-```
-    /**
-     * 중복 아이디 검증 메서드
-     */
-    private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByUserId(member.getUserId());
-/*        if (!findMembers.isEmpty()) { //isEmpty(): 문자열 길이가 0일 경우 true 반환, 여기서는 !isEmpty: 값이 있다면
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }*/
-        if (findMembers.size() > 0) { //이 코드가 더 최적화일 것 같다.
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }
-    }
-```
-회원가입시 아이디 중복 검증 메서드
-
-검증하고자 하는 객체(DTO) Annotation 사용함
-Controller에서는 검증하고자 하는 객체(DTO) 앞에 @Valied 붙여서 검증함. 
-그리고 BindingResult 객체는 검증 결과에 대한 결과 정보들을 담아서
-```
-        if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
-            return "product/createProductForm"; //다시 폼으로 이동
-        }
-```
-(값이 있을 경우 = 검증 결과 오류를 내는 것들) 다시 폼으로 보내버림
-
-그 외 객체에서 검증할 수 없는 것들은 
-
-```
-//로그인 실패시 (null)
-if (loginMember == null) {
-result.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");
-return "/members/login";
-}
-```
-
-이런식으로 
-그리고 view에서는 (타임리프)
-````
-                <div th:if="${#fields.hasGlobalErrors()}">
-                    <p class="field-error" th:each="err : ${#fields.globalErrors()}"
-                       th:text="${err}">전체 오류 메시지</p>
-                </div>
-````
-글로벌 오류로 처리
-
 <br>
-검증과 오류 메시지 공식 메뉴얼 <br>
-https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#validation-and-
-error-messages
-
-</div>
-</details>
-
-### 3. Spring Security 회원가입시 패스워드 암호화 적용하기
-<details>
-<summary><b>기능 설명</b></summary>
-<div markdown="1">
-[블로그 정리](https://intelliy-min.tistory.com/49)
-
-
-
-
-</div>
-</details>
-
-### 4. 스프링이 제공하는 MultipartFile을 이용한 이미지 업로드
-<details>
-<summary><b>기능 설명</b></summary>
-<div markdown="1">
-
-내용
-
-</div>
-</details>
-
-
-### 5. 서블릿 HTTP 세션을 활용한 로그인 상태 유지
-<details>
-<summary><b>기능 설명</b></summary>
-<div markdown="1">
-
-내용
-
-</div>
-</details>
-
-
-### 6. 스프링 인터셉터를 이용한 로그인 체크
-<details>
-<summary><b>기능 설명</b></summary>
-<div markdown="1">
-
-내용
-
-</div>
-</details>
-
-
-
+<b>JPA - merge를 이용하여 값 수정시 null</b>
 <br>
-
-## 6. 트러블 슈팅
-<details>
-<summary><b>로그인 상태 유지시 경로 localhost:xxxx/; jsessionid=~~</b></summary>
-<div markdown="1">
-내용
-</div>
-</details>
-
-
-<details>
-<summary><b>JPA - merge를 이용하여 값 수정시 null</b></summary>
-<div markdown="1">
 
 > 중고거래장터 밍마켓  
 > 유저는 상품을 자유롭게 올릴 수 있다.  
@@ -304,11 +217,11 @@ public class Product extends BaseEntity { //상품
 
 1.  merge()를 실행
 2.  파라미터로 넘어온 준영속 엔티티의 식별자 값으로 1차 캐시에서 엔티티를 조회
-   -   만약 1차 캐시에 엔티티가 없으면 데이터베이스에 엔티티를 조회하고 1차 캐시에 저장.
-   -   무조건 1번은 db 조회를 하므로 성능에 좋지 않을 수 있다.
+-   만약 1차 캐시에 엔티티가 없으면 데이터베이스에 엔티티를 조회하고 1차 캐시에 저장.
+-   무조건 1번은 db 조회를 하므로 성능에 좋지 않을 수 있다.
 3.  조회한 영속 엔티티에 product 엔티티의 값을 채워 넣음
-   -   이때 product 의 모든 값을 영속 엔티티에 채워 넣기 때문에 **null 값이 들어갈 수 도 있는 문제가 생긴다.**
-   -   이래서 업데이트 시 merge()보단 변경 감지를 사용하자.
+-   이때 product 의 모든 값을 영속 엔티티에 채워 넣기 때문에 **null 값이 들어갈 수 도 있는 문제가 생긴다.**
+-   이래서 업데이트 시 merge()보단 변경 감지를 사용하자.
 4.  영속 상태의 객체를 반환
 
 #### **수정된 코드**
@@ -344,6 +257,123 @@ entityManager로 entity를 직접 꺼내, 값을 수정한다.
 @Transactional으로 인하여 로직이 끝날 때 JPA에서 트랜잭션 commit 시점에 변경 감지(Dirty Checking)한 후 Flush를 한다.
 </div>
 </details>
+
+
+### 2. 상품등록, 회원가입 그리고 로그인시 Validation 검증
+<details>
+<summary><b>기능 설명</b></summary>
+<div markdown="1">
+
+```
+    /**
+     * 중복 아이디 검증 메서드
+     */
+    private void validateDuplicateMember(Member member) {
+        List<Member> findMembers = memberRepository.findByUserId(member.getUserId());
+/*        if (!findMembers.isEmpty()) { //isEmpty(): 문자열 길이가 0일 경우 true 반환, 여기서는 !isEmpty: 값이 있다면
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }*/
+        if (findMembers.size() > 0) { //이 코드가 더 최적화일 것 같다.
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
+    }
+```
+회원가입시 아이디 중복 검증 메서드
+
+검증하고자 하는 객체(DTO) Annotation 사용함
+Controller에서는 검증하고자 하는 객체(DTO) 앞에 @Valied 붙여서 검증함. 
+그리고 BindingResult 객체는 검증 결과에 대한 결과 정보들을 담아서
+```
+        if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
+            return "product/createProductForm"; //다시 폼으로 이동
+        }
+```
+(값이 있을 경우 = 검증 결과 오류를 내는 것들) 다시 폼으로 보내버림
+
+그 외 객체에서 검증할 수 없는 것들은 
+
+```
+//로그인 실패시 (null)
+if (loginMember == null) {
+result.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");
+return "/members/login";
+}
+```
+
+이런식으로 
+그리고 view에서는 (타임리프)
+````
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+                       th:text="${err}">전체 오류 메시지</p>
+                </div>
+````
+글로벌 오류로 처리
+
+<br>
+검증과 오류 메시지 공식 메뉴얼 <br>
+https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#validation-and-
+error-messages
+
+</div>
+</details>
+
+### 3. Spring Security 회원가입시 패스워드 암호화 적용하기
+<details>
+<summary><b>기능 설명</b></summary>
+<div markdown="1">
+[블로그 정리](https://intelliy-min.tistory.com/49)
+
+
+
+
+</div>
+</details>
+
+### 4. 스프링이 제공하는 MultipartFile을 이용한 이미지 업로드
+<details>
+<summary><b>기능 설명</b></summary>
+<div markdown="1">
+
+내용
+
+</div>
+</details>
+
+
+### 5. 서블릿 HTTP 세션을 활용한 로그인 상태 유지
+<details>
+<summary><b>기능 설명</b></summary>
+<div markdown="1">
+
+내용
+
+</div>
+</details>
+<details>
+<summary><b>트러블 슈팅</b></summary>
+<div markdown="1">
+<b>로그인 상태 유지시 경로 localhost:xxxx/; jsessionid=~~</b>
+</div>
+</details>
+
+
+### 6. 스프링 인터셉터를 이용한 로그인 체크
+<details>
+<summary><b>기능 설명</b></summary>
+<div markdown="1">
+
+내용
+
+</div>
+</details>
+
+
+
+<br>
+
+## 6. 트러블 슈팅
+
 
 
 <details>
