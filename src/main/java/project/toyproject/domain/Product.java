@@ -41,7 +41,7 @@ public class Product extends BaseEntity { //상품
 /*    @OneToOne(fetch = LAZY) @JoinColumn(name = "category_id")
     private Category category; //fk*/
 
-    public Product(String title, String thumbnail, String intro, int price, Member member, ProductStatus productStatus) {
+    private Product(String title, String thumbnail, String intro, int price, Member member, ProductStatus productStatus) {
         this.title = title;
         this.thumbnail = thumbnail;
         this.intro = intro;

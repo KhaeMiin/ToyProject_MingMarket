@@ -49,8 +49,6 @@ public class Member extends BaseEntity {
         this.address = address;
     }
 
-
-
     // 회원정보 수정메서드
     public void change(String nickname, String username, int hp, Address address) {
         this.nickname = nickname;
