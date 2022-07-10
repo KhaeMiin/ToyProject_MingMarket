@@ -43,25 +43,58 @@ SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어
 특히 필드 변경이나 필드를 추가하게 될 경우 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월하다. <br>
 그리고 초반 개발단계에서는 H2 데이터베이스를 사용하였는데,
 나중에 데이터베이스를 MySQL로 변경하여도 쿼리를 수정하지 않아도 된다는 장점이 있었다.  <br>
+<br>
 
 1. 도메인 모델 분석 (연관관계 매핑 분석)
-   - 회원(Member)과 상품(Product)
-     - 한명의 회원은 여러 상품을 등록할 수 있다.
-     - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
-   - 회원(Member)과 관심상품(WishItem)
+   - **회원(Member)** 과 **상품(Product)**
+   - 한명의 회원은 여러 상품을 등록할 수 있다.
+   - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
+   - **회원(Member)** 과 **관심상품(WishItem)**
      - 한명의 회원은 여러개의 관심상품을 가질 수 있다.
      - 관심상품(WishItem)이 연관관계 주인으로 다대일 관계를 갖는다.
-   - 관심상품(WishItem)과 상품(Product)
+   - **관심상품(WishItem)** 과 **상품(Product)**
      - 관심상품은 단 하나의 상품에 해당된다.
      - 관심상품(WishItem)이 연관관계 주인으로 일대일 관계를 갖는다.
-   - 상품(Product)과 댓글(Comment)
+   - **상품(Product)** 과 **댓글(Comment)** 아직 구현 안함
      - 하나의 상품에는 여러 댓글을 달 수 있다.
      - 댓글(Comment)가 연관관계 주인으로 다대일 관계를 갖는다.
-   - 회원(Member)과 댓글(Comment)
+   - **회원(Member)** 과 **댓글(Comment)** 아직 구현 안함
      - 한명의 회원은 여러 댓글을 달 수 있다.
      - 댓글(Comment)가 연관관계 주인으로 다대일 관계를 갖는다.
-3. 테이블 설계
-4. 엔티티 개발
+   - **상품(Product)** 과 **카테고리(Category)** 아직 구현 안함
+     - 하나의 상품은 여러개의 카테고리를 가질 수 있다.
+2. 테이블 설계
+   ![img_1.png](img_1.png)
+3. 엔티티 개발
+   <br>주요 사용한 어노테이션
+   <br>@Entity: 
+   <br>@Id: Primary Key를 지정
+   <br>@GeneratedValue: 
+   <br>@Embedded: 재사용이 가능함
+   <br>@Embeddable: 
+   <br>@ManyToOne(fetch = LAZY): 
+   <br>@JoinColumn(name = "member_id"): 
+   <br>@Enumerated(EnumType.STRING): Enum의 타입을 정함
+   <br>
+   <br>
+   **※ 엔티티에서 Setter 사용 지양**
+   <br> Setter는 호출시 데이터가 변동됩니다.
+   <br> Setter를 열어두게 되면 프로젝트가 커지고 복잡해질수록 엔티티가 도대체 왜 어디서 변경되는지 추적하기 점점 힘들어집니다.
+   <br> 그래서 엔티티의 데이터를 변경할 때는 아래 코드처럼 Setter 대신 변경지점이 명확하도록 변경을 위한 비즈니스 메서드를 따로 만들어 제공하였습니다.
+   <br> 그리고 객체의 일관성을 유지하기 위해 객체 생성 시점에 값들을 넣어줌으로서 Setter 사용을 지양할 수 있었습니다.
+   <br> 아래와 같이 기본 생성자 접근자를 protected로 변경하면 new Member() 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있습니다.
+   <br><br>
+   - Member Entity
+   ![img_5.png](img_5.png)
+   - Product Entity
+   ![img_6.png](img_6.png)
+   - WishItem Entity
+   ![img_4.png](img_4.png)
+   
+   <br>아래와 같이 기본 생성자 접근자를 protected로 변경하면 new Entity() 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있습니다.
+   <br>(protected로 설정하는 이유는 JPA 기본 스펙 상 기본 생성자가 필요한데 protected로 제어하는 것 까지 허용되기 때문입니다.)
+   <br> 롬복을 사용하여 어노테이션 설정을 통해 간단하게 설정하였습니다.
+   ![img_9.png](img_9.png)
 
 </div>
 </details>
@@ -70,7 +103,7 @@ SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어
 <summary><b>트러블 슈팅</b></summary>
 <div markdown="1">
 <br>
-<b>JPA - merge를 이용하여 값 수정시 null</b>
+<b>JPA - merge를 이용하여 값 수정시 수정하지 않는 데이터는 값이 null</b>
 <br>
 
 > 중고거래장터 밍마켓  
@@ -126,34 +159,34 @@ public class ProductRepository {
 ProductDto.updateProductForm
 
 ```
-	@Getter
-    @Setter
-    public static class updateProductForm {
+@Getter
+@Setter
+public static class updateProductForm {
+    
+    private Long productId; //pk
 
-        private Long productId; //pk
+    @NotBlank(message = "제목을 입력해주세요")
+    private String title;
 
-        @NotBlank(message = "제목을 입력해주세요")
-        private String title;
+    private String uploadFileName;
 
-        private String uploadFileName;
+    private MultipartFile uploadFile;
 
-        private MultipartFile uploadFile;
+    @NotBlank(message = "상품 설명을 작성해주세요")
+    private String intro;
 
-        @NotBlank(message = "상품 설명을 작성해주세요")
-        private String intro;
+    @NotNull(message = "상품 가격을 입력해주세요")
+    @Range(min = 1000, max = 99999999, message = "1,000 ~ 99,999,999원으로 다시 입력해주세요")
+    private int price;
 
-        @NotNull(message = "상품 가격을 입력해주세요")
-        @Range(min = 1000, max = 99999999, message = "1,000 ~ 99,999,999원으로 다시 입력해주세요")
-        private int price;
-
-        public updateProductForm(Long productId, String title, String thumbnail, String intro, int price) {
-            this.productId = productId;
-            this.title = title;
-            this.uploadFileName = thumbnail;
-            this.intro = intro;
-            this.price = price;
-        }
+    public updateProductForm(Long productId, String title, String thumbnail, String intro, int price) {
+        this.productId = productId;
+        this.title = title;
+        this.uploadFileName = thumbnail;
+        this.intro = intro;
+        this.price = price;
     }
+}
 ```
 
 ProductEntity
@@ -224,6 +257,8 @@ public class Product extends BaseEntity { //상품
 -   이래서 업데이트 시 merge()보단 변경 감지를 사용하자.
 4.  영속 상태의 객체를 반환
 
+<br>
+
 #### **수정된 코드**
 
 **변경 감지 사용 (**dirtyChecking)****
@@ -231,7 +266,7 @@ public class Product extends BaseEntity { //상품
 Service
 
 ```
- /**
+      /**
      * 상품 수정
      * JPA 변경 감지를 활용하여 update.
      * 트렌젝션이 종료될 때 변경된 부분에 대한 update query를 날린다.
@@ -255,6 +290,12 @@ public Product findSingleProduct(Long productId) {
 entityManager로 entity를 직접 꺼내, 값을 수정한다.
 
 @Transactional으로 인하여 로직이 끝날 때 JPA에서 트랜잭션 commit 시점에 변경 감지(Dirty Checking)한 후 Flush를 한다.
+<br>
+<br>
+<br>
+<br>
+<br>
+
 </div>
 </details>
 
