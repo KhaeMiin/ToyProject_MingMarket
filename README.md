@@ -32,19 +32,19 @@
 <details>
 <summary>🔍기능 설명</summary>
 <div markdown="1">
-
+<br>
 자바 진영의 ORM 기술 표준으로 사용되는 인터페이스의 모음인 JPA를 활용하여 웹 애플리케이션을 개발하였습니다. <br>
 JPA 인터페이스의 구현체로 Hibervate 프레임 워크를 사용하였습니다. <br>
 이렇게 JPA를 사용함으로써 INSERT/UPDATE/SELECT 쿼리 등을 직접 작성하지 않아도 데이터를 저장할 수 있게 되었습니다.<br>
 SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어, 
 개발자는 객체 모델을 이용해서 비즈니스 로직을 구성하는 데만 집중할 수 있었습니다. <br>
 
-특히 필드 변경이나 필드를 추가하게 될 경우 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월합니다. <br>
+특히 <b>필드 변경이나 필드를 추가하게 될 경우 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월</b>합니다. <br>
 그리고 초반 개발단계에서는 H2 데이터베이스를 사용하였는데,
-나중에 데이터베이스를 MySQL로 변경하여도 쿼리를 수정하지 않아도 된다는 장점이 있었습니다.  <br>
+나중에 데이터베이스를 MySQL로 변경하여도 <b>쿼리를 수정하지 않아도 된다는 장점</b>이 있었습니다.  <br>
 <br>
 
-1. 도메인 모델 분석 (연관관계 매핑 분석)
+##### `1. 도메인 모델 분석 (연관관계 매핑 분석)`
    - **회원(Member)** 과 **상품(Product)**
      - 한명의 회원은 여러 상품을 등록할 수 있다.
      - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
@@ -54,26 +54,30 @@ SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어
    - **관심 상품(WishItem)** 과 **상품(Product)**
      - 관심 상품은 단 하나의 상품에 해당된다.
      - 관심 상품(WishItem)이 연관관계 주인으로 일대일 관계를 갖는다.
-   - **상품(Product)** 과 **댓글(Comment)** <span style="color: gray">아직 구현 안 함 </span>
+   
+   ---- <span style="font-size: 12px;">구현전↓</span> ---------------------------------------------------------------------------------------------------------
+   - **상품(Product)** 과 **댓글(Comment)** 
      - 하나의 상품에는 여러 댓글을 달 수 있다.
      - 댓글(Comment)과 연관관계 주인으로 다대일 관계를 갖는다.
-   - **회원(Member)** 과 **댓글(Comment)** <span style="color: gray">아직 구현 안 함 </span>
+   - **회원(Member)** 과 **댓글(Comment)**
      - 한명의 회원은 여러 댓글을 달 수 있다.
      - 댓글(Comment)과 연관관계 주인으로 다대일 관계를 갖는다.
-   - **상품(Product)** 과 **카테고리(Category)** <span style="color: gray">아직 구현 안 함 </span>
+   - **상품(Product)** 과 **카테고리(Category)**
      - 하나의 상품은 여러개의 카테고리를 가질 수 있다.
-2. 테이블 설계
+<br><br><br>
+##### `2. 테이블 설계`
    ![](https://blog.kakaocdn.net/dn/VahxL/btrHaoGhKcw/q5jKbGSMBJWhewhLUNohWK/img.png)
-3. 엔티티 개발
-   <br>주요 사용한 어노테이션
-   <br>@Entity: 
-   <br>@Id: Primary Key를 지정
-   <br>@GeneratedValue: 
-   <br>@Embedded: 재사용이 가능함
-   <br>@Embeddable: 
-   <br>@ManyToOne(fetch = LAZY): 
-   <br>@JoinColumn(name = "member_id"): 
-   <br>@Enumerated(EnumType.STRING): Enum의 타입을 정함
+<br><br><br>
+##### `3. 엔티티 개발`
+   <br>👉 주요 사용한 어노테이션
+   - @Entity: 
+   - @Id: Primary Key를 지정
+   - @GeneratedValue: 
+   - @Embedded: 재사용이 가능함
+   - @Embeddable: 
+   - @ManyToOne(fetch = LAZY): 
+   - @JoinColumn(name = "member_id"): 
+   - @Enumerated(EnumType.STRING): Enum의 타입을 정함
    <br>
    <br>
    **※ 엔티티에서 Setter 사용 지양**
@@ -306,7 +310,7 @@ entityManager로 entity를 직접 꺼내, 값을 수정한다.
 
 #### 2. 상품등록, 회원가입 그리고 로그인시 Validation 검증
 <details>
-<summary>기능 설명</summary>
+<summary>🔍기능 설명</summary>
 <div markdown="1">
 
 ```
@@ -365,7 +369,7 @@ error-messages
 
 #### 3. Spring Security 회원가입시 패스워드 암호화 적용하기
 <details>
-<summary>기능 설명</summary>
+<summary>🔍기능 설명</summary>
 <div markdown="1">
 [블로그 정리](https://intelliy-min.tistory.com/49)
 
@@ -377,7 +381,7 @@ error-messages
 
 #### 4. 스프링이 제공하는 MultipartFile을 이용한 이미지 업로드
 <details>
-<summary>기능 설명</summary>
+<summary>🔍기능 설명</summary>
 <div markdown="1">
 
 내용
@@ -388,7 +392,7 @@ error-messages
 
 #### 5. 서블릿 HTTP 세션을 활용한 로그인 상태 유지
 <details>
-<summary>기능 설명</summary>
+<summary>🔍기능 설명</summary>
 <div markdown="1">
 
 내용
@@ -405,7 +409,7 @@ error-messages
 
 #### 6. 스프링 인터셉터를 이용한 로그인 체크
 <details>
-<summary>기능 설명</summary>
+<summary>🔍기능 설명</summary>
 <div markdown="1">
 
 내용
