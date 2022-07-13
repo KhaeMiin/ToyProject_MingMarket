@@ -61,7 +61,7 @@ SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어
    - **상품(Product)** 과 **카테고리(Category)** 아직 구현 안함
      - 하나의 상품은 여러개의 카테고리를 가질 수 있다.
 2. 테이블 설계
-   ![img_1.png](img_1.png)
+   ![](https://blog.kakaocdn.net/dn/VahxL/btrHaoGhKcw/q5jKbGSMBJWhewhLUNohWK/img.png)
 3. 엔티티 개발
    <br>주요 사용한 어노테이션
    <br>@Entity: 
@@ -82,16 +82,16 @@ SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어
    <br> 아래와 같이 기본 생성자 접근자를 protected로 변경하면 new Member() 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있습니다.
    <br><br>
    - Member Entity
-   ![img_5.png](img_5.png)
+   ![](https://blog.kakaocdn.net/dn/rVKYu/btrHdwXCYQl/qqRCWnwt3GfE7wPjJK1km0/img.png)
    - Product Entity
-   ![img_6.png](img_6.png)
+   ![](https://blog.kakaocdn.net/dn/bH7EHq/btrG9mvqVra/J03WQJAQ6G9341EnzoswS0/img.png)
    - WishItem Entity
-   ![img_4.png](img_4.png)
+   ![](https://blog.kakaocdn.net/dn/bvNtgq/btrHdIpX1iS/6jBB1S1wA5bWQrrRb8zOqK/img.png)
    
    <br>아래와 같이 기본 생성자 접근자를 protected로 변경하면 new Entity() 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있습니다.
    <br>(protected로 설정하는 이유는 JPA 기본 스펙 상 기본 생성자가 필요한데 protected로 제어하는 것 까지 허용되기 때문입니다.)
    <br> 롬복을 사용하여 어노테이션 설정을 통해 간단하게 설정하였습니다.
-   ![img_9.png](img_9.png)
+   ![](https://blog.kakaocdn.net/dn/bN2uFz/btrHevKrk2n/oS7FgdEMk3QBDGR1D947bk/img.png)
 
 </div>
 </details>
