@@ -1,5 +1,5 @@
-# :pushpin: MingMarket - 당신 근처의 밍마켓
->중고 거래부터 동네 정보까지, 이웃과 함께해요.
+# :pushpin: MingMarket - 당신 근처의 밍마켓 :fire:
+>:bulb: 중고 거래부터 동네 정보까지, 이웃과 함께해요.
 
 ## 1. 제작 기간 & 참여 인원(역할)
 - 2022년 5월 10일 ~ 진행중
@@ -26,39 +26,41 @@
 
 ## 4. 구현 요구사항
 
-## 5. 핵심 기능 & 트러블 슈팅
+## 5. 핵심 기능 & ⚽트러블 슈팅
 
-### 1. JPA를 활용한 웹 애플리케이션 개발
+#### 1. JPA를 활용한 웹 애플리케이션 개발
 <details>
-<summary><b>기능 설명</b></summary>
+<summary>기능 설명</summary>
 <div markdown="1">
-자바 진영의 ORM 기술 표준으로 사용되는 인터페이스의 모음인 JPA를 활용하여 웹 애플리 케이션을 개발하였다. <br>
-JPA 인터페이스의 구현체로 Hibervate 프레임 워크를 사용하였다. <br>
-이렇게 JPA를 사용함으로써 INSERT/UPDATE/SELECT 쿼리 등을 직접 작성하지 않아도 데이터를 저장할 수 있게 되었다.<br>
-SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어, 개발자는 객체 모델을 이용해서 비즈니스 로직을 구성하는데만 집중할 수 있었다. <br>
 
-특히 필드 변경이나 필드를 추가하게 될 경우 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월하다. <br>
+자바 진영의 ORM 기술 표준으로 사용되는 인터페이스의 모음인 JPA를 활용하여 웹 애플리케이션을 개발하였습니다. <br>
+JPA 인터페이스의 구현체로 Hibervate 프레임 워크를 사용하였습니다. <br>
+이렇게 JPA를 사용함으로써 INSERT/UPDATE/SELECT 쿼리 등을 직접 작성하지 않아도 데이터를 저장할 수 있게 되었습니다.<br>
+SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어, 
+개발자는 객체 모델을 이용해서 비즈니스 로직을 구성하는 데만 집중할 수 있었습니다. <br>
+
+특히 필드 변경이나 필드를 추가하게 될 경우 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월합니다. <br>
 그리고 초반 개발단계에서는 H2 데이터베이스를 사용하였는데,
-나중에 데이터베이스를 MySQL로 변경하여도 쿼리를 수정하지 않아도 된다는 장점이 있었다.  <br>
+나중에 데이터베이스를 MySQL로 변경하여도 쿼리를 수정하지 않아도 된다는 장점이 있었습니다.  <br>
 <br>
 
 1. 도메인 모델 분석 (연관관계 매핑 분석)
    - **회원(Member)** 과 **상품(Product)**
-   - 한명의 회원은 여러 상품을 등록할 수 있다.
-   - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
-   - **회원(Member)** 과 **관심상품(WishItem)**
-     - 한명의 회원은 여러개의 관심상품을 가질 수 있다.
+     - 한명의 회원은 여러 상품을 등록할 수 있다.
+     - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
+   - **회원(Member)** 과 **관심 상품(WishItem)**
+     - 한명의 회원은 여러 개의 관심 상품을 가질 수 있다.
      - 관심상품(WishItem)이 연관관계 주인으로 다대일 관계를 갖는다.
-   - **관심상품(WishItem)** 과 **상품(Product)**
-     - 관심상품은 단 하나의 상품에 해당된다.
-     - 관심상품(WishItem)이 연관관계 주인으로 일대일 관계를 갖는다.
-   - **상품(Product)** 과 **댓글(Comment)** 아직 구현 안함
+   - **관심 상품(WishItem)** 과 **상품(Product)**
+     - 관심 상품은 단 하나의 상품에 해당된다.
+     - 관심 상품(WishItem)이 연관관계 주인으로 일대일 관계를 갖는다.
+   - **상품(Product)** 과 **댓글(Comment)** <span style="color: gray">아직 구현 안 함 </span>
      - 하나의 상품에는 여러 댓글을 달 수 있다.
-     - 댓글(Comment)가 연관관계 주인으로 다대일 관계를 갖는다.
-   - **회원(Member)** 과 **댓글(Comment)** 아직 구현 안함
+     - 댓글(Comment)과 연관관계 주인으로 다대일 관계를 갖는다.
+   - **회원(Member)** 과 **댓글(Comment)** <span style="color: gray">아직 구현 안 함 </span>
      - 한명의 회원은 여러 댓글을 달 수 있다.
-     - 댓글(Comment)가 연관관계 주인으로 다대일 관계를 갖는다.
-   - **상품(Product)** 과 **카테고리(Category)** 아직 구현 안함
+     - 댓글(Comment)과 연관관계 주인으로 다대일 관계를 갖는다.
+   - **상품(Product)** 과 **카테고리(Category)** <span style="color: gray">아직 구현 안 함 </span>
      - 하나의 상품은 여러개의 카테고리를 가질 수 있다.
 2. 테이블 설계
    ![](https://blog.kakaocdn.net/dn/VahxL/btrHaoGhKcw/q5jKbGSMBJWhewhLUNohWK/img.png)
@@ -75,10 +77,10 @@ SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어
    <br>
    <br>
    **※ 엔티티에서 Setter 사용 지양**
-   <br> Setter는 호출시 데이터가 변동됩니다.
+   <br> Setter는 호출 시 데이터가 변동됩니다.
    <br> Setter를 열어두게 되면 프로젝트가 커지고 복잡해질수록 엔티티가 도대체 왜 어디서 변경되는지 추적하기 점점 힘들어집니다.
-   <br> 그래서 엔티티의 데이터를 변경할 때는 아래 코드처럼 Setter 대신 변경지점이 명확하도록 변경을 위한 비즈니스 메서드를 따로 만들어 제공하였습니다.
-   <br> 그리고 객체의 일관성을 유지하기 위해 객체 생성 시점에 값들을 넣어줌으로서 Setter 사용을 지양할 수 있었습니다.
+   <br> 그래서 엔티티의 데이터를 변경할 때는 아래 코드처럼 Setter 대신 변경 지점이 명확하도록 변경을 위한 비즈니스 메서드를 따로 만들어 제공하였습니다.
+   <br> 그리고 객체의 일관성을 유지하기 위해 객체 생성 시점에 값들을 넣어줌으로써 Setter 사용을 지양할 수 있었습니다.
    <br> 아래와 같이 기본 생성자 접근자를 protected로 변경하면 new Member() 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있습니다.
    <br><br>
    - Member Entity
@@ -89,15 +91,20 @@ SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어
    ![](https://blog.kakaocdn.net/dn/bvNtgq/btrHdIpX1iS/6jBB1S1wA5bWQrrRb8zOqK/img.png)
    
    <br>아래와 같이 기본 생성자 접근자를 protected로 변경하면 new Entity() 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있습니다.
-   <br>(protected로 설정하는 이유는 JPA 기본 스펙 상 기본 생성자가 필요한데 protected로 제어하는 것 까지 허용되기 때문입니다.)
+   <br>(protected로 설정하는 이유는 JPA 기본 스펙상 기본 생성자가 필요한데 protected로 제어하는 것까지 허용되기 때문입니다.) 
    <br> 롬복을 사용하여 어노테이션 설정을 통해 간단하게 설정하였습니다.
    ![](https://blog.kakaocdn.net/dn/bN2uFz/btrHevKrk2n/oS7FgdEMk3QBDGR1D947bk/img.png)
+
+<br>
+<br>
+<br>
+<br>
 
 </div>
 </details>
 
 <details>
-<summary><b>트러블 슈팅</b></summary>
+<summary>⚽트러블 슈팅</summary>
 <div markdown="1">
 <br>
 <b>JPA - merge를 이용하여 값 수정시 수정하지 않는 데이터는 값이 null</b>
@@ -297,9 +304,9 @@ entityManager로 entity를 직접 꺼내, 값을 수정한다.
 </details>
 
 
-### 2. 상품등록, 회원가입 그리고 로그인시 Validation 검증
+#### 2. 상품등록, 회원가입 그리고 로그인시 Validation 검증
 <details>
-<summary><b>기능 설명</b></summary>
+<summary>기능 설명</summary>
 <div markdown="1">
 
 ```
@@ -356,9 +363,9 @@ error-messages
 </div>
 </details>
 
-### 3. Spring Security 회원가입시 패스워드 암호화 적용하기
+#### 3. Spring Security 회원가입시 패스워드 암호화 적용하기
 <details>
-<summary><b>기능 설명</b></summary>
+<summary>기능 설명</summary>
 <div markdown="1">
 [블로그 정리](https://intelliy-min.tistory.com/49)
 
@@ -368,9 +375,9 @@ error-messages
 </div>
 </details>
 
-### 4. 스프링이 제공하는 MultipartFile을 이용한 이미지 업로드
+#### 4. 스프링이 제공하는 MultipartFile을 이용한 이미지 업로드
 <details>
-<summary><b>기능 설명</b></summary>
+<summary>기능 설명</summary>
 <div markdown="1">
 
 내용
@@ -379,9 +386,9 @@ error-messages
 </details>
 
 
-### 5. 서블릿 HTTP 세션을 활용한 로그인 상태 유지
+#### 5. 서블릿 HTTP 세션을 활용한 로그인 상태 유지
 <details>
-<summary><b>기능 설명</b></summary>
+<summary>기능 설명</summary>
 <div markdown="1">
 
 내용
@@ -389,16 +396,16 @@ error-messages
 </div>
 </details>
 <details>
-<summary><b>트러블 슈팅</b></summary>
+<summary>⚽트러블 슈팅</summary>
 <div markdown="1">
 <b>로그인 상태 유지시 경로 localhost:xxxx/; jsessionid=~~</b>
 </div>
 </details>
 
 
-### 6. 스프링 인터셉터를 이용한 로그인 체크
+#### 6. 스프링 인터셉터를 이용한 로그인 체크
 <details>
-<summary><b>기능 설명</b></summary>
+<summary>기능 설명</summary>
 <div markdown="1">
 
 내용
@@ -410,9 +417,7 @@ error-messages
 
 <br>
 
-## 6. 트러블 슈팅
-
-
+## 6. ⚽기타 트러블 슈팅
 
 <details>
 <summary><b>로그인 : 없는 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</b></summary>
