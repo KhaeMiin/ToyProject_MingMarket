@@ -26,11 +26,11 @@
 
 ## 4. 구현 요구사항
 
-## 5. 핵심 기능 & ⚽트러블 슈팅
+## 5. 핵심 기능 & 트러블 슈팅
 
 #### 1. JPA를 활용한 웹 애플리케이션 개발
 <details>
-<summary>기능 설명</summary>
+<summary>🔍기능 설명</summary>
 <div markdown="1">
 
 자바 진영의 ORM 기술 표준으로 사용되는 인터페이스의 모음인 JPA를 활용하여 웹 애플리케이션을 개발하였습니다. <br>
@@ -417,7 +417,7 @@ error-messages
 
 <br>
 
-## 6. ⚽기타 트러블 슈팅
+## 6. 기타 트러블 슈팅
 
 <details>
 <summary><b>로그인 : 없는 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</b></summary>
