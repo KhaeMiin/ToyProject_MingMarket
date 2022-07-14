@@ -2,16 +2,11 @@ package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
-import project.toyproject.dto.LoginDto;
-import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
 import java.util.Optional;
@@ -25,14 +20,12 @@ import static project.toyproject.dto.MemberDto.*;
 public class LoginService{
 
     private final MemberRepository memberRepository;
-
     private final PasswordEncoder passwordEncoder;
-
     /**
      * 로그인
      */
     public SessionMemberData login(String userId, String password) {
-        Optional<Member> findMemberOptional = memberRepository.findByloginId(userId);
+        Optional<Member> findMemberOptional = memberRepository.findByLoginId(userId);
 
         //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
         if (!findMemberOptional.isPresent()) {
@@ -55,12 +48,6 @@ public class LoginService{
         } else {
             return null; //비밀번호가 일치하지 않을 경우 null 반환
         }
-
-/*        if (member.getPass().equals(password)) { //비밀번호가 (일치) 있을 경우
-            return member;
-        } else {
-            return null; //비밀번호가 일치하지 않을 경우 null 반환
-        }*/
     }
 
     /**

@@ -42,7 +42,7 @@ public class MemberRepository {
      * TODO
      * 코드 리팩토링 예정 (람다함수, stream 사용해보기)
      */
-    public Optional<Member> findByloginId(String userId) {
+    public Optional<Member> findByLoginId(String userId) {
         List<Member> members = em.createQuery("select m from Member m", Member.class)
                 .getResultList();
         for (Member m : members) {
