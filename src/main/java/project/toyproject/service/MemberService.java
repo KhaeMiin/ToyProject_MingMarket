@@ -13,9 +13,9 @@ import java.util.List;
 
 import static project.toyproject.dto.MemberDto.*;
 
-@Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
+@Service //Component > 자동 빈 등록(기본적인 내용이지만 적어둠)
+@Transactional(readOnly = true) //스프링이 제공하는 트렌젝션
+@RequiredArgsConstructor //final 붙은 필드만 가지고 생성자 만든다.
 public class MemberService {
 
     private final MemberRepository memberRepository;
