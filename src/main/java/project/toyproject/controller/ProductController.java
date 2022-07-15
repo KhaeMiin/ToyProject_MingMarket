@@ -56,7 +56,7 @@ public class ProductController {
             return "product/createProductForm"; //다시 폼으로 이동
         }
 
-        String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 상대 경로
+        String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 저장 경로
         String uploadFile = fileUpload.serverUploadFile(form.getThumbnail(), realPath);
 
         //데이터 베이스에 저장

@@ -10,8 +10,10 @@ import java.util.UUID;
 
 @Component
 public class FileUpload {
-
-
+    /**
+     * @param filename: 서버에 업로드되는 파일명
+     * @param fileDir: 파일이 저장되는 경로
+     */
     public String getFullPath(String filename, String fileDir) {
         return fileDir + filename;
     }
@@ -26,15 +28,12 @@ public class FileUpload {
         multipartFile.transferTo(new File(getFullPath(serverUploadFileName, fileDir)));//저장: (서버에 업로드되는 파일명, 업로드 되는 경로)
 
         return serverUploadFileName;
-
     }
 
     //uuid 생성해서 뒤에 원래파일명의 확장자명 붙이기
     private String createServerFileName(String originalFilename) {
         String uuid = UUID.randomUUID().toString();
-
         String ext = extractExt(originalFilename);
-
         return uuid + "." + ext;
     }
 

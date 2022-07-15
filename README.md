@@ -460,8 +460,108 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 <summary>📌기능 설명</summary>
 <div markdown="1">
 
-내용
+파일은 문자와 다르게 바이너리 데이터를 전송해야 한다.<br>
+그리고 보통 폼을 전송할 때 문자와 바이너리를 동시에 전송해야하는 경우가 대부분일 것이다.<br>\
+이 문제를 해결하기 위해 HTTP가 제공하는 multipart/form-data 라는 전송 방식을 사용한다.<br>
 
+> **바이너리 파일(binart file)**  
+> 바이너리 파일은 데이터의 저장과 처리를 목적으로   
+> 0과 1의 이진 형식으로 인코딩된 파일을 가리킵니다. (텍스트 파일이 아닌 컴퓨터 파일)  
+> 프로그램이 이 파일의 데이터를 읽거나 쓸 때는 데이터의 어떠한 변환도 일어나지 않습니다.
+
+👇html
+
+```
+<form action="/save" method="post" enctype="multipart/form-data">
+    <input type="text" name="name">
+    <input type="file" name="image">
+    <button type="submit">전송</button>
+</form>
+```
+
+데이터를 전송하게 되면 아래와 같은 내용으로 HTTP Body에 담긴다.
+
+👇HTTP Message Body
+
+```
+------WebKitFormBoundaryMVA4MPoFDDjKPJl2
+Content-Disposition: form-data; name="name"
+kim!
+------WebKitFormBoundaryMVA4MPoFDDjKPJl2
+Content-Disposition: form-data; name="image"; filename="ì‚¬ì§„.jpg"
+Content-Type: image/jpeg
+... ÿØÿà·'j©?AGÙ'ìÿÙ ...
+------WebKitFormBoundaryMVA4MPoFDDjKPJl2--
+
+```
+
+-   "---xxx"로 영역 구분
+-   "Content-Disposition:form-data; data="data" ~ → 영역의 시작(해당 영역에 대한 정보)
+-   "---xxx--" 끝 명시
+
+위와 같은 식으로 각각의 항목을 구분해서 한번에 형식이 다른 여러 항목들을 전송할 수 있다.
+
+**multipart/form-data 방식**
+
+##### `1. HTML <form></form>`
+
+![](https://blog.kakaocdn.net/dn/bEzhRg/btrHlyujC08/Stg8pOWOeNHOSwHNeSNhdk/img.png)
+
+우선 이 방식을 사용하기 위해 Form 태그에 enctype="multipart/form-data"를 추가로 지정했다.
+
+##### `2. 파일 저장과 관련된 업무를 처리할 수 있는 Class`
+
+👇FileUpload
+
+![](https://blog.kakaocdn.net/dn/QcvP1/btrHiXIsX2Q/KnseROr0VaUhxqAwrBOf1K/img.png)
+
+- `extractExt(String originalFilename)`: 원래 파일명에서 확장자를 뽑는다. (.jpg, .pnp ...)
+- `createServerFileName(String originalFilename)`: 서버 내부에서 관리하는 파일명으로 UUID를 생성한 후 원래 파일명 확장자를 붙인다. (ex: UUID.jpg)
+<br>중복된 파일명으로 저장되어 충돌나는 현상을 방지하기 위해 UUID를 사용하였다.
+- `serverUploadFile(MultipartFile multipartFile, '저장되는 경로')`: 파일을 저장한다.
+`file.transferTo(new File("PATH")` 을 이용해 파일을 저장할 수 있다.<br>
+사용자가 업로드한 파일명은  `file.getOriginalFilename()`  으로 받을 수 있다.
+
+##### `3. Cotroller (+ 파일이 저장되는 경로 구하기)`
+
+![](https://blog.kakaocdn.net/dn/HmdDv/btrHkUw0QIR/Nzodo4mwE1kxSuPHkw0Fik/img.png)
+
+`realPath`: 파일이 저장되는 경로이다.<br>
+`request.getSession().getServletContext().getRealPath("/upload")`: **내 프로젝트/src/main/webapp/upload 파일 경로**이다.
+<br>
+즉, 저 경로에 webapp 파일이 없다면 에러가 나거나 톰캣의 임시폴더에 저장되게 된다.
+<br>이러한 오류를 방지하려면 webapp 파일을 꼭 만들어줘야한다.
+
+<img src="https://blog.kakaocdn.net/dn/ZbQri/btrHi3IeEig/rRroFpWzLHMF517PutZa9K/img.png" width="400">
+
+<br>
+
+<details>
+<summary>✔️ Spring Boot 와 Thymeleaf 경우 참고사항</summary>
+<div markdown="1">
+
+Spring Boot 와 Thymeleaf 적용중이라면 기본적으로 static에서 파일을 읽게 된다. (css 또는 js 파일 등)  
+그래서 파일 업로드된 이미지파일을 불러올 때 경로 오류로 불러오지 않는 상황이 생길 수도 있다.  
+이 때는 정적 리소스에 접근해서 경로를 바꿔줘야한다.  
+application.yml 에서 다음과 같이 코드를 적어주었다.
+
+<img src="https://blog.kakaocdn.net/dn/pyL4h/btrHjdxwR8x/ySt8rpT5YGZRMgKEMixbkk/img.png" width="400">
+
+👇html에서 Bootstrap css와 기타 css파일 위치를 수정해주었다.
+
+![](https://blog.kakaocdn.net/dn/bLpa6K/btrHiG1l93c/jGIQA5j2rgJjmKmMkkjDzk/img.png)
+
+</div>
+</details>
+
+이미지를 HTML에서 보여줄 때는 아래코드를 이용하여 Resource를 보여주었다.
+
+```
+<img th:src="@{/webapp/upload/} + ${fileName}">
+
+```
+
+<br>
 </div>
 </details>
 
