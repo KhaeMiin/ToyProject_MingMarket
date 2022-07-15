@@ -72,18 +72,18 @@
 
 ##### `3. 엔티티 개발`
 👉 주요 사용한 어노테이션
-- @Entity: 해당 클래스가 DB테이블과 1대 1 매칭
-- @Id: Primary Key를 지정
-- @GeneratedValue: AUTO(dafault) 데이터베이스에 의해 자동으로 생성된 값
-- @Embedded: 새로운 값 타입을 직접 정의해서 사용 (재사용이 가능함), 값 타입을 사용하는 곳에 표시
-- @Embeddable: 값 타입을 정의하는 곳에 표시
-- @ManyToOne(fetch = LAZY), @OneToOne(fetch = LAZY): 연관 관계 맵핑
-  - <img src="https://blog.kakaocdn.net/dn/xW1JV/btrHfmNFlWw/SZdtqTXWq0h5RvEjcBvE80/img.png" width="400">
-  - fetch = LAZY: 지연로딩 → 로딩되는 시점에 Lazy 로딩 설정이 되어있는 member 엔티티는 프록시 객체로 가져온다
+- `@Entity`: 해당 클래스가 DB테이블과 1대 1 매칭
+- `@Id`: Primary Key를 지정
+- `@GeneratedValue`: `AUTO(dafault)` 데이터베이스에 의해 자동으로 생성된 값
+- `@Embedded`: 새로운 값 타입을 직접 정의해서 사용 (재사용이 가능함), 값 타입을 사용하는 곳에 표시
+- `@Embeddable`: 값 타입을 정의하는 곳에 표시
+- `@ManyToOne(fetch = LAZY)`, `@OneToOne(fetch = LAZY)`: 연관 관계 맵핑
+  - <img src="https://blog.kakaocdn.net/dn/xW1JV/btrHfmNFlWw/SZdtqTXWq0h5RvEjcBvE80/img.png" width="350">
+  - `fetch = LAZY`: 지연로딩 → 로딩되는 시점에 Lazy 로딩 설정이 되어있는 member 엔티티는 프록시 객체로 가져온다
   - 후에 실제 객체를 사용하는 시점에(member 사용하는 시점에) 초기화가 된다. DB에 쿼리가 나간다. (select 쿼리가 따로 2번 나감)
-  - @ManyToOne, @OneToOne: 기본이 (fetch = EAGER) → 즉시로딩 이므로 LAZY로 바꿔준다.
-- @JoinColumn(name = "member_id"):연관 관계를 맺을 해당 객체의 컬럼 값을 넣어주기
-- @Enumerated(EnumType.STRING): 자바의 enum 타입을 매핑할 때 사용
+  - `@ManyToOne`, `@OneToOne`: 기본이 `(fetch = EAGER)` → 즉시로딩 이므로 LAZY로 바꿔준다.
+- `@JoinColumn(name = "member_id")`:연관 관계를 맺을 해당 객체의 컬럼 값을 넣어주기
+- `@Enumerated(EnumType.STRING)`: 자바의 enum 타입을 매핑할 때 사용
   <br>
   <br>
 
@@ -163,7 +163,7 @@
 
 **merge()의 동작 방식**
 
-1.  merge()를 실행
+1.  `merge()`를 실행
 2.  파라미터로 넘어온 준영속 엔티티의 식별자 값으로 1차 캐시에서 엔티티를 조회
 -   만약 1차 캐시에 엔티티가 없으면 데이터베이스에 엔티티를 조회하고 1차 캐시에 저장.
 -   무조건 1번은 db 조회를 하므로 성능에 좋지 않을 수 있다.
@@ -191,9 +191,9 @@ public Product findSingleProduct(Long productId) {
 }
 ```
 
-entityManager로 entity를 직접 꺼내, 값을 수정한다.
+`entityManager`로 entity를 직접 꺼내, 값을 수정한다.
 
-@Transactional으로 인하여 로직이 끝날 때 JPA에서 트랜잭션 commit 시점에 변경 감지(Dirty Checking)한 후 Flush를 한다.
+`@Transactional`으로 인하여 로직이 끝날 때 JPA에서 트랜잭션 commit 시점에 변경 감지(Dirty Checking)한 후 Flush를 한다.
 <br>수정시 입력되지 않은 값은 그대로 유지된다.
 <br>
 <br>
@@ -211,7 +211,7 @@ entityManager로 entity를 직접 꺼내, 값을 수정한다.
 #### `1. Valid Annotation을 이용한 Validation 체크`
 ✔️Spring에서는 사용자가 입력한 값에 대한 유효성을 체크하기 위해 Spring Validator를 사용할 수 있도록 지원하고 있다.
 
-- build.gradle에 dependency 추가 <br>
+- `build.gradle`에 dependency 추가 <br>
 `implementation 'org.springframework.boot:spring-boot-starter-validation'`
 - **Dto**객체를 정의한 후 각 필드에 맞는 Annotation을 사용했다.
   - `@NotNull`: Null 허용하지 않음 (" ", "" 허용)
@@ -222,7 +222,7 @@ entityManager로 entity를 직접 꺼내, 값을 수정한다.
 - **Controller**에서는 Dto 객체 앞에 `@Valied`, 그리고 객체 뒤에는 `BindingResult result`를 명시한다.
   - `@Valid` 선언된 객체에 설정을 바탕으로 유효성 검사
   - 데이터가 유효하지 않은 속성이 있으면 그에 대한 에러 정보를 BindingResult에 담는다.
-    - 아래 코드처럼 result에 에러가 담겨있는지 확인하는 로직을 만들어 에러가 있으면 폼으로 다시 이동할 수 있도록 한다. 
+    - 아래 코드처럼 `result`에 에러가 담겨있는지 확인하는 로직을 만들어 에러가 있으면 폼으로 다시 이동할 수 있도록 한다. 
     ```
       if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
         return "product/createProductForm"; //다시 폼으로 이동
@@ -230,12 +230,12 @@ entityManager로 entity를 직접 꺼내, 값을 수정한다.
       ```
 <br>
 
-#### `2. 회원가입시 아이디 중복 검증 & `
+#### `2. 회원가입시 아이디 중복 검증 `
 👇MemberService에서 따로 중복 아이디를 검증하는 메서드를 만들었다.
 
 <img src="https://blog.kakaocdn.net/dn/dEOPkl/btrHfRfKHvx/ndrBqKHn87J1vQLJdmxv20/img.png" width="650">
 
-👇그리고 화면에 보여질 오류메시지는 타임리프를 통해 아래코드와 같이 globalError()를 출력시켜주었다.
+👇그리고 화면에 보여질 오류메시지는 타임리프를 통해 아래코드와 같이 `globalError()`를 출력시켜주었다.
 ````
     <div th:if="${#fields.hasGlobalErrors()}">
         <p class="field-error" th:each="err : ${#fields.globalErrors()}"
@@ -265,11 +265,9 @@ error-messages
 
 ##### `1. 의존성 주입`
 
-```
-dependencies {
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.5' /* 스프링 시큐리티 */
-}
-```
+- `build.gradle`에 dependency 추가 <br>
+  `implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security`
+
 
 ##### `2. Config 설정`
 <details>  
@@ -460,7 +458,7 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 <summary>📌기능 설명</summary>
 <div markdown="1">
 
-파일은 문자와 다르게 바이너리 데이터를 전송해야 한다.<br>
+✏️파일은 문자와 다르게 바이너리 데이터를 전송해야 한다.<br>
 그리고 보통 폼을 전송할 때 문자와 바이너리를 동시에 전송해야하는 경우가 대부분일 것이다.<br>\
 이 문제를 해결하기 위해 HTTP가 제공하는 multipart/form-data 라는 전송 방식을 사용한다.<br>
 
@@ -532,7 +530,7 @@ Content-Type: image/jpeg
 즉, 저 경로에 webapp 파일이 없다면 에러가 나거나 톰캣의 임시폴더에 저장되게 된다.
 <br>이러한 오류를 방지하려면 webapp 파일을 꼭 만들어줘야한다.
 
-<img src="https://blog.kakaocdn.net/dn/ZbQri/btrHi3IeEig/rRroFpWzLHMF517PutZa9K/img.png" width="400">
+<img src="https://blog.kakaocdn.net/dn/ZbQri/btrHi3IeEig/rRroFpWzLHMF517PutZa9K/img.png" width="350">
 
 <br>
 
@@ -545,11 +543,11 @@ Spring Boot 와 Thymeleaf 적용중이라면 기본적으로 static에서 파일
 이 때는 정적 리소스에 접근해서 경로를 바꿔줘야한다.  
 application.yml 에서 다음과 같이 코드를 적어주었다.
 
-<img src="https://blog.kakaocdn.net/dn/pyL4h/btrHjdxwR8x/ySt8rpT5YGZRMgKEMixbkk/img.png" width="400">
+<img src="https://blog.kakaocdn.net/dn/pyL4h/btrHjdxwR8x/ySt8rpT5YGZRMgKEMixbkk/img.png" width="300">
 
 👇html에서 Bootstrap css와 기타 css파일 위치를 수정해주었다.
 
-![](https://blog.kakaocdn.net/dn/bLpa6K/btrHiG1l93c/jGIQA5j2rgJjmKmMkkjDzk/img.png)
+<img src="https://blog.kakaocdn.net/dn/bLpa6K/btrHiG1l93c/jGIQA5j2rgJjmKmMkkjDzk/img.png" width="600">
 
 </div>
 </details>
