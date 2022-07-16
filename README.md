@@ -598,7 +598,7 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 ## 6. 기타 트러블 슈팅
 
 <details>
-<summary><b>로그인 : 없는 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</b></summary>
+<summary>로그인 : 없는 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</summary>
 <div markdown="1">
 
 **현재 문제점**
@@ -714,7 +714,7 @@ if문으로 아이디 정보가 없을 경우 null을 리턴한다.
 ### 해결하지 못한 문제
 
 <details>
-<summary><b>로그아웃시 메인("/")페이지로 이동되지 않음("/login?logout"으로 location되는 상황)</b></summary>
+<summary>로그아웃시 메인("/")페이지로 이동되지 않음("/login?logout"으로 location되는 상황)</summary>
 <div markdown="1">
 내용
 </div>
@@ -723,23 +723,22 @@ if문으로 아이디 정보가 없을 경우 null을 리턴한다.
 
 <br>
 
-## 7. 코드 리팩토링
+## 7. 회고 / 느낀점
 
-### 1. Controller에 노출되어 있는 Entity 객체 Service계층으로 옮기기
+#### 📝간단한 KPT
+##### 🔻Keep
+
+##### 🔻Problem
+
+##### 🔻Try
+
+
+## 8. 코드 리팩토링
+
 <details>
-<summary><b>코드 설명</b></summary>
+<summary>코드 설명</summary>
 <div markdown="1">
 
 
 </div>
 </details>
-
-## 8. 회고 / 느낀점
-
-### 간단한 KPT
-#### Keep
-
-#### Problem
-
-#### Try
-
