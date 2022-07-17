@@ -50,7 +50,6 @@ public class LoginController {
 
         SessionMemberData loginMember = loginService.login(form.getUserId(), form.getPassword());
 
-
         //로그인 실패시 (null)
         if (loginMember == null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다");

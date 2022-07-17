@@ -1,5 +1,5 @@
 # 🔥 MingMarket - 지금 거래해요 밍마켓 🔥
->:bulb: 자유로운 중고 거래, 모두가 함께해요. <br>
+>:bulb: **자유로운 중고 거래, 모두가 함께해요.** <br>
 > 회원 모두가 자유롭게 판매할 상품을 올릴 수 있다. <br>
 > 판매자와 구매자는 채팅 기능인 『문의하기』를 통해 거래를 할 수 있다. <br>
 
@@ -8,19 +8,14 @@
 
 ## 2. 사용 기술
 #### `Back-end`
-1. Project:
-    - Gradle Project
-    - Java 11
-    - Spring Boot 2.6.7
-2. Dependencies
-    - SpringWeb
-    - Thymeleaf
-    - Lombok
-    - Validation
-    - H2 Database
-    - MySQL Driver
-    - Spring Data JPA
-    - Spring Security 2.4.5
+- Gradle Project
+- Java 11
+- Spring Boot 2.6.7
+- Lombok
+- H2 1.4.200
+- MySQL 8
+- Spring Data JPA
+- Spring Security 2.4.5
 #### `Front-end`
 - JavaScript
 - Thymeleaf
@@ -66,14 +61,15 @@
 
 
 <details>
-<summary>📁상품 등록과 수정</summary>
+<summary>📁상품 등록, 수정, 삭제</summary>
 <div markdown="1">
 
-##### `상품 등록과 수정`
-- 상품 등록시 대표이미지, 제목, 상세설명, 가격, 카테고리를 입력받는다.
+##### `상품 등록, 수정, 삭제`
+- 상품 등록시 대표이미지, 제목, 상세 설명, 가격, 카테고리를 입력받는다.
 - 비회원은 상품을 등록할 수 없다.
 - 수정시 대표이미지, 제목, 상세설명, 가격, 카테고리를 변경할 수 있다.
-
+- 등록한 회원은 거래 상태와 무관하게 상품을 삭제할 수 있다.
+- 관심 상품에 추가된 상품이 삭제될 경우, 자동으로 삭제된다. (❌ 구현전)
 
 </div>
 </details>
@@ -91,7 +87,7 @@
 ##### `상품 문의(❌ 구현전)`
 - 상품을 거래하고자 할 경우 채팅을 통해서 문의 가능하다.
 - 상품 디테일 페이지에 상품 문의하기 버튼이 있다.
-- 로그인 회원만 가능핟. (비회원 사용 불가)
+- 로그인 회원만 가능하다. (비회원 사용 불가)
 - 본인이 본인에게 문의는 불가능하다.
 - 이미 거래가 완료된 상품은 더이상 문의할 수 없다.
 
@@ -103,8 +99,8 @@
 <div markdown="1">
 
 ##### `상품 리스트`
-- 메인화면에 상품리스트가 출력된다.
-- 등록 날짜가 가장 최근 순으로 출력된다.
+- 메인화면에 상품리스트가 출력된다. 
+- 등록 날짜가 가장 최신 순으로 출력된다.
 
 ##### `상품 검색기능, 카테고리 (❌ 구현전)`
 - 원하는 상품 정보를 검색할 수 있다. (제목, 내용, 판매자 닉네임 모두 검색됨)
@@ -518,7 +514,7 @@ db에 암호화되어 저장된 패스워드가 서로 대칭되는지**에 대�
 
 👇LoginService
 
-<img src="https://blog.kakaocdn.net/dn/b0YkMq/btrHhb073cO/MZdINK7UDjp2YzBIacotO1/img.png" width="450">
+<img src="https://blog.kakaocdn.net/dn/b0YkMq/btrHhb073cO/MZdINK7UDjp2YzBIacotO1/img.png" width="500">
 
 passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 입력받아서 한번 더 체크한다.
 
@@ -539,16 +535,17 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 </div>
 </details>
 
-#### 4. Spring MultipartFile을 이용한 이미지 업로드
+#### 4. 상품 등록시 Spring MultipartFile을 이용한 대표이미지 업로드
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
-
+<br>
 ✏️파일은 문자와 다르게 바이너리 데이터를 전송해야 한다.<br>
-그리고 보통 폼을 전송할 때 문자와 바이너리를 동시에 전송해야하는 경우가 대부분일 것이다.<br>\
-이 문제를 해결하기 위해 HTTP가 제공하는 multipart/form-data 라는 전송 방식을 사용한다.<br>
 
-> **바이너리 파일(binart file)**  
+그리고 **상품 등록 시 제목, 상세 설명, 가격 등 문자와 바이너리를 동시에 폼에 담아 전송**해야 한다.<br>
+이 문제를 해결하기 위해 HTTP가 제공하는 multipart/form-data라는 전송 방식을 사용한다.<br>
+
+> 📝 **바이너리 파일(binart file)**  
 > 바이너리 파일은 데이터의 저장과 처리를 목적으로   
 > 0과 1의 이진 형식으로 인코딩된 파일을 가리킵니다. (텍스트 파일이 아닌 컴퓨터 파일)  
 > 프로그램이 이 파일의 데이터를 읽거나 쓸 때는 데이터의 어떠한 변환도 일어나지 않습니다.
@@ -589,7 +586,7 @@ Content-Type: image/jpeg
 
 ##### `1. HTML <form></form>`
 
-![](https://blog.kakaocdn.net/dn/bEzhRg/btrHlyujC08/Stg8pOWOeNHOSwHNeSNhdk/img.png)
+<img src="https://blog.kakaocdn.net/dn/bEzhRg/btrHlyujC08/Stg8pOWOeNHOSwHNeSNhdk/img.png" width="500">
 
 우선 이 방식을 사용하기 위해 Form 태그에 `enctype="multipart/form-data"`를 추가로 지정했다.
 
@@ -649,34 +646,49 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 </div>
 </details>
 
-
-#### 5. 세션(HttpSession) 기반 로그인 처리하기
+#### 5. Spring Interceptor를 이용한 로그인 체크
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
 
-내용
+##### `인터셉터 (Interceptor)`<br>
+>Interceptor란 컨트롤러에 들어오는 요청 `HttpRequest`와 컨트롤러가 응답하는 `HttpResponse`를 가로채는 역할을 한다.<br>
 
-</div>
-</details>
-<details>
+📝사용자 요청으로 서버로 들어온 Request 객체를 Controller의 Handler(사용자가 요청한 URL에 따라 실행되어야 할 메서드)로 도달하기 전 가로채어, 
+원하는 추가 작업이나 로직을 수행한 후 Handler로 보낼 수 있도록 해준다.
+<br><br>
+##### `사용이유` <br>
+프로젝트 올리기, 마이페이지 등 로그인을 한 사용자만 실행할 수 있는 Controller Handler를 작성할 때,<br>
+오직 로그인 회원만 실행할 수 있도록 하기 위해 **로그인 회원인지 확인하는 체크 코드를 각 핸들러에 모두 작성**해주어야 한다.<br>
+이렇게 모두 작성하게 되면 **반복되는 코드들이 많아지고** 그로 인해 메모리 낭비, 서버의 부하가 늘어난다.<br>
+그리고 **코드의 누락 실수**가 발생할 수 있다.<br>
+그렇게 된다면 자격이 없는 사용자가 접근할 수 있게 되어 보안 측면에서 문제가 생긴다.<br><br>
+🔧이러한 문제점들을 줄이기 위해 Interceptor를 사용하여 핸들러 수만큼 작성했던 **로그인 체크 코드를 Interceptor 클래스에 한 번만 작성하면 된다.**<br>
+이에 따라 **코드의 중복을 제거**할 수 있고 **메모리 낭비를 줄일 수 있다.**<br>
+동시에 누락에 대한 위험이 상당히 줄어든다.
 
-#### 6. Spring Interceptor를 이용한 로그인 체크
-<details>
-<summary>📌기능 설명</summary>
-<div markdown="1">
 
-인터셉터 (Interceptor)<br>
-Interceptor란 컨트롤러에 들어오는 요청 HttpRequest와 컨트롤러가 응답하는 HttpResponse를 가로채는 역할을 한다.<br>
-Client에서 Server로 들어온 Request 객체를,<br>
-Controller의 Handler로 도달하기 전 가로채어,<br>
-원하는 추가 작업이나 로직을 수행 한 후 컨트롤러(handler)로 보낼 수 있도록 해주는 Module이다.<br>
+**1. 인터셉터(Interceptor) 구현**
 
-**인터셉터(Interceptor) 구현**
 <img src="https://blog.kakaocdn.net/dn/bn3GX2/btrHqPXdnCO/kuJsdangJWx8fLhPCnpV31/img.png">
 
+- `request.getRequestURI`: 웹 서버로 요청 시, 요청에 사용된 URL 로부터 URI 값을 리턴한다.
+- `?redirectURL= + requestURI`: 로그인 사용자가 아닌 경우, 쿼리스프링으로 현재 요청 페이지 URI를 넣어서 로그인 페이지로 보낸다.
 
-**
+<img src="https://blog.kakaocdn.net/dn/VgvVw/btrHrwC6B25/RvBx3raJQAbgzkvTutyzO0/img.png" width="600">
+
+- LoginController에서 로그인 성공시 다시 요청했던 페이지로 갈 수 있도록 쿼리스프링을 받아서 redirect 하였다. <br>
+- ` @RequestParam(defaultValue = "/")`: 기본 값을 "/"로 설정하여 넘어오는 URI가 없을 경우 메인 페이지로 갈 수 있도록 하였다.
+
+**2. WebMvcConfigurer 구현 후 Interceptor 등록**
+
+<img src="https://blog.kakaocdn.net/dn/Td4Wu/btrHqRBxYUG/Ak6XVZEoeFSf4a1Qx62UBk/img.png" width="600">
+
+- `.addInterceptor()` : 등록할 인터셉터 설정
+- `.order()`: Interceptor 실행 순서
+- `.addPathPatterns()` : 적용할 url 패턴 설정
+- `.excludePathPatterns()` : Interceptor가 동작하지 않을 url 패턴 설정
+
 </div>
 </details>
 
@@ -685,16 +697,16 @@ Controller의 Handler로 도달하기 전 가로채어,<br>
 ## 6. 기타 트러블 슈팅
 
 <details>
-<summary>로그인 : 없는 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</summary>
+<summary>⚽ 로그인 : 가입되지 않은 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</summary>
 <div markdown="1">
 
-**현재 문제점**
+#### 🚫현재 문제점
 
 1. 로그인시 잘못된 아이디(없는 아이디)를 입력하게 되면
 
 <img src="https://blog.kakaocdn.net/dn/Aswox/btrFHEX5ZqN/BdAb7IqKdBTWXkeVKOkbIK/img.png" width="450">
 
-2. **NoSuchElementException** 예외가 터져버린다.
+2. NoSuchElementException 예외가 터져버린다.
 
 <img src="https://blog.kakaocdn.net/dn/pGSvS/btrFTOx96lq/YUwapoxLkwOW7uLpikMdPK/img.png" width="450">
 
@@ -710,80 +722,34 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 
 👇LoginService
 
-```
-/**
- *로그인
-*/
-public Member login(String userId, String password) {
-    Optional<Member> findMemberOptional = memberRepository.findByloginId(userId);
+<img src="https://blog.kakaocdn.net/dn/bzOZ9V/btrHthsnMhV/YPhY3F03dVEcHmatQnK15K/img.png" width="550">
 
-    //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
-    Member member = findMemberOptional.get();
-    if (member.getPass().equals(password)) { //비밀번호가 (일치) 있을 경우
-        return member;
-    } else {
-        return null; //비밀번호가 일치하지 않을 경우 null 반환
-    }
-}
-```
+1. 우선 `findMemberOptional.get()`으로 `Optional` 객체에 저장된 값에 접근한다.<br>
+2. 여기서 저장된 값이 있다면 if문으로 넘어갈 것이다.<br>
+3. 하지만 **`Optional` 객체에 저장된 값이 null이면 `NoSuchElementException` 예외가 발생한다.**<br>
+4. 해당 아이디가 없을 경우 결국 if문이 실행되기 전에 예외가 터져버리는 것이다.<br>
+5. 따라서 `findMemberOptional.get()`이 실행되기 전에 `Optional` 객체에 저장된 값이 null인지 아닌지를 먼저 확인한 후 호출해야한다.<br>
 
-우선 findMemberOptional.get()으로 Optional 객체에 저장된 값에 접근한다.
+#### ✔️문제해결
 
-여기서 저장된 값이 있다면 if문으로 넘어갈 것이다.
+📝Optional 클래스의 메소드 <br>
+- `T get()`: Optional 객체에 저장된 값을 반환함.
+- ⭐️`boolean isPresent()`: 저장된 값이 존재하면 true를 반환하고, 값이 존재하지 않으면 false를 반환함.
 
-하지만 **Optional 객체에 저장된 값이 null이면 NoSuchElementException 예외가 발생한다.**
+→ **`get()` 메소드를 호출하기 전에**
+<br>
+→ **`isPresent()`를 사용하여 객체에 저장된 값이 null인지 아닌지를 확인할 것이다.**
 
-해당 아이디가 없을 경우 결국 if문이 실행되기 전에 예외가 터져버리는 것이다.
+👇LoginService
 
-따라서 get()메소드를 호출하기 전에 Optional 객체에 저장된 값이 null인지 아닌지를 먼저 확인한 후 호출해야한다.
+<img src="https://blog.kakaocdn.net/dn/KsmmT/btrHwkP6QHx/kw5ZK89MSpJDpzxjxB6Fdk/img.png" width="550">
 
-**문제해결**
+- `isPresent()`: 입력받은 아이디 정보가 존재하면 true, 존재하지 않을 경우 false 반환
+- if문으로 아이디 정보가 없을 경우 null을 리턴한다.
 
-| 메소드 | 설명 |
-| --- | --- |
-| static <T> Optional<T> empty() | 아무런 값도 가지지 않는 비어있는 Optional 객체를 반환함. |
-| T get() | Optional 객체에 저장된 값을 반환함. |
-| boolean isPresent() | 저장된 값이 존재하면 true를 반환하고, 값이 존재하지 않으면 false를 반환함. |
-| static <T> Optional<T> of(T value) | null이 아닌 명시된 값을 가지는 Optional 객체를 반환함. |
-| static <T> Optional<T> ofNullable(T value) | 명시된 값이 null이 아니면 명시된 값을 가지는 Optional 객체를 반환하며, 명시된 값이 null이면 비어있는 Optional 객체를 반환함. |
-| T orElse(T other) | 저장된 값이 존재하면 그 값을 반환하고, 값이 존재하지 않으면 인수로 전달된 값을 반환함. |
-| T orElseGet(Supplier<? extends T> other) | 저장된 값이 존재하면 그 값을 반환하고, 값이 존재하지 않으면 인수로 전달된 람다 표현식의 결괏값을 반환함. |
-| <X extends Throwable> T   orElseThrow(Supplier<? extends X>  exceptionSupplier) | 저장된 값이 존재하면 그 값을 반환하고, 값이 존재하지 않으면 인수로 전달된 예외를 발생시킴. |
+다시 가입되지 않은 아이디로 로그인을 시도해본다.
 
-출처 - [코딩의 시작, TCP School](http://www.tcpschool.com/java/java_stream_optional)
-
-**get() 메소드를 호출하기 전에**
-
-**isPresent()를 사용하여 객체에 저장된 값이 null인지 아닌지를 확인할 것이다.**
-
-LoginService
-
-```
-public Member login(String userId, String password) {
-    Optional<Member> findMemberOptional = memberRepository.findByloginId(userId);
-
-    //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
-    if (!findMemberOptional.isPresent()) {
-        return null;
-    }
-
-    Member member = findMemberOptional.get();
-
-    if (member.getPass().equals(password)) { //비밀번호가 (일치) 있을 경우
-        return member;
-    } else {
-        return null; //비밀번호가 일치하지 않을 경우 null 반환
-    }
-}
-```
-
-**boolean isPresent(): 입력받은 아이디 정보가 존재하면 true, 존재하지 않을 경우 false 반환**
-
-if문으로 아이디 정보가 없을 경우 null을 리턴한다.
-
-다시 로그인을 시도해본다.
-
-![](https://blog.kakaocdn.net/dn/5X9Jo/btrFHGhphs5/JNjnGSB8w4XKgUvZqnnsPK/img.png)
+<img src="https://blog.kakaocdn.net/dn/5X9Jo/btrFHGhphs5/JNjnGSB8w4XKgUvZqnnsPK/img.png" width="450">
 
 생각한 방향으로 잘 작동되는 것을 볼 수 있다.
 
@@ -791,17 +757,13 @@ if문으로 아이디 정보가 없을 경우 null을 리턴한다.
 >  Integer, Double 클래스처럼 **'T' 타입의 객체를 포장해주는 래퍼 클래스**  
 >  **모든 타입의 참조 변수를 저장할 수 있다.**  
 >  이러한 Optional 객체를 사용하면 복잡한 조건문 없이 **null 값으로 인해 발생하는 예외를 처리할 수 있다.**  
->  다양한 예제는 아래 링크 참조
-
-[코딩의 시작, TCP School](http://www.tcpschool.com/java/java_stream_optional)
+>[(참고한 사이트)코딩의 시작, TCP School](http://www.tcpschool.com/java/java_stream_optional)
 
 </div>
 </details>
 
-### 해결하지 못한 문제
-
 <details>
-<summary>로그아웃시 메인("/")페이지로 이동되지 않음("/login?logout"으로 location되는 상황)</summary>
+<summary>⚽로그아웃시 메인("/")페이지로 이동되지 않음("/login?logout"으로 location되는 상황)</summary>
 <div markdown="1">
 내용
 </div>
