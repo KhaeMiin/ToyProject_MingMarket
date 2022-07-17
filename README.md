@@ -1,5 +1,7 @@
-# 🔥 MingMarket - 당신 근처의 밍마켓 🔥
->:bulb: 중고 거래부터 동네 정보까지, 이웃과 함께해요.
+# 🔥 MingMarket - 지금 거래해요 밍마켓 🔥
+>:bulb: 자유로운 중고 거래, 모두가 함께해요. <br>
+> 회원 모두가 자유롭게 판매할 상품을 올릴 수 있다. <br>
+> 판매자와 구매자는 채팅 기능인 『문의하기』를 통해 거래를 할 수 있다. <br>
 
 ## 1. 제작 기간 & 참여 인원(역할)
 - 2022년 5월 10일 ~ 진행중
@@ -26,6 +28,91 @@
 
 ## 4. 구현 요구사항
 
+<details>
+<summary>📁회원가입, 로그인, 회원정보 수정</summary>
+<div markdown="1">
+
+##### `회원가입`
+- 아이디 중복 체크
+- 비밀번호 확인 (한번 더 입력받아서 일치하는지)
+- 비밀번호 암호화
+- 다음 우편번호 API를 이용한 주소지 입력받기 [➡️Daum 우편번호 서비스 API](https://postcode.map.daum.net/guide)
+- 비밀번호 영소문자, 특수문자 포함 12~32자 이하, 같은 문자 연속 3번이상 입력 안됨 (❌ 구현전)
+- 카카오, 구글, 네이버 로그인 (❌ 구현전)
+
+##### `로그인`
+- 로그인시 로그인 상태 유지 (3분동안 사용하지 않으면 자동 로그아웃)
+- 없는 아이디, 비밀번호 입력시 "아이디 또는 비밀번호가 일치하지 않습니다"
+
+##### `회원정보 수정 (+비밀번호 수정)`
+- 마이페이지에서 수정 가능
+- 회원정보, 비밀번호 수정시 현재 비밀번호 입력받아서 본인이 맞는지 확인
+</div>
+</details>
+
+<details>
+<summary>📁마이페이지</summary>
+<div markdown="1">
+
+##### `마이페이지`
+- 본인의 정보와 비밀번호를 수정할 수 있다.
+- 찜 상품 리스트를 볼 수 있다.
+- 자신이 올린 상품 리스트를 볼 수 있다.
+- 자신이 올린 상품의 판매 상태를 변경할 수 있다. (거래 완료된 상품이면 거래 완료로 변경) (❌ 구현전)
+- 관심 상품, 내 상품의 대표이미지 또는 제목 클릭시 상세 페이지로 이동된다.
+
+</div>
+</details>
+
+
+<details>
+<summary>📁상품 등록과 수정</summary>
+<div markdown="1">
+
+##### `상품 등록과 수정`
+- 상품 등록시 대표이미지, 제목, 상세설명, 가격, 카테고리를 입력받는다.
+- 비회원은 상품을 등록할 수 없다.
+- 수정시 대표이미지, 제목, 상세설명, 가격, 카테고리를 변경할 수 있다.
+
+
+</div>
+</details>
+
+<details>
+<summary>📁상품 찜하기, 상품 문의(❌ 채팅기능 구현전)</summary>
+<div markdown="1">
+
+##### `상품 찜하기`
+- 마음에 드는 상품은 찜하기 가능
+- 본인이 올린 상품은 찜할 수 없다.
+- 찜 취소 가능
+- 찜한 상품은 **마이페이지 - 관심 상품**에서 확인할 수 있다.
+
+##### `상품 문의(❌ 구현전)`
+- 상품을 거래하고자 할 경우 채팅을 통해서 문의 가능하다.
+- 상품 디테일 페이지에 상품 문의하기 버튼이 있다.
+- 로그인 회원만 가능핟. (비회원 사용 불가)
+- 본인이 본인에게 문의는 불가능하다.
+- 이미 거래가 완료된 상품은 더이상 문의할 수 없다.
+
+</div>
+</details>
+
+<details>
+<summary>📁상품리스트, 상품 검색기능(❌ 구현전), 카테고리(❌ 구현전)</summary>
+<div markdown="1">
+
+##### `상품 리스트`
+- 메인화면에 상품리스트가 출력된다.
+- 등록 날짜가 가장 최근 순으로 출력된다.
+
+##### `상품 검색기능, 카테고리 (❌ 구현전)`
+- 원하는 상품 정보를 검색할 수 있다. (제목, 내용, 판매자 닉네임 모두 검색됨)
+- 카테고리는 『패션(여성, 남성, 스포츠, 잡화), 가전/디지털(컴퓨터, 냉장고, 청소기, 세탁기/건조기), 도서(여행, 역사, 예술, 기타), 기타』로 나눠져있다.
+
+</div>
+</details>
+
 ## 5. 핵심 기능 & 트러블 슈팅
 
 #### 1. JPA를 활용한 웹 애플리케이션 개발
@@ -34,7 +121,7 @@
 <div markdown="1">
 <br>
 
-> 자바 진영의 <b>RM 기술 표준으로 사용되는 인터페이스의 모음인 JPA를 활용</b>하여 웹 애플리케이션을 개발하였다. <br>
+> 자바 진영의 <b>ORM 기술 표준으로 사용되는 인터페이스의 모음인 JPA를 활용</b>하여 웹 애플리케이션을 개발하였다. <br>
 > JPA 인터페이스의 구현체로 <b>Hibervate 프레임 워크</b>를 사용하였다. <br><br>
 > 이렇게 JPA를 사용함으로써 INSERT/UPDATE/SELECT <b>쿼리 등을 직접 작성하지 않아도 데이터를 저장</b>할 수 있게 되었다.<br>
 > SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어, 
@@ -88,10 +175,10 @@
   <br>
 
 **※ 엔티티에서 Setter 사용 지양**
-> Setter는 호출 시 데이터가 변동됩니다.
+> Setter는 호출 시 데이터가 변동된다.
 >  <br> Setter를 열어두게 되면 프로젝트가 커지고 복잡해질수록 엔티티가 도대체 왜 어디서 변경되는지 추적하기 점점 힘들어진다.
 >  <br> 그래서 엔티티의 데이터를 변경할 때는 아래 코드처럼 Setter 대신 변경 지점이 명확하도록 <b>변경을 위한 비즈니스 메서드를 따로 만들어 제공</b>하였다.
->  <br> 그리고 객체의 일관성을 유지하기 위해 객체 생성 시점에 값들을 넣어줌으로써 Setter 사용을 지양할 수 있었다.
+>  <br> 그리고 객체의 일관성을 유지하기 위해 **객체 생성 시점에 값들을 넣어줌**으로써 Setter 사용을 지양할 수 있었다.
 
 - 👇Member Entity
 
@@ -108,8 +195,8 @@
 
 <br>
 
-> 아래와 같이 기본 생성자 접근자를 protected로 변경하면 new Entity() 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있다.
-> <br>(protected로 설정하는 이유는 JPA 기본 스펙상 기본 생성자가 필요한데 protected로 제어하는 것까지 허용되기 때문이다.)
+> 아래와 같이 기본 생성자 접근자를 `protected`로 변경하면 `new Entity()` 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있다.
+> <br>(`protected`로 설정하는 이유는 JPA 기본 스펙상 기본 생성자가 필요한데 `protected`로 제어하는 것까지 허용되기 때문이다.)
 > <br> 롬복을 사용하여 어노테이션 설정을 통해 간단하게 설정하였다.
 
 <img src="https://blog.kakaocdn.net/dn/bN2uFz/btrHevKrk2n/oS7FgdEMk3QBDGR1D947bk/img.png" width="400">
@@ -125,7 +212,7 @@
 <summary>⚽트러블 슈팅</summary>
 <div markdown="1">
 <br>
-<b>1. JPA - merge를 이용하여 값 수정시 수정하지 않는 데이터는 값이 null로 들어가짐</b>
+<b>1. JPA - merge()를 이용하여 값 수정시 수정하지 않는 데이터는 값이 null로 들어가짐</b>
 <br><br>
 
 > <구현 요구사항> <br>
@@ -136,7 +223,7 @@
 
 <img src="https://blog.kakaocdn.net/dn/bXVNYP/btrHaficUqE/Gt7w6LYKNd9lIkVRXz6Hi0/img.png" width="800">
 
-👇ProductRepository.java
+👇ProductRepository
 
 <img src="https://blog.kakaocdn.net/dn/sT8jW/btrHaYnjoFO/ntVeLB0X0y7xJVCbEzdTjK/img.png" width="500">
 
@@ -212,7 +299,7 @@ public Product findSingleProduct(Long productId) {
 ✔️Spring에서는 사용자가 입력한 값에 대한 유효성을 체크하기 위해 Spring Validator를 사용할 수 있도록 지원하고 있다.
 
 - `build.gradle`에 dependency 추가 <br>
-`implementation 'org.springframework.boot:spring-boot-starter-validation'`
+  ➡️`implementation 'org.springframework.boot:spring-boot-starter-validation'`
 - **Dto**객체를 정의한 후 각 필드에 맞는 Annotation을 사용했다.
   - `@NotNull`: Null 허용하지 않음 (" ", "" 허용)
   - `@NotEmpty`: Null과 ""는 허용하지 않음 (" "는 허용) 
@@ -221,7 +308,7 @@ public Product findSingleProduct(Long productId) {
   - `@Range(min=, max=)`: 숫자 값 또는 숫자 값의 문자열 표현에 적용(지정한 범위 내에 있어야 함)
 - **Controller**에서는 Dto 객체 앞에 `@Valied`, 그리고 객체 뒤에는 `BindingResult result`를 명시한다.
   - `@Valid` 선언된 객체에 설정을 바탕으로 유효성 검사
-  - 데이터가 유효하지 않은 속성이 있으면 그에 대한 에러 정보를 BindingResult에 담는다.
+  - 데이터가 유효하지 않은 속성이 있으면 그에 대한 에러 정보를 `BindingResult`에 담는다.
     - 아래 코드처럼 `result`에 에러가 담겨있는지 확인하는 로직을 만들어 에러가 있으면 폼으로 다시 이동할 수 있도록 한다. 
     ```
       if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
@@ -258,15 +345,15 @@ error-messages
 <div markdown="1">
 <br>
 
->Spring Security<br>
+>Spring Security?<br>
 >Spring 기반의 Application의 보안을 위한 Spring framework<br>
 >스프링 시큐리티의 PasswordEncoder를 이용하여 패스워드를 암호화 할 것이다. <br>
 >[🔗Spring Security공식문서 바로가기](https://spring.io/projects/spring-security)<br>
 
 ##### `1. 의존성 주입`
 
-- `build.gradle`에 dependency 추가 <br>
-  `implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security`
+- 우선 비밀번호 암호화에 사용되는 PasswordEncoder를 사용하기 위해서는 Spring Security 의존성을 주입해줘야 한다.<br>
+  ➡️`implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security`
 
 
 ##### `2. Config 설정`
@@ -337,8 +424,8 @@ public interface PasswordEncoder {
 </details>
 
 `PasswordEncoder`는 스프링 시큐리티의 인터페이스 객체이다. <br>
-`PasswordEncoder`는 비밀번호를 암호화하는 역할로, 구현체는 이 암호화를 어떻게 할지, 암호화 알고리즘에 해당한다.<br>
-그래서 `PasswordEncoder`의 구현체를 대입해주고 이를 스프링 빈으로 등록하는 과정이 필요하다.<br>
+스프링 시큐리티(Spring Security)에서 제공하는 비밀번호 암호화 방법이다. <br>
+단방향 암호화로 진행이 되는데 인터페이스와 구현체를 제공한다.<br>
 기존적인 설정들을 disable하는 `Config` 객체는 `WebSecurityConfigurerAdapter`를 상속받아 `configure()`를 구현한다.
 
 👇SecurityConfig
@@ -358,7 +445,6 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 ❗️여기서 **BcryptPasswordEncoder는 BCrypt라는 해시 함수를 이용하여 패스워드를 암호화하는 구현체**이다.
 
 
-**Spring Security의 설정은 HttpSecurity를 오버라이드해서 설정한다.**
 
 **`.antMatchers`**
 
@@ -366,7 +452,7 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 .antMatchers("/css/**", "/js/**", "/*.ico", "/error", "/").permitAll()
 ```
 - 특정 리소스에 대해서 권한을 설정한다.
-- 뒤에 붙은 permitAll()은 antMatchers에서 설정한 URL의 접근을 인증없이 허용한다는 뜻이다.
+- 뒤에 붙은 `.permitAll()`은 `.antMatchers`에서 설정한 URL의 접근을 인증없이 허용한다는 뜻이다.
 
 
 **`.anyRequest`**
@@ -386,7 +472,7 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 <img src="https://blog.kakaocdn.net/dn/uDlNt/btrHiE1WoMd/Wd6vIp23x62SPeQazvHaW1/img.png" width="650">
 
 
-MemberEntity에서 PasswordEncoder를 사용하여 password를 인코딩하였다.
+`MemberEntity`에서 `PasswordEncoder`를 사용하여 password를 인코딩하였다.
 
 
 #### **1\. 회원가입**
@@ -410,8 +496,8 @@ MemberEntity에서 PasswordEncoder를 사용하여 password를 인코딩하였�
 </details>
 
 
-컨트롤러에서는 "/join"에 POST요청이 들어오면
-기본적인 Validation 후 memberService.join()을 통해 회원가입이 진행될 수 있도록 해주었다.<br><br>
+컨트롤러에서는 `"/join"`에 POST요청이 들어오면
+기본적인 Validation 후 `memberService.join()`을 통해 회원가입이 진행될 수 있도록 해주었다.<br><br>
 
 #### **2\. 회원 로그인**
 
@@ -505,7 +591,7 @@ Content-Type: image/jpeg
 
 ![](https://blog.kakaocdn.net/dn/bEzhRg/btrHlyujC08/Stg8pOWOeNHOSwHNeSNhdk/img.png)
 
-우선 이 방식을 사용하기 위해 Form 태그에 enctype="multipart/form-data"를 추가로 지정했다.
+우선 이 방식을 사용하기 위해 Form 태그에 `enctype="multipart/form-data"`를 추가로 지정했다.
 
 ##### `2. 파일 저장과 관련된 업무를 처리할 수 있는 Class`
 
@@ -564,7 +650,7 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 </details>
 
 
-#### 5. ServletHttpSession을 이용한 로그인 상태 유지
+#### 5. 세션(HttpSession) 기반 로그인 처리하기
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
@@ -574,24 +660,25 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 </div>
 </details>
 <details>
-<summary>⚽트러블 슈팅</summary>
-<div markdown="1">
-<b>로그인 상태 유지시 경로 localhost:xxxx/; jsessionid=~~</b>
-</div>
-</details>
-
 
 #### 6. Spring Interceptor를 이용한 로그인 체크
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
 
-내용
+인터셉터 (Interceptor)<br>
+Interceptor란 컨트롤러에 들어오는 요청 HttpRequest와 컨트롤러가 응답하는 HttpResponse를 가로채는 역할을 한다.<br>
+Client에서 Server로 들어온 Request 객체를,<br>
+Controller의 Handler로 도달하기 전 가로채어,<br>
+원하는 추가 작업이나 로직을 수행 한 후 컨트롤러(handler)로 보낼 수 있도록 해주는 Module이다.<br>
 
+**인터셉터(Interceptor) 구현**
+<img src="https://blog.kakaocdn.net/dn/bn3GX2/btrHqPXdnCO/kuJsdangJWx8fLhPCnpV31/img.png">
+
+
+**
 </div>
 </details>
-
-
 
 <br>
 
