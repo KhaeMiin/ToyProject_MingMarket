@@ -539,6 +539,54 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 </div>
 </details>
 
+<details>
+<summary>⚽ 트러블 슈팅</summary>
+<div markdown="1">
+
+
+#### 🚫현재 문제점
+- 로그인 사용자가 로그아웃 버튼을 클릭하게 되면 메인(`"/"`)페이지로 이동되지 않고 `/login?logout` (로그인페이지)로 redirect 된다.
+
+👇LoginController
+
+<img src="https://blog.kakaocdn.net/dn/bT9VoN/btrHEe4gJY3/4oriWqYVTMKqIW9MYGTCHk/img.png" width="600">
+
+👇실행화면
+
+<img src="https://blog.kakaocdn.net/dn/bxz75R/btrHEXgXkC7/59KIa9rlXKjgEG3M44y44K/img.png" width="600">
+
+❓처음엔 맵핑 경로를 잘못 입력하였다던가 다른 부분에서 오타가 있다고 생각을 하였다. <br>
+하지만 Spring Security를 도입하기 전까진 로그아웃시 메인페이지로 잘 이동하였었다.<br>
+그래서 Spring Security의 어떤 부분때문에 이런 문제가 생겼는지 찾아보았다.
+
+#### ✔️문제해결
+- 현재 Thymeleaf 템플릿을 사용하고 있다.
+- Spring Security web관련 공식문서를 참조하였다. [🔗Spring Security-web 공식문서](https://spring.io/guides/gs/securing-web/)
+
+  <img src="https://blog.kakaocdn.net/dn/n0xjn/btrHL2bLWf9/PG1PWMkRr6ARfprPJm21Y0/img.png" width="650">
+
+  Spring Security에서 `/login` 요청을 가로채서 대신 처리를 해준다.
+  <br> `/logout` 역시 Spring Security가 대신 처리를 하여 로그아웃이 완료되면 `/login?logout`으로 redirect된다.
+  <br>그래서 Controller에서 잘 작동되는지 확인차 찍어둔 log가 출력이 되지 않는 것을 확인할 수 있었다.
+  <br>즉, **Security가 대신 이 요청을 처리하여 Controller의 해당 코드가 실행이 되지 않았음을 알 수 있다.**
+
+  <img src="https://blog.kakaocdn.net/dn/bK2prc/btrHNMlW7GC/yNLdZhUZNeEsOb1CPv0Df1/img.png" width="400">
+
+- WebSecurityConfigurerAdapter를 상속받은 클래스에서 모든 설정을 변경할 수 있다.
+
+  👇SecurityConfig
+  <img src="https://blog.kakaocdn.net/dn/MNLQN/btrHOUDjTlI/PCprKP65uEk9aEX976BKg0/img.png" width="650">
+
+  - `.logoutRequestMatcher(new AntPathRequestMatcher("/URL"))`: 로그아웃을 실행할 URL경로
+  - `.logoutSuccessUrl("/")`: 로그아웃 성공시 redirect할 URL
+  - `.invalidateHttpSession(true)`: HTTP Session을 초기화 한다.
+  - `.delectCookie("")`: 특정 쿠키 제거
+- ✔️결론적으로 LoginController에서 로그아웃에 대한 코드를 작성하지 않아도 된다. (해당 Method 주석처리)
+
+</div>
+</details>
+
+
 #### 4. 상품 등록시 Spring MultipartFile을 이용한 대표이미지 업로드
 <details>
 <summary>📌기능 설명</summary>
@@ -762,31 +810,6 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 >  **모든 타입의 참조 변수를 저장할 수 있다.**  
 >  이러한 Optional 객체를 사용하면 복잡한 조건문 없이 **null 값으로 인해 발생하는 예외를 처리할 수 있다.**  
 >[(참고한 사이트)코딩의 시작, TCP School](http://www.tcpschool.com/java/java_stream_optional)
-
-</div>
-</details>
-
-<details>
-<summary>⚽ 로그아웃시 메인("/")페이지로 이동되지 않음("/login?logout"으로 redirects되는 상황)</summary>
-<div markdown="1">
-
-#### 🚫현재 문제점
-- 로그인 사용자가 로그아웃 버튼을 클릭하게 되면 메인페이지로 이동되지 않고 /login?logout (로그인페이지)로 이동됨
-
-👇LoginController
-
-<img src="https://blog.kakaocdn.net/dn/bT9VoN/btrHEe4gJY3/4oriWqYVTMKqIW9MYGTCHk/img.png" width="550">
-
-👇실행화면
-
-<img src="https://blog.kakaocdn.net/dn/bxz75R/btrHEXgXkC7/59KIa9rlXKjgEG3M44y44K/img.png" width="600">
-
-❓처음엔 맵핑 경로를 잘못 입력하였다던가 다른 부분에서 오타가 있다고 생각을 하였다. <br>
-하지만 시큐리티를 도입하기 전까진 로그아웃시 메인페이지로 잘 이동하였었다.<br>
-어떤 부분이 
-
-#### ✔️문제해결
-
 
 </div>
 </details>

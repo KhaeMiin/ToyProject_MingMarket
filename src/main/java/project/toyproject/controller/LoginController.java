@@ -66,7 +66,10 @@ public class LoginController {
         return "redirect:" + redirectURL;
     }
 
-    @PostMapping("/logout")
+    //Spring Security에서 Post로 요청하는 logout에 대해 요청을 가로채서 대신 처리한다.
+    // 그래서 해당 컨트롤러의 기능을 대신 수행하기 때문에 아래 핸들러는 필요없음
+    // 해당 핸들러가 작동하는 기능을 변경하기 위해서는 Security 설정 어댑터에서 할 수 있다. (WebSecurityConfigurerAdapter를 상속받은 클래스: SecurityConfig)
+/*    @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);//있는 세션 가져오게 하기. 없으면 null 가져오기
         log.info("로그아웃 되었습니다!!!!!");
@@ -75,5 +78,5 @@ public class LoginController {
         }
 
         return "redirect:/"; //홈 화면으로!
-    }
+    }*/
 }
