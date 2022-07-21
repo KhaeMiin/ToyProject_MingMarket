@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 
 import static project.toyproject.dto.MemberDto.*;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class TestDataInit {
 
@@ -19,7 +19,7 @@ public class TestDataInit {
     /**
      * 테스트용 데이터
      */
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         CreateMemberForm member = new CreateMemberForm();
         member.createMethod("test", "min",
