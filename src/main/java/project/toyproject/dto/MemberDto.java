@@ -43,7 +43,10 @@ public class MemberDto {
         @NotNull(message = "연락처는 필수입니다.")
         private int hp;
 
+        @NotBlank(message = "주소를 입력해주세요")
         private String address;
+
+        @NotBlank(message = "상세주소를 입력해주세요.")
         private String detailedAddress;
 
         public void createMethod(String userId, String nickname, String password, String passwordCheck, String username, int hp, String address, String detailedAddress) {

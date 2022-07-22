@@ -39,6 +39,12 @@ public class MemberController {
             result.reject("passwordFail", "비밀번호가 일치하지 않습니다.");
         }
 
+        String checkPassword = memberService.checkPassword(form.getPassword(), form.getUserId());
+
+        if (checkPassword != null) {
+            result.reject("passwordFail", checkPassword);
+        }
+
         if (result.hasErrors()) { //만약에 result 안에 에러가 있으면
             return "members/joinMemberForm"; //다시 폼으로 이동
         }
