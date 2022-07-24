@@ -32,7 +32,7 @@ public class MemberService {
         Member member = new Member(form.getUserId(), form.getNickname(), form.getPassword(),
                 form.getUsername(), form.getHp(), address);
         validateDuplicateMember(member); //중복아이디 체크
-//        checkPassword(form.getPassword(), form.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
+        checkPassword(form.getPassword(), form.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
         member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
         memberRepository.save(member);
         return member.getId();
@@ -86,16 +86,15 @@ public class MemberService {
     /**
      * 중복 아이디 검증 메서드
      */
-    private String validateDuplicateMember(Member member) {
+    private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByUserId(member.getUserId());
 /*        if (!findMembers.isEmpty()) { //isEmpty(): 문자열 길이가 0일 경우 true 반환, 여기서는 !isEmpty: 값이 있다면
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }*/
         if (findMembers.size() > 0) { //이 코드가 더 최적화일 것 같다.
-            return"이미 존재하는 회원입니다.";
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
 
-        return null;
     }
 
     /**
@@ -104,14 +103,14 @@ public class MemberService {
      * @param id : 아이디
      * @return
      */
-    public String checkPassword(String pwd, String id){
+    public void checkPassword(String pwd, String id){
 
         // 비밀번호 포맷 확인(영문, 특수문자, 숫자 포함 8자 이상)
         Pattern passPattern1 = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{10,20}$");
         Matcher passMatcher1 = passPattern1.matcher(pwd);
 
         if(!passMatcher1.find()){
-            return "비밀번호는 영문과 특수문자 숫자를 포함하며 10자 이상 20자 이하 이어야 합니다.";
+            throw new IllegalStateException("비밀번호는 영문과 특수문자 숫자를 포함하며 10자 이상 20자 이하 이어야 합니다.");
         }
 
         // 반복된 문자 확인
@@ -119,12 +118,12 @@ public class MemberService {
         Matcher passMatcher2 = passPattern2.matcher(pwd);
 
         if(passMatcher2.find()){
-            return"비밀번호에 동일한 문자를 과도하게 연속해서 사용할 수 없습니다.";
+            throw new IllegalStateException("비밀번호에 동일한 문자를 과도하게 연속해서 사용할 수 없습니다.");
         }
 
         // 아이디 포함 확인
         if(pwd.contains(id)){
-            return"비밀번호에 ID를 포함할 수 없습니다.";
+            throw new IllegalStateException("비밀번호에 ID를 포함할 수 없습니다.");
         }
 
         // 특수문자 확인
@@ -138,7 +137,7 @@ public class MemberService {
             if(passMatcher3.find()){
                 Matcher passMatcher4 = passPattern4.matcher(s);
                 if(!passMatcher4.find()){
-                    return"비밀번호에 특수문자는 !@#$^*+=-만 사용 가능합니다.";
+                    throw new IllegalStateException("비밀번호에 특수문자는 !@#$^*+=-만 사용 가능합니다.");
                 }
             }
         }
@@ -172,9 +171,8 @@ public class MemberService {
         }
 
         if(ascSeqCharCnt > 1 || descSeqCharCnt > 1){
-            return"비밀번호에 연속된 문자열을 사용할 수 없습니다.";
+            throw new IllegalStateException("비밀번호에 연속된 문자열을 사용할 수 없습니다.");
         }
 
-        return null;
     }
 }

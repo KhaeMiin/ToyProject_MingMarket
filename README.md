@@ -741,6 +741,17 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 - `.addPathPatterns()` : 적용할 url 패턴 설정
 - `.excludePathPatterns()` : Interceptor가 동작하지 않을 url 패턴 설정
 
+
+</div>
+</details>
+
+#### 6. 예외 처리 Exception(진행 중)
+
+<details>
+<summary></summary>
+<div markdown="1">
+
+
 </div>
 </details>
 
