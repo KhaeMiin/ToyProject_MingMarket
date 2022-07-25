@@ -8,6 +8,7 @@ import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.repository.MemberRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -34,6 +35,7 @@ public class MemberService {
         validateDuplicateMember(member); //중복아이디 체크
         checkPassword(form.getPassword(), form.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
         member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
+        member.createDate(LocalDateTime.now());
         memberRepository.save(member);
         return member.getId();
     }

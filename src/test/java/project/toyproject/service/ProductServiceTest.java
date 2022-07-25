@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
+import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
 import project.toyproject.repository.ProductRepository;
@@ -36,7 +37,7 @@ class ProductServiceTest {
         int price = 10000;
 
         //when
-        Long productId = productService.saveProduct(member.getId(), title, thumbnail, intro, price);
+        Long productId = productService.saveProduct(member.getId(), title, thumbnail, intro, price, CategoryList.FASHION);
 
         //then
         Product getProduct = productRepository.findSingleProduct(productId);

@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor //value값 String으로 넣을 수 있도록 자동 주입
 public enum CategoryList {
 
-    FASHION("패션"), FOOD("음식");
+    FASHION("패션"), FOOD("음식"), DIGITAL_APPLIANCES("디지털/가전"),
+    BOOKS("도서");
 
-    private final  String value;
+    private final  String categoryName;
+
 }

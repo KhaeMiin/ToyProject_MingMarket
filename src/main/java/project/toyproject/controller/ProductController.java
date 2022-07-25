@@ -60,7 +60,7 @@ public class ProductController {
         String uploadFile = fileUpload.serverUploadFile(form.getThumbnail(), realPath);
 
         //데이터 베이스에 저장
-        Long productId = productService.saveProduct(loginMember.getMemberId(), form.getTitle(), uploadFile, form.getIntro(), form.getPrice());
+        Long productId = productService.saveProduct(loginMember.getMemberId(), form.getTitle(), uploadFile, form.getIntro(), form.getPrice(), form.getCategoryList());
 
         redirectAttributes.addAttribute("productId", productId);
 

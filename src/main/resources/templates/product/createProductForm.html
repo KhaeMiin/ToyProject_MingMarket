@@ -50,7 +50,7 @@
                     <option value="">카테고리선택</option>
                     <option th:each="category : ${T(project.toyproject.domain.CategoryList).values()}"
                             th:value="${category.name()}"
-                            th:text="${category.name()}" />
+                            th:text="${category.categoryName}" />
                 </select>
                 <p th:if="${#fields.hasErrors('categoryList')}" th:errors="*{categoryList}">Incorrect date</p><!--에러 메시지-->
             </div>

@@ -2,6 +2,7 @@ package project.toyproject;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import project.toyproject.domain.CategoryList;
 import project.toyproject.service.MemberService;
 import project.toyproject.service.ProductService;
 
@@ -34,7 +35,7 @@ public class TestDataInit {
         Long adminMemberId = memberService.join(adminMember);
 
         for (int i = 1; i <= 13; i++) {
-            productService.saveProduct(memberId, "test" + i, i + ".jpg", "test" + i, 10000);
+            productService.saveProduct(memberId, "test" + i, i + ".jpg", "test" + i, 10000, CategoryList.FASHION);
             CreateMemberForm memberData = new CreateMemberForm();
             memberData.createMethod("test" + i, "user" + i,
                     "1234", "1234", "김성함" + i, 0100000000, "자바시 JPA구", "스프링");

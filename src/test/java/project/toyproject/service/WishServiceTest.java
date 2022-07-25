@@ -69,7 +69,7 @@ class WishServiceTest {
     }
 
     private Product createProduct(Member member2) {
-        Product product = Product.createProduct("a", "b", "text", 10000, member2);
+        Product product = Product.createProduct("a", "b", "text", 10000, member2, CategoryList.FASHION);
         em.persist(product);
         return product;
     }

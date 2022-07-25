@@ -41,18 +41,19 @@ public class Product extends BaseEntity { //상품
 /*    @OneToOne(fetch = LAZY) @JoinColumn(name = "category_id")
     private Category category; //fk*/
 
-    private Product(String title, String thumbnail, String intro, int price, Member member, ProductStatus productStatus) {
+    private Product(String title, String thumbnail, String intro, int price, Member member, ProductStatus productStatus, CategoryList categoryList) {
         this.title = title;
         this.thumbnail = thumbnail;
         this.intro = intro;
         this.Price = price;
         this.member = member;
         this.productStatus = productStatus;
+        this.categoryList = categoryList;
     }
 
     //생성 메서드
-    public static Product createProduct(String title, String thumbnail, String intro, int price, Member member) {
-        Product product = new Product(title, thumbnail, intro, price, member, ProductStatus.PRODUCT);
+    public static Product createProduct(String title, String thumbnail, String intro, int price, Member member, CategoryList categoryList) {
+        Product product = new Product(title, thumbnail, intro, price, member, ProductStatus.PRODUCT, categoryList);
         product.createDate(LocalDateTime.now());
         return product;
     }
