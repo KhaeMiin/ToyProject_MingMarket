@@ -5,6 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+
+    });
+</script>
 <div class="container">
     <div th:if="${member} == null"> <!--로그인 안된 상태-->
         <div th:replace="fragments/bodyHeader-login :: bodyHeader" />
@@ -14,6 +20,13 @@
     </div>
 
     <div class="jumbotron">
+        <form action="/product/search" method="GET">
+            <div>
+                <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+            </div>
+
+            <button>검색하기</button>
+        </form>
         <div th:each="product : ${products}">
             <a th:href="@{/product/detail/{productId}(productId=${product.id})}">
                 <img th:src="@{/webapp/upload/} + ${product.thumbnail}" width="300" height="300">

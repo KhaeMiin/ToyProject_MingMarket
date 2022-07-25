@@ -29,7 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1) //인터셉터 실행 순서
                 .addPathPatterns("/**")
                 .excludePathPatterns("/css/**", "/js/**", "/*.ico", "/error/**", "/",
-                        "/webapp/**", "/upload/**", "/product/detail/**",
+                        "/webapp/**", "/upload/**", "/product/detail/**", "/product/search/**",
                         "/login", "/logout", "/members/join", "/members/login");
     }
 }

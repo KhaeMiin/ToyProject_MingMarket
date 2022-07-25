@@ -7,12 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.toyproject.service.FileUpload;
+import project.toyproject.service.*;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.dto.ProductDto;
-import project.toyproject.service.MemberService;
-import project.toyproject.service.ProductService;
-import project.toyproject.service.WishItemService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,6 +32,7 @@ public class ProductController {
     private final WishItemService wishItemService;
     private final FileUpload fileUpload;
     private final MemberService memberService;
+    private final SearchService searchService;
 
     /**
      * 상품 등록
@@ -183,5 +181,17 @@ public class ProductController {
     @PostMapping("/cancelWishItem")
     public void cancelWishItem(@RequestParam("wishId") Long wishId) {
         wishItemService.cancelWishItem(wishId);
+    }
+
+
+    /**
+     * 상품 검색
+     */
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "keyword") String keyword, Model model) {
+        List<SelectProducts> selectProducts = searchService.searchPosts(keyword);
+        model.addAttribute("products", selectProducts);
+
+        return "home";
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductRepository;
 
@@ -56,8 +57,17 @@ public class ProductService {
     /**
      * 모든 상품 조회
      */
-    public List<Product> findProducts() {
-        return productRepository.findAllProducts();
+    public List<SelectProducts> findProducts() {
+        List<Product> products = productRepository.findAllProducts();
+        List<ProductDto.SelectProducts> productList = new ArrayList<>();
+        for (Product product : products) {
+            SelectProducts selectProductData = new SelectProducts(
+                    product.getId(), product.getTitle(), product.getThumbnail(),
+                    product.getIntro(), product.getPrice(), product.getMember(),
+                    product.getProductStatus());
+            productList.add(selectProductData);
+        }
+        return productList;
     }
 
     /**

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
+import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.service.ProductService;
 
@@ -43,7 +44,7 @@ public class HomeController {
             @LoginCheck MemberDto.SessionMemberData loginMember, Model model) {
 
         //메인화면에 상품 리스트 출력
-        List<Product> products = productService.findProducts();
+        List<ProductDto.SelectProducts> products = productService.findProducts();
 
         model.addAttribute("products", products);
 
