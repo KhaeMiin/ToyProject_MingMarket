@@ -107,7 +107,7 @@
 - 등록 날짜가 가장 최신 순으로 출력된다.
 
 ##### `상품 검색기능, 카테고리 (❌ 구현전)`
-- 원하는 상품 정보를 검색할 수 있다. (제목, 내용, 판매자 닉네임 모두 검색됨)
+- 원하는 상품 정보를 검색할 수 있다.
 - 카테고리는 『패션(여성, 남성, 스포츠, 잡화), 가전/디지털(컴퓨터, 냉장고, 청소기, 세탁기/건조기), 도서(여행, 역사, 예술, 기타), 기타』로 나눠져있다.
 
 </div>
@@ -821,6 +821,49 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 >  **모든 타입의 참조 변수를 저장할 수 있다.**  
 >  이러한 Optional 객체를 사용하면 복잡한 조건문 없이 **null 값으로 인해 발생하는 예외를 처리할 수 있다.**  
 >[(참고한 사이트)코딩의 시작, TCP School](http://www.tcpschool.com/java/java_stream_optional)
+
+</div>
+</details>
+
+<details>
+<summary>⚽ 검색기능: 연속으로 검색시 오류발생 - InvalidDataAccessApiUsageException</summary>
+<div markdown="1">
+
+#### 🚫현재 문제점
+Spring JPA에서 제공하는 Repository라는 인터페이스를 사용하여 상품 검색 기능을 구현하는 중 다음과 같은 문제가 생겼다.
+- 프로젝트를 실행시킨 후 처음 검색은 잘 작동이 된다.
+- 하지만 그 후 연속해서 검색을 하게 되면 예외가 터지면서 500 오류가 발생한다.
+
+👇errorCode
+```
+2022-07-26 14:23:01.332 ERROR 2556 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: Parameter value [\] did not match expected type [java.lang.String (n/a)]; nested exception is java.lang.IllegalArgumentException: Parameter value [\] did not match expected type [java.lang.String (n/a)]] with root cause
+```
+
+<img src="https://blog.kakaocdn.net/dn/ctRtXI/btrIjNYLvT4/pThhKsiKvzPKinbDyUabbk/img.png" width="500">
+
+- `IllegalArgumentException: Parameter value [\] did not match expected type`:
+<br>파라미터를 넘기는 부분에 매핑이 잘못되고 있는 것 같다.
+
+#### ✔️문제해결
+
+- spring-projects의 Github에서 spring-data-jpa 레포지토리의 issues에서 동일한 문제를 찾아볼 수 있었다.
+  <br> [spring-data-jpa GitHub 바로가기](https://github.com/spring-projects/spring-data-jpa/issues/2479)
+
+  <img src="https://blog.kakaocdn.net/dn/CFPH0/btrIi6jZGB9/pDUCyapGKJrdnmZpoEThv1/img.png" width="600">
+
+- Repository에서 파라미터로 전달되는 변수에 @Param을 붙여주었다.
+
+  <img src="https://blog.kakaocdn.net/dn/cJnAQF/btrIkpJ9roB/a79msjcbIJoFf4h78Rmvzk/img.png" width="550">
+
+  (그러나 여기서는 정확한 이유가 적혀있지 않아서 따로 이유를 찾아보게 되었다.) <br>
+
+💡  자바 8 이상에서 interface 파라미터 이름을 알아내려면 자바 컴파일러에 -parameters 옵션이 필요하다.
+<br> 하지만 이 옵션 없이 사용하는 경우가 많으므로 @Param을 사용하여 파라미터를 명확하게 바인딩 해주어야 한다. 
+<br>
+
+📝 @Param: 
+JPA에서 파라미터를 전달하여 쿼리를 날릴 때, 또는 SQL 문장에 파라미터를 전달할 때 <br>
+interface에서 전달하고자 하는 변수명 앞에 @Param 어노테이션을 추가하자
 
 </div>
 </details>
