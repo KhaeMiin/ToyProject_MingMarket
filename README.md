@@ -27,24 +27,24 @@
 ## 4. 구현 요구사항
 
 <details>
-<summary>📁회원가입, 로그인, 회원정보 수정</summary>
+<summary>📁회원가입, 로그인, 회원 정보 수정</summary>
 <div markdown="1">
 
 ##### `회원가입`
 - 아이디 중복 체크
-- 비밀번호 확인 (한번 더 입력받아서 일치하는지)
+- 비밀번호 확인 (한 번 더 입력받아서 일치하는지)
 - 비밀번호 암호화
 - 다음 우편번호 API를 이용한 주소지 입력받기 [➡️Daum 우편번호 서비스 API](https://postcode.map.daum.net/guide)
-- 비밀번호 영소문자, 특수문자 포함 10~20자 이하, 비밀번호에 아이디 포함 안됨, 같은 문자 연속 3번이상 입력 안됨
+- 비밀번호 영소문자, 특수문자 포함 10~20자 이하, 비밀번호에 아이디 포함 안 됨, 같은 문자 연속 3번 이상 입력 안 됨
 
 ##### `로그인`
-- 로그인시 로그인 상태 유지 (3분동안 사용하지 않으면 자동 로그아웃)
-- 없는 아이디, 비밀번호 입력시 "아이디 또는 비밀번호가 일치하지 않습니다"
-- 소셜(카카오, 구글, 네이버) 로그인 (❌ 구현전)
+- 로그인 시 로그인 상태 유지 (3분 동안 사용하지 않으면 자동 로그아웃)
+- 없는 아이디, 비밀번호 입력 시 "아이디 또는 비밀번호가 일치하지 않습니다."
+- 소셜(카카오, 구글, 네이버) 로그인 (❌ 구현 전)
 
-##### `회원정보 수정 (+비밀번호 수정)`
+##### `회원 정보 수정 (+비밀번호 수정)`
 - 마이페이지에서 수정 가능
-- 회원정보, 비밀번호 수정시 현재 비밀번호 입력받아서 본인이 맞는지 확인
+- 회원 정보, 비밀번호 수정 시 현재 비밀번호 입력받아서 본인이 맞는지 확인
 </div>
 </details>
 
@@ -56,9 +56,9 @@
 - 본인의 정보와 비밀번호를 수정할 수 있다.
 - 찜 상품 리스트를 볼 수 있다.
 - 자신이 올린 상품 리스트를 볼 수 있다.
-- 자신이 올린 상품의 판매 상태를 변경할 수 있다. (거래 완료된 상품이면 거래 완료로 변경) (❌ 구현전)
-- 관심 상품, 내 상품의 대표이미지 또는 제목 클릭시 상세 페이지로 이동된다.
-- 채팅 목록을 확인할 수 있다.(❌ 구현전)
+- 자신이 올린 상품의 판매 상태를 변경할 수 있다. (거래 완료된 상품이면 거래 완료로 변경) (❌ 구현 전)
+- 관심 상품, 내 상품의 대표 이미지 또는 제목 클릭 시 상세 페이지로 이동된다.
+- 채팅 목록을 확인할 수 있다.(❌ 구현 전)
 
 </div>
 </details>
@@ -69,17 +69,17 @@
 <div markdown="1">
 
 ##### `상품 등록, 수정, 삭제`
-- 상품 등록시 대표이미지, 제목, 상세 설명, 가격, 카테고리를 입력받는다.
+- 상품 등록 시 대표 이미지, 제목, 상세 설명, 가격, 카테고리를 입력받는다.
 - 비회원은 상품을 등록할 수 없다.
-- 수정시 대표이미지, 제목, 상세설명, 가격, 카테고리를 변경할 수 있다.
+- 수정 시 대표 이미지, 제목, 상세 설명, 가격, 카테고리를 변경할 수 있다.
 - 등록한 회원은 거래 상태와 무관하게 상품을 삭제할 수 있다.
-- 관심 상품에 추가된 상품이 삭제될 경우, 자동으로 삭제된다. (❌ 구현전)
+- 관심 상품에 추가된 상품이 삭제될 경우, 자동으로 삭제된다. (❌ 구현 전)
 
 </div>
 </details>
 
 <details>
-<summary>📁상품 찜하기, 상품 문의(❌ 채팅기능 구현전)</summary>
+<summary>📁상품 찜하기, 상품 문의(❌ 채팅 기능 구현 전)</summary>
 <div markdown="1">
 
 ##### `상품 찜하기`
@@ -88,27 +88,27 @@
 - 찜 취소 가능
 - 찜한 상품은 **마이페이지 - 관심 상품**에서 확인할 수 있다.
 
-##### `상품 문의(❌ 구현전)`
-- 상품을 거래하고자 할 경우 채팅을 통해서 문의 가능하다.
+##### `상품 문의(❌ 구현 전)`
+- 상품을 거래하고자 할 때 채팅을 통해서 문의할 수 있다.
 - 상품 디테일 페이지에 상품 문의하기 버튼이 있다.
 - 로그인 회원만 가능하다. (비회원 사용 불가)
 - 본인이 본인에게 문의는 불가능하다.
-- 이미 거래가 완료된 상품은 더이상 문의할 수 없다.
+- 이미 거래가 완료된 상품은 더 이상 문의할 수 없다.
 
 </div>
 </details>
 
 <details>
-<summary>📁상품리스트, 상품 검색기능(❌ 구현전), 카테고리(❌ 구현전)</summary>
+<summary>📁상품리스트, 상품 검색기능, 카테고리(❌ 구현전)</summary>
 <div markdown="1">
 
 ##### `상품 리스트`
-- 메인화면에 상품리스트가 출력된다. 
-- 등록 날짜가 가장 최신 순으로 출력된다.
+- 메인화면에 상품 리스트가 출력된다. 
+- 등록 날짜가 가장 최신순으로 출력된다.
 
-##### `상품 검색기능, 카테고리 (❌ 구현전)`
+##### `상품 검색 기능, 카테고리 (❌ 구현 전)`
 - 원하는 상품 정보를 검색할 수 있다.
-- 카테고리는 『패션(여성, 남성, 스포츠, 잡화), 가전/디지털(컴퓨터, 냉장고, 청소기, 세탁기/건조기), 도서(여행, 역사, 예술, 기타), 기타』로 나눠져있다.
+- 카테고리는 『패션(여성, 남성, 스포츠, 잡화), 가전/디지털(컴퓨터, 냉장고, 청소기, 세탁기/건조기), 도서(여행, 역사, 예술, 기타), 기타』로 나뉘어있다.
 
 </div>
 </details>
@@ -127,7 +127,7 @@
 > SQL 중심적인 개발이 아닌 Method를 통해서 DB를 조작할 수 있어, 
 > 개발자는 객체 모델을 이용해서 비즈니스 로직을 구성하는 데만 집중할 수 있었다. <br>
 > 
-> 특히 <b>필드 변경이나 필드를 추가하게 될 경우 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월</b>하다. <br>
+> 특히 <b>필드 변경이나 필드를 추가하게 될 때 JPA가 자동으로 SQL을 처리해주기 때문에 유지보수가 수월</b>하다. <br>
 > 그리고 초반 개발단계에서는 H2 데이터베이스를 사용하였는데,
 > 나중에 데이터베이스를 MySQL로 변경하여도 <b>쿼리를 수정하지 않아도 된다는 장점</b>이 있었다  
 
@@ -135,19 +135,19 @@
 
 ##### `1. 도메인 모델 분석 (연관관계 매핑 분석)`
 - **회원(Member)** 과 **상품(Product)**
-    - 한명의 회원은 여러 상품을 등록할 수 있다.
+    - 한 명의 회원은 여러 상품을 등록할 수 있다.
     - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
 - **회원(Member)** 과 **관심 상품(WishItem)**
-    - 한명의 회원은 여러 개의 관심 상품을 가질 수 있다.
+    - 한 명의 회원은 여러 개의 관심 상품을 가질 수 있다.
     - 관심상품(WishItem)이 연관관계 주인으로 다대일 관계를 갖는다.
 - **관심 상품(WishItem)** 과 **상품(Product)**
-    - 관심 상품은 단 하나의 상품에 해당된다.
+    - 관심 상품은 단 하나의 상품에 해당한다.
     - 관심 상품(WishItem)이 연관관계 주인으로 일대일 관계를 갖는다.
 - **상품(Product)** 과 **댓글(Comment)**
     - 하나의 상품에는 여러 댓글을 달 수 있다.
     - 댓글(Comment)과 연관관계 주인으로 다대일 관계를 갖는다.
 - **회원(Member)** 과 **댓글(Comment)**
-    - 한명의 회원은 여러 댓글을 달 수 있다.
+    - 한 명의 회원은 여러 댓글을 달 수 있다.
     - 댓글(Comment)과 연관관계 주인으로 다대일 관계를 갖는다.
 - **상품(Product)** 과 **카테고리(Category)**
     - 하나의 상품은 여러개의 카테고리를 가질 수 있다.
@@ -166,7 +166,7 @@
 - `@Embeddable`: 값 타입을 정의하는 곳에 표시
 - `@ManyToOne(fetch = LAZY)`, `@OneToOne(fetch = LAZY)`: 연관 관계 맵핑
   - <img src="https://blog.kakaocdn.net/dn/xW1JV/btrHfmNFlWw/SZdtqTXWq0h5RvEjcBvE80/img.png" width="350">
-  - `fetch = LAZY`: 지연로딩 → 로딩되는 시점에 Lazy 로딩 설정이 되어있는 member 엔티티는 프록시 객체로 가져온다
+  - `fetch = LAZY`: 지연 로딩 → 로딩되는 시점에 Lazy 로딩 설정이 되어있는 member 엔티티는 프록시 객체로 가져온다
   - 후에 실제 객체를 사용하는 시점에(member 사용하는 시점에) 초기화가 된다. DB에 쿼리가 나간다. (select 쿼리가 따로 2번 나감)
   - `@ManyToOne`, `@OneToOne`: 기본이 `(fetch = EAGER)` → 즉시로딩 이므로 LAZY로 바꿔준다.
 - `@JoinColumn(name = "member_id")`:연관 관계를 맺을 해당 객체의 컬럼 값을 넣어주기
@@ -212,11 +212,11 @@
 <summary>⚽트러블 슈팅</summary>
 <div markdown="1">
 <br>
-<b>1. JPA - merge()를 이용하여 값 수정시 수정하지 않는 데이터는 값이 null로 들어가짐</b>
+<b>1. JPA - merge()를 이용하여 값 수정 시 수정하지 않는 데이터는 값이 null로 들어가짐</b>
 <br><br>
 
 > <구현 요구사항> <br>
-> 유저는 상품을 자유롭게 올릴 수 있다.  
+> 유저는 상품을 자유롭게 올릴 수 있다. 
 > 올린 상품을 수정할 수 있다
 
 👇Controller
@@ -235,9 +235,9 @@
 
 
 ##### 문제 발생
-- 수정시 MEMBER_ID가 계속 null값이 채워진다.
-- 게시글 수정시 게시글 작성자(member_id)는 변경될 일이 없다.
-- 그래서 아래 코드 실행시 member_id = null값이다.
+- 수정 시 MEMBER_ID가 계속 null값이 채워진다.
+- 게시글 수정 시 게시글 작성자(member_id)는 변경될 일이 없다.
+- 그래서 아래 코드 실행 시 member_id = null값이다.
 
 ```
  else { // 상품이 존재할 경우 강제로 업데이트(즉, 수정)
@@ -255,7 +255,7 @@
 -   만약 1차 캐시에 엔티티가 없으면 데이터베이스에 엔티티를 조회하고 1차 캐시에 저장.
 -   무조건 1번은 db 조회를 하므로 성능에 좋지 않을 수 있다.
 3.  조회한 영속 엔티티에 product 엔티티의 값을 채워 넣음
--   이때 product 의 모든 값을 영속 엔티티에 채워 넣기 때문에 **null 값이 들어갈 수 도 있는 문제가 생긴다.**
+-   이때 product 의 모든 값을 영속 엔티티에 채워 넣기 때문에 **null 값이 들어갈 수도 있는 문제가 생긴다.**
 -   이래서 **업데이트 시 merge()보단 변경 감지를 사용하자.**
 4.  영속 상태의 객체를 반환
 
@@ -281,7 +281,7 @@ public Product findSingleProduct(Long productId) {
 `entityManager`로 entity를 직접 꺼내, 값을 수정한다.
 
 `@Transactional`으로 인하여 로직이 끝날 때 JPA에서 트랜잭션 commit 시점에 변경 감지(Dirty Checking)한 후 Flush를 한다.
-<br>수정시 입력되지 않은 값은 그대로 유지된다.
+<br>수정 시 입력되지 않은 값은 그대로 유지된다.
 <br>
 <br>
 <br>
@@ -290,7 +290,7 @@ public Product findSingleProduct(Long productId) {
 </details>
 
 
-#### 2. 상품등록, 회원가입, 로그인시 Validation 검증
+#### 2. 상품등록, 회원가입, 로그인 시 Validation 검증
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
@@ -317,12 +317,12 @@ public Product findSingleProduct(Long productId) {
       ```
 <br>
 
-#### `2. 회원가입시 아이디 중복 검증 `
+#### `2. 회원가입 시 아이디 중복 검증 `
 👇MemberService에서 따로 중복 아이디를 검증하는 메서드를 만들었다.
 
 <img src="https://blog.kakaocdn.net/dn/dEOPkl/btrHfRfKHvx/ndrBqKHn87J1vQLJdmxv20/img.png" width="650">
 
-👇그리고 화면에 보여질 오류메시지는 타임리프를 통해 아래코드와 같이 `globalError()`를 출력시켜주었다.
+👇그리고 화면에 보일 오류메시지는 타임리프를 통해 아래 코드와 같이 `globalError()`를 출력시켜주었다.
 ````
     <div th:if="${#fields.hasGlobalErrors()}">
         <p class="field-error" th:each="err : ${#fields.globalErrors()}"
@@ -339,16 +339,16 @@ error-messages
 </div>
 </details>
 
-#### 3. Spring Security 회원가입시 패스워드 암호화 적용하기
+#### 3. Spring Security 회원가입 시 패스워드 암호화 적용하기
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
 <br>
 
 >Spring Security?<br>
->Spring 기반의 Application의 보안을 위한 Spring framework<br>
->스프링 시큐리티의 PasswordEncoder를 이용하여 패스워드를 암호화 할 것이다. <br>
->[🔗Spring Security공식문서 바로가기](https://spring.io/projects/spring-security)<br>
+>Spring 기반의 Application 보안을 위한 Spring framework<br>
+>스프링 시큐리티의 PasswordEncoder를 이용하여 패스워드를 암호화할 것이다. <br>
+>[🔗Spring Security 공식문서 바로가기](https://spring.io/projects/spring-security)<br>
 
 ##### `1. 의존성 주입`
 
@@ -426,7 +426,7 @@ public interface PasswordEncoder {
 `PasswordEncoder`는 스프링 시큐리티의 인터페이스 객체이다. <br>
 스프링 시큐리티(Spring Security)에서 제공하는 비밀번호 암호화 방법이다. <br>
 단방향 암호화로 진행이 되는데 인터페이스와 구현체를 제공한다.<br>
-기존적인 설정들을 disable하는 `Config` 객체는 `WebSecurityConfigurerAdapter`를 상속받아 `configure()`를 구현한다.
+기본적인 설정을 disable하는 `Config` 객체는 `WebSecurityConfigurerAdapter`를 상속받아 `configure()`를 구현한다.
 
 👇SecurityConfig
 
@@ -452,7 +452,7 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 .antMatchers("/css/**", "/js/**", "/*.ico", "/error", "/").permitAll()
 ```
 - 특정 리소스에 대해서 권한을 설정한다.
-- 뒤에 붙은 `.permitAll()`은 `.antMatchers`에서 설정한 URL의 접근을 인증없이 허용한다는 뜻이다.
+- 뒤에 붙은 `.permitAll()`은 `.antMatchers`에서 설정한 URL의 접근을 인증 없이 허용한다는 뜻이다.
 
 
 **`.anyRequest`**
@@ -460,7 +460,7 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 ```
 .anyRequest().authenticated()
 ```
-- 이 옵션은 모든 리소스가 인증을 해야만 접근이 허용된다는 뜻이다.
+- 이 옵션은 모든 리소스가 인증해야만 접근이 허용된다는 뜻이다.
 <br>
 
 [🔗스프링 시큐리티 설정값 참고한 블로그 바로가기](https://kimchanjung.github.io/programming/2020/07/02/spring-security-02/)
@@ -482,7 +482,7 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 <img src="https://blog.kakaocdn.net/dn/bVkWD1/btrHi3mUdvX/bTxa8KaNCzFd3c75FaDMdk/img.png" width="650">
 
 
-회원가입 진행시 MemberService에서 <br>
+회원가입 진행 시 MemberService에서 <br>
 생성자를 통해 의존 관계를 주입받은 `PasswordEncoder`를 사용하여 비밀번호 해싱후<br>
 `MemberRepository`로 DB에 저장할 수 있도록 하였다. <br><br>
 
@@ -520,7 +520,7 @@ db에 암호화되어 저장된 패스워드가 서로 대칭되는지**에 대�
 
 <img src="https://blog.kakaocdn.net/dn/b0YkMq/btrHhb073cO/MZdINK7UDjp2YzBIacotO1/img.png" width="500">
 
-passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 입력받아서 한번 더 체크한다.
+passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 입력받아서 한 번 더 체크한다.
 
 👇MemberService
 
@@ -529,7 +529,7 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 📝JPA 변경 감지(Dirty Checking)을 활용하여 수정하였다.
 
 - `memberRepository.findOneMember(memberId)`: entity를 직접 꺼낸다.
-- `findMember.passwordChange(password)`: 변경된 비밀번호넣은 후
+- `findMember.passwordChange(password)`: 변경된 비밀번호 넣은 후
 - `findMember.hashpassword(passwordEncoder)`: 암호화 시킨 값으로 수정한다.
 
 👇MemberEntity에서 수정메서드
@@ -555,9 +555,9 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 
 <img src="https://blog.kakaocdn.net/dn/bxz75R/btrHEXgXkC7/59KIa9rlXKjgEG3M44y44K/img.png" width="600">
 
-❓처음엔 맵핑 경로를 잘못 입력하였다던가 다른 부분에서 오타가 있다고 생각을 하였다. <br>
-하지만 Spring Security를 도입하기 전까진 로그아웃시 메인페이지로 잘 이동하였었다.<br>
-그래서 Spring Security의 어떤 부분때문에 이런 문제가 생겼는지 찾아보았다.
+❓처음엔 매핑 경로를 잘못 입력하였다던가 다른 부분에서 오타가 있다고 생각하였다. <br>
+하지만 Spring Security를 도입하기 전까진 로그아웃 시 메인페이지로 잘 이동하였었다.<br>
+그래서 Spring Security의 어떤 부분 때문에 이런 문제가 생겼는지 찾아보았다.
 
 #### ✔️문제해결
 - 현재 Thymeleaf 템플릿을 사용하고 있다.
@@ -566,8 +566,8 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
   <img src="https://blog.kakaocdn.net/dn/n0xjn/btrHL2bLWf9/PG1PWMkRr6ARfprPJm21Y0/img.png" width="650">
 
   Spring Security에서 `/login` 요청을 가로채서 대신 처리를 해준다.
-  <br> `/logout` 역시 Spring Security가 대신 처리를 하여 로그아웃이 완료되면 `/login?logout`으로 redirect된다.
-  <br>그래서 Controller에서 잘 작동되는지 확인차 찍어둔 log가 출력이 되지 않는 것을 확인할 수 있었다.
+  <br> `/logout` 역시 Spring Security가 대신 처리하여 로그아웃이 완료되면 `/login?logout`으로 redirect된다.
+  <br>그래서 Controller에서 잘 작동되는지 확인차 찍어둔 log가 출력되지 않는 것을 확인할 수 있었다.
   <br>즉, **Security가 대신 이 요청을 처리하여 Controller의 해당 코드가 실행이 되지 않았음을 알 수 있다.**
 
   <img src="https://blog.kakaocdn.net/dn/bK2prc/btrHNMlW7GC/yNLdZhUZNeEsOb1CPv0Df1/img.png" width="400">
@@ -577,9 +577,9 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
   👇SecurityConfig
   <img src="https://blog.kakaocdn.net/dn/MNLQN/btrHOUDjTlI/PCprKP65uEk9aEX976BKg0/img.png" width="650">
 
-  - `.logoutRequestMatcher(new AntPathRequestMatcher("/URL"))`: 로그아웃을 실행할 URL경로
-  - `.logoutSuccessUrl("/")`: 로그아웃 성공시 redirect할 URL
-  - `.invalidateHttpSession(true)`: HTTP Session을 초기화 한다.
+  - `.logoutRequestMatcher(new AntPathRequestMatcher("/URL"))`: 로그아웃을 실행할 URL 경로
+  - `.logoutSuccessUrl("/")`: 로그아웃 성공 시 redirect할 URL
+  - `.invalidateHttpSession(true)`: HTTP Session을 초기화한다.
   - `.delectCookie("")`: 특정 쿠키 제거
 - ✔️결론적으로 LoginController에서 로그아웃에 대한 코드를 작성하지 않아도 된다. (해당 Method 주석처리)
 
@@ -587,7 +587,7 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 </details>
 
 
-#### 4. 상품 등록시 Spring MultipartFile을 이용한 대표이미지 업로드
+#### 4. 상품 등록 시 Spring MultipartFile을 이용한 대표 이미지 업로드
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
@@ -632,7 +632,7 @@ Content-Type: image/jpeg
 -   "Content-Disposition:form-data; data="data" ~ → 영역의 시작(해당 영역에 대한 정보)
 -   "---xxx--" 끝 명시
 
-위와 같은 식으로 각각의 항목을 구분해서 한번에 형식이 다른 여러 항목들을 전송할 수 있다.
+위와 같은 식으로 각각의 항목을 구분해서 한 번에 형식이 다른 여러 항목을 전송할 수 있다.
 
 **multipart/form-data 방식**
 
@@ -662,8 +662,8 @@ Content-Type: image/jpeg
 `realPath`: 파일이 저장되는 경로이다.<br>
 `request.getSession().getServletContext().getRealPath("/upload")`: **내 프로젝트/src/main/webapp/upload 파일 경로**이다.
 <br>
-즉, 저 경로에 webapp 파일이 없다면 에러가 나거나 톰캣의 임시폴더에 저장되게 된다.
-<br>이러한 오류를 방지하려면 webapp 파일을 꼭 만들어줘야한다.
+즉, 저 경로에 webapp 파일이 없다면 에러가 나거나 톰캣의 임시 폴더에 저장되게 된다.
+<br>이러한 오류를 방지하려면 webapp 파일을 꼭 만들어줘야 한다.
 
 <img src="https://blog.kakaocdn.net/dn/ZbQri/btrHi3IeEig/rRroFpWzLHMF517PutZa9K/img.png" width="350">
 
@@ -673,9 +673,9 @@ Content-Type: image/jpeg
 <summary>✔️ Spring Boot 와 Thymeleaf 경우 참고사항</summary>
 <div markdown="1">
 
-Spring Boot 와 Thymeleaf 적용중이라면 기본적으로 static에서 파일을 읽게 된다. (css 또는 js 파일 등)  
-그래서 파일 업로드된 이미지파일을 불러올 때 경로 오류로 불러오지 않는 상황이 생길 수도 있다.  
-이 때는 정적 리소스에 접근해서 경로를 바꿔줘야한다.  
+Spring Boot 와 Thymeleaf 적용 중이라면 기본적으로 static에서 파일을 읽게 된다. (css 또는 js 파일 등)  
+그래서 파일 업로드된 이미지 파일을 불러올 때 경로 오류로 불러오지 않는 상황이 생길 수도 있다.  
+이때는 정적 리소스에 접근해서 경로를 바꿔줘야 한다.  
 application.yml 에서 다음과 같이 코드를 적어주었다.
 
 <img src="https://blog.kakaocdn.net/dn/pyL4h/btrHjdxwR8x/ySt8rpT5YGZRMgKEMixbkk/img.png" width="300">
@@ -687,7 +687,7 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 </div>
 </details>
 
-이미지를 HTML에서 보여줄 때는 아래코드를 이용하여 Resource를 보여주었다.
+이미지를 HTML에서 보여줄 때는 아래 코드를 이용하여 Resource를 보여주었다.
 
 ```
 <img th:src="@{/webapp/upload/} + ${fileName}">
@@ -711,7 +711,7 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 <br><br>
 ##### `사용이유` <br>
 프로젝트 올리기, 마이페이지 등 로그인을 한 사용자만 실행할 수 있는 Controller Handler를 작성할 때,<br>
-오직 로그인 회원만 실행할 수 있도록 하기 위해 **로그인 회원인지 확인하는 체크 코드를 각 핸들러에 모두 작성**해주어야 한다.<br>
+오직 로그인 회원만 실행할 수 있게 하도록 **로그인 회원인지 확인하는 체크 코드를 각 핸들러에 모두 작성**해주어야 한다.<br>
 이렇게 모두 작성하게 되면 **반복되는 코드들이 많아지고** 그로 인해 메모리 낭비, 서버의 부하가 늘어난다.<br>
 그리고 **코드의 누락 실수**가 발생할 수 있다.<br>
 그렇게 된다면 자격이 없는 사용자가 접근할 수 있게 되어 보안 측면에서 문제가 생긴다.<br><br>
@@ -729,7 +729,7 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 
 <img src="https://blog.kakaocdn.net/dn/VgvVw/btrHrwC6B25/RvBx3raJQAbgzkvTutyzO0/img.png" width="600">
 
-- LoginController에서 로그인 성공시 다시 요청했던 페이지로 갈 수 있도록 쿼리스프링을 받아서 redirect 하였다. <br>
+- LoginController에서 로그인 성공 시 다시 요청했던 페이지로 갈 수 있도록 쿼리스프링을 받아서 redirect 하였다. <br>
 - ` @RequestParam(defaultValue = "/")`: 기본 값을 "/"로 설정하여 넘어오는 URI가 없을 경우 메인 페이지로 갈 수 있도록 하였다.
 
 **2. WebMvcConfigurer 구현 후 Interceptor 등록**
@@ -760,12 +760,12 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 ## 6. 기타 트러블 슈팅
 
 <details>
-<summary>⚽ 로그인 : 가입되지 않은 아이디 입력시 오류 처리(Optional 클래스 사용) - NoSuchElementException</summary>
+<summary>⚽ 로그인 : 가입되지 않은 아이디 입력 시 오류 처리(Optional 클래스 사용) - NoSuchElementException</summary>
 <div markdown="1">
 
 #### 🚫현재 문제점
 
-1. 로그인시 잘못된 아이디(없는 아이디)를 입력하게 되면
+1. 로그인 시 잘못된 아이디(없는 아이디)를 입력하게 되면
 
 <img src="https://blog.kakaocdn.net/dn/Aswox/btrFHEX5ZqN/BdAb7IqKdBTWXkeVKOkbIK/img.png" width="450">
 
@@ -774,7 +774,7 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 <img src="https://blog.kakaocdn.net/dn/pGSvS/btrFTOx96lq/YUwapoxLkwOW7uLpikMdPK/img.png" width="450">
 
 
-🔻에러메시지<br>
+🔻에러 메시지<br>
 java.util.NoSuchElementException: No value present at java.base/java.util.Optional.get(Optional.java:148) ~\[na:na\] at project.toyproject.service.LoginService.login(LoginService.java:31) ~\[classes/:na\] at
 
 코드보기
@@ -790,7 +790,7 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 1. 우선 `findMemberOptional.get()`으로 `Optional` 객체에 저장된 값에 접근한다.<br>
 2. 여기서 저장된 값이 있다면 if문으로 넘어갈 것이다.<br>
 3. 하지만 **`Optional` 객체에 저장된 값이 null이면 `NoSuchElementException` 예외가 발생한다.**<br>
-4. 해당 아이디가 없을 경우 결국 if문이 실행되기 전에 예외가 터져버리는 것이다.<br>
+4. 해당 아이디가 없을 때 결국 if문이 실행되기 전에 예외가 터져버리는 것이다.<br>
 5. 따라서 `findMemberOptional.get()`이 실행되기 전에 `Optional` 객체에 저장된 값이 null인지 아닌지를 먼저 확인한 후 호출해야한다.<br>
 
 #### ✔️문제해결
@@ -807,8 +807,8 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 
 <img src="https://blog.kakaocdn.net/dn/KsmmT/btrHwkP6QHx/kw5ZK89MSpJDpzxjxB6Fdk/img.png" width="550">
 
-- `isPresent()`: 입력받은 아이디 정보가 존재하면 true, 존재하지 않을 경우 false 반환
-- if문으로 아이디 정보가 없을 경우 null을 리턴한다.
+- `isPresent()`: 입력받은 아이디 정보가 존재하면 true, 존재하지 않을 때 false 반환
+- if문으로 아이디 정보가 없을 때 null을 리턴한다.
 
 다시 가입되지 않은 아이디로 로그인을 시도해본다.
 
@@ -826,27 +826,27 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 </details>
 
 <details>
-<summary>⚽ 검색기능: 연속으로 검색시 오류발생 - InvalidDataAccessApiUsageException</summary>
+<summary>⚽ 검색 기능: 연속으로 검색 시 오류발생 - InvalidDataAccessApiUsageException</summary>
 <div markdown="1">
 
 #### 🚫현재 문제점
-Spring JPA에서 제공하는 Repository라는 인터페이스를 사용하여 상품 검색 기능을 구현하는 중 다음과 같은 문제가 생겼다.
+Spring JPA에서 제공하는 JpaRepository 인터페이스를 사용하여 상품 검색 기능을 구현하는 중 다음과 같은 문제가 생겼다.
 - 프로젝트를 실행시킨 후 처음 검색은 잘 작동이 된다.
-- 하지만 그 후 연속해서 검색을 하게 되면 예외가 터지면서 500 오류가 발생한다.
+- 하지만 그 후 연속해서 검색하게 되면 예외가 터지면서 500 오류가 발생한다.
 
 👇errorCode
 ```
 2022-07-26 14:23:01.332 ERROR 2556 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: Parameter value [\] did not match expected type [java.lang.String (n/a)]; nested exception is java.lang.IllegalArgumentException: Parameter value [\] did not match expected type [java.lang.String (n/a)]] with root cause
 ```
 
-<img src="https://blog.kakaocdn.net/dn/ctRtXI/btrIjNYLvT4/pThhKsiKvzPKinbDyUabbk/img.png" width="500">
+<img src="https://blog.kakaocdn.net/dn/ctRtXI/btrIjNYLvT4/pThhKsiKvzPKinbDyUabbk/img.png" width="550">
 
 - `IllegalArgumentException: Parameter value [\] did not match expected type`:
 <br>파라미터를 넘기는 부분에 매핑이 잘못되고 있는 것 같다.
 
 #### ✔️문제해결
 
-- spring-projects의 Github에서 spring-data-jpa 레포지토리의 issues에서 동일한 문제를 찾아볼 수 있었다.
+- spring-projects의 Github에서 spring-data-jpa 레포지토리의 issues에서 같은 문제를 찾아볼 수 있었다.
   <br> [spring-data-jpa GitHub 바로가기](https://github.com/spring-projects/spring-data-jpa/issues/2479)
 
   <img src="https://blog.kakaocdn.net/dn/CFPH0/btrIi6jZGB9/pDUCyapGKJrdnmZpoEThv1/img.png" width="600">
@@ -855,10 +855,10 @@ Spring JPA에서 제공하는 Repository라는 인터페이스를 사용하여 �
 
   <img src="https://blog.kakaocdn.net/dn/cJnAQF/btrIkpJ9roB/a79msjcbIJoFf4h78Rmvzk/img.png" width="550">
 
-  (그러나 여기서는 정확한 이유가 적혀있지 않아서 따로 이유를 찾아보게 되었다.) <br>
+  (그러나 여기서는 정확한 이유가 찾을 수 없어서 따로 이유를 찾아보게 되었다.) <br>
 
 💡  자바 8 이상에서 interface 파라미터 이름을 알아내려면 자바 컴파일러에 -parameters 옵션이 필요하다.
-<br> 하지만 이 옵션 없이 사용하는 경우가 많으므로 @Param을 사용하여 파라미터를 명확하게 바인딩 해주어야 한다. 
+<br> 하지만 이 옵션 없이 사용하는 경우가 많으므로 @Param을 사용하여 파라미터를 명확하게 바인딩해 주어야 한다. 
 <br>
 
 📝 @Param: 
