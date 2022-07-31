@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/*.ico", "/error", "/",
                         "/webapp/**", "/upload/**", "/product/**",
-                        "/login", "/userLogout", "/members/**").permitAll()
+                        "/login", "/userLogout", "/members/**", "/chat/**").permitAll()
                 .anyRequest().authenticated()
         .and() // 로그아웃 설정
                 .logout()
