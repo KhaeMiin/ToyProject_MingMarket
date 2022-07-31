@@ -99,7 +99,7 @@
 </details>
 
 <details>
-<summary>📁상품리스트, 상품 검색기능, 카테고리(❌ 구현전)</summary>
+<summary>📁상품리스트, 상품 검색기능, 카테고리(❌ 구현 전)</summary>
 <div markdown="1">
 
 ##### `상품 리스트`
@@ -839,7 +839,7 @@ Spring JPA에서 제공하는 JpaRepository 인터페이스를 사용하여 상�
 2022-07-26 14:23:01.332 ERROR 2556 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: Parameter value [\] did not match expected type [java.lang.String (n/a)]; nested exception is java.lang.IllegalArgumentException: Parameter value [\] did not match expected type [java.lang.String (n/a)]] with root cause
 ```
 
-<img src="https://blog.kakaocdn.net/dn/ctRtXI/btrIjNYLvT4/pThhKsiKvzPKinbDyUabbk/img.png" width="550">
+<img src="https://blog.kakaocdn.net/dn/ctRtXI/btrIjNYLvT4/pThhKsiKvzPKinbDyUabbk/img.png" width="980">
 
 - `IllegalArgumentException: Parameter value [\] did not match expected type`:
 <br>파라미터를 넘기는 부분에 매핑이 잘못되고 있는 것 같다.
