@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static project.toyproject.dto.MemberDto.*;
 
@@ -45,12 +46,18 @@ public class MemberService {
      */
     public List<SelectMemberData> findMembers() {
         List<Member> members = memberRepository.findAllMembers();
-        List<SelectMemberData> listMemberData = new ArrayList<>();
+/*        List<SelectMemberData> listMemberData = new ArrayList<>();
         for (Member member : members) {
             SelectMemberData selectMemberData = new SelectMemberData(member.getId(), member.getUserId(),
                     member.getUsername(),member.getNickname(), member.getHp(), member.getAddress());
             listMemberData.add(selectMemberData);
-        }
+        }*/
+
+        //stream 공부하자
+        List<SelectMemberData> listMemberData = members.stream()
+                .map(m -> new SelectMemberData(m.getId(), m.getUserId(),
+                        m.getUsername(), m.getNickname(), m.getHp(), m.getAddress()))
+                .collect(Collectors.toList());
         return listMemberData;
     }
 
@@ -176,5 +183,19 @@ public class MemberService {
             throw new IllegalStateException("비밀번호에 연속된 문자열을 사용할 수 없습니다.");
         }
 
+    }
+
+    /**
+     * API 회원 정보 수정 메서드
+     * @param id
+     * @param form
+     * @return
+     */
+    public SelectMemberData updateMember(Long id, UpdateMemberForm form) {
+        Member member = memberRepository.findOneMember(id);
+        Address address = new Address(form.getAddress(), form.getDetailedAddress());
+        member.change(form.getNickname(), form.getUsername(), form.getHp(), address);
+        return new SelectMemberData(member.getId(), member.getUserId(),
+                member.getUsername(), member.getNickname(), member.getHp(), member.getAddress());
     }
 }

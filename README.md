@@ -755,6 +755,16 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 </div>
 </details>
 
+#### 7. API 개발 + 성능 튜닝(진행 중)
+
+<details>
+<summary></summary>
+<div markdown="1">
+
+
+</div>
+</details>
+
 <br>
 
 ## 6. 기타 트러블 슈팅
@@ -847,7 +857,7 @@ Spring JPA에서 제공하는 JpaRepository 인터페이스를 사용하여 상�
 #### ✔️문제해결
 
 - spring-projects의 Github에서 spring-data-jpa 레포지토리의 issues에서 같은 문제를 찾아볼 수 있었다.
-  <br> [spring-data-jpa GitHub 바로가기](https://github.com/spring-projects/spring-data-jpa/issues/2479)
+  <br> [spring-data-jpa Github 바로가기](https://github.com/spring-projects/spring-data-jpa/issues/2479)
 
   <img src="https://blog.kakaocdn.net/dn/CFPH0/btrIi6jZGB9/pDUCyapGKJrdnmZpoEThv1/img.png" width="600">
 
