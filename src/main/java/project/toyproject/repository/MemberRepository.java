@@ -40,17 +40,28 @@ public class MemberRepository {
     /**
      * 로그인시 회원 조회
      * TODO
-     * 코드 리팩토링 예정 (람다함수, stream 사용해보기)
      */
     public Optional<Member> findByLoginId(String userId) {
         List<Member> members = em.createQuery("select m from Member m", Member.class)
                 .getResultList();
+/*
         for (Member m : members) {
             if (m.getUserId().equals(userId)) { //값이 있을 경우
                 return Optional.of(m);
             }
         }
         return Optional.empty(); //값이 없으면 null
+*/
+
+        //stream 사용
+        //findFirst(): filter 조건에 일치하는 element 1개를 Optional로 리턴
+        //만약 조건이 일치하는 값이 없으면 empty 리턴
+        //+비슷한 기능으로 findAny()도 있지만 순서 상관없이 먼저 찾는 요소를 리턴해버림
+        //empty: 비어있는(즉, 값이 없는)
+        return members.stream()
+                .filter(m -> m.getUserId().equals(userId))
+                .findFirst();
+
     }
 
 }

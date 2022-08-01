@@ -799,9 +799,9 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 
 1. 우선 `findMemberOptional.get()`으로 `Optional` 객체에 저장된 값에 접근한다.<br>
 2. 여기서 저장된 값이 있다면 if문으로 넘어갈 것이다.<br>
-3. 하지만 **`Optional` 객체에 저장된 값이 null이면 `NoSuchElementException` 예외가 발생한다.**<br>
+3. 하지만 **`Optional` 객체에 저장된 값이 empty(비어있는 값)이면 `NoSuchElementException` 예외가 발생한다.**<br>
 4. 해당 아이디가 없을 때 결국 if문이 실행되기 전에 예외가 터져버리는 것이다.<br>
-5. 따라서 `findMemberOptional.get()`이 실행되기 전에 `Optional` 객체에 저장된 값이 null인지 아닌지를 먼저 확인한 후 호출해야한다.<br>
+5. 따라서 `findMemberOptional.get()`이 실행되기 전에 `Optional` 객체에 저장된 값이 empty(비어있는 값)인지 아닌지를 먼저 확인한 후 호출해야한다.<br>
 
 #### ✔️문제해결
 
@@ -811,7 +811,7 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 
 → **`get()` 메소드를 호출하기 전에**
 <br>
-→ **`isPresent()`를 사용하여 객체에 저장된 값이 null인지 아닌지를 확인할 것이다.**
+→ **`isPresent()`를 사용하여 객체에 저장된 값이 empty(비어있는 값)인지 아닌지를 확인할 것이다.**
 
 👇LoginService
 

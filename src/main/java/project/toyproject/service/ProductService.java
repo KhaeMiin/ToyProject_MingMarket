@@ -13,6 +13,7 @@ import project.toyproject.repository.ProductRepository;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static project.toyproject.dto.ProductDto.*;
 
@@ -59,14 +60,19 @@ public class ProductService {
      */
     public List<SelectProducts> findProducts() {
         List<Product> products = productRepository.findAllProducts();
-        List<ProductDto.SelectProducts> productList = new ArrayList<>();
+/*        List<ProductDto.SelectProducts> productList = new ArrayList<>();
         for (Product product : products) {
             SelectProducts selectProductData = new SelectProducts(
                     product.getId(), product.getTitle(), product.getThumbnail(),
                     product.getIntro(), product.getPrice(), product.getMember(),
                     product.getProductStatus());
             productList.add(selectProductData);
-        }
+        }*/
+        //stream 사용
+        List<SelectProducts> productList = products.stream()
+                .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
+                        p.getIntro(), p.getPrice(), p.getMember(),
+                        p.getProductStatus())).collect(Collectors.toList());
         return productList;
     }
 
@@ -96,14 +102,19 @@ public class ProductService {
      */
     public List<SelectProducts> userProductsList(Long memberId) {
         List<Product> products = productRepository.userProducts(memberId);
-        List<SelectProducts> userProductList = new ArrayList<>();
+/*        List<SelectProducts> userProductList = new ArrayList<>();
         for (Product product : products) {
             SelectProducts selectProductData = new SelectProducts(
                     product.getId(), product.getTitle(), product.getThumbnail(),
                     product.getIntro(), product.getPrice(), product.getMember(),
                     product.getProductStatus());
             userProductList.add(selectProductData);
-        }
+        }*/
+        //stream 사용
+        List<SelectProducts> userProductList = products.stream()
+                .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
+                        p.getIntro(), p.getPrice(), p.getMember(),
+                        p.getProductStatus())).collect(Collectors.toList());
         return userProductList;
     }
 }
