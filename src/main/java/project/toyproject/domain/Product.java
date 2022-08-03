@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.FetchType.*;
 
@@ -31,9 +33,11 @@ public class Product extends BaseEntity { //상품
     @Enumerated(EnumType.STRING)
     private CategoryList categoryList;
 
-
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)  //누구에 의해서 맵핑 되는지!(읽기전용이 됩니다!)
+    private List<Comment> commentList = new ArrayList<>();
 
     /**
      * 무한카테고리(현재는 구현 안 할 예정) > 나중에 다시 구현하자
@@ -49,6 +53,12 @@ public class Product extends BaseEntity { //상품
         this.member = member;
         this.productStatus = productStatus;
         this.categoryList = categoryList;
+    }
+
+    //연관관계 메서드
+    public void addComment(Comment comment) {
+        commentList.add(comment);
+        comment.addProduct(this);
     }
 
     //생성 메서드

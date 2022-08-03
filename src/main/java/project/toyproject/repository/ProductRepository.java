@@ -26,6 +26,8 @@ public class ProductRepository {
 
     /**
      * 단일 상품 조회
+     * TODO
+     * 댓글 기능 추가후 단일 상품 정보 조회시 fetch join으로 댓글 정보 가져오기
      */
     public Product findSingleProduct(Long productId) {
         return em.find(Product.class, productId);
@@ -37,13 +39,6 @@ public class ProductRepository {
     public List<Product> findAllProducts() {
         return em.createQuery("select p from Product p order by p.id desc ", Product.class)
                 .getResultList();
-    }
-
-    /**
-     * 상품 검색
-     */
-    public List<Product> searchProduct(String productName) {
-        return null;
     }
 
     /**
