@@ -72,10 +72,6 @@ public class ProductController {
     public String ProductDetail(@PathVariable Long productId, Model model, HttpServletRequest request) {
         ProductDetailData singleProduct = productService.findSingleProduct(productId);
 
-        // 작성자 닉네임 구하기
-        SelectMemberData writer = memberService.findOneMember(singleProduct.getMember().getId());
-
-        model.addAttribute("writerId", writer.getUserId());
         model.addAttribute("singleProduct", singleProduct);
 
         //찜상품인지 체크
@@ -158,8 +154,12 @@ public class ProductController {
      */
     @GetMapping("/shop/{memberId}")
     public String userProductList(@PathVariable("memberId") Long memberId, Model model) {
-        List<SelectProducts> selectProducts = productService.userProductsList(memberId);
-        model.addAttribute("products", selectProducts);
+        //내가 올린 상품
+        List<SelectProducts> userProducts = productService.userProductsList(memberId);
+        model.addAttribute("products", userProducts);
+        //내가 찜한 상품
+        List<SelectProducts> userWishList = productService.wishList(memberId);
+        model.addAttribute("wishItems", userWishList);
         return "product/myProductList";
     }
 

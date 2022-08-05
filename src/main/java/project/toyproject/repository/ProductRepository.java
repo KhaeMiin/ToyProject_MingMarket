@@ -3,6 +3,7 @@ package project.toyproject.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import project.toyproject.domain.Product;
+import project.toyproject.domain.WishItem;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -58,5 +59,15 @@ public class ProductRepository {
                 .getResultList();
     }
 
-
+    /**
+     * 내가 찜한 상품 리스트 보기
+     */
+    public List<WishItem> wishProduct(Long memberId) {
+        return em.createQuery(
+                        "select w from WishItem w" +
+                                " join fetch w.product p" +
+                                " where w.member.id = :memberId", WishItem.class
+                ).setParameter("memberId", memberId)
+                .getResultList();
+    }
 }

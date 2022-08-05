@@ -8,7 +8,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" th:inline="javascript">
     $(function () {
-        $("#myProducts").hide();
+        $("#myWishList").hide();
 
         $("#myProductBtn").click(function () {
             $("#myProducts").show();
@@ -45,12 +45,12 @@
 
         <div id="myWishList">
             <h2>WISH LIST</h2>
-            <div th:each="product : ${products}">
+            <div th:each="wishItems : ${wishItems}">
                 <div>
-                    <a th:href="@{/product/detail/{productId}(productId=${product.id})}">
-                        <img th:src="@{/webapp/upload/} + ${product.thumbnail}" width="300" height="300">
+                    <a th:href="@{/product/detail/{productId}(productId=${wishItems.id})}">
+                        <img th:src="@{/webapp/upload/} + ${wishItems.thumbnail}" width="300" height="300">
                     </a>
-                    <a th:text="${product.title}" th:href="@{/product/detail/{productId}(productId=${product.id})}">제목입니다.</a>
+                    <a th:text="${wishItems.title}" th:href="@{/product/detail/{productId}(wishItems=${wishItems.id})}">제목입니다.</a>
                 </div>
             </div>
         </div>

@@ -5,15 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import project.toyproject.annotation.LoginCheck;
-import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.service.ProductService;
 
 import java.util.List;
+
+import static project.toyproject.dto.ProductDto.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,7 +44,7 @@ public class HomeController {
             @LoginCheck MemberDto.SessionMemberData loginMember, Model model) {
 
         //메인화면에 상품 리스트 출력
-        List<ProductDto.SelectProducts> products = productService.findProducts();
+        List<SelectProducts> products = productService.findProducts();
 
         model.addAttribute("products", products);
 

@@ -9,47 +9,47 @@
 <script type="text/javascript" th:inline="javascript">
     $(function () {
         $(document).on("click","#addWishItemBtn",function(){
-           var memberId = $("#memberId").val();
-           var productId = $("#productId").val();
+            var memberId = $("#memberId").val();
+            var productId = $("#productId").val();
 
-           $.ajax({
-               type: "post",
-               dataType: "text",
-               url: "/product/addWishItem",
-               data: {"memberId":memberId, "productId":productId },
-               success : function (data){
-                   alert("찜상품 추가!");
-                   $("#addWishItemBtn").hide();
-                   var dynamicTag = '<button type="button" id="cancelWishItemBtn" class="btn btn-primary">상품 찜취소</button>';
-                   $("#wish").html(dynamicTag);
-                   $("#wishId").val(data);
-               },
-               error: function (request, status, error) {
-                   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-               }
-           });
-       });
+            $.ajax({
+                type: "post",
+                dataType: "text",
+                url: "/product/addWishItem",
+                data: {"memberId":memberId, "productId":productId },
+                success : function (data){
+                    alert("찜상품 추가!");
+                    $("#addWishItemBtn").hide();
+                    var dynamicTag = '<button type="button" id="cancelWishItemBtn" class="btn btn-primary">상품 찜취소</button>';
+                    $("#wish").html(dynamicTag);
+                    $("#wishId").val(data);
+                },
+                error: function (request, status, error) {
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            });
+        });
 
-       $(function () {
-           $(document).on("click","#cancelWishItemBtn",function(){
-               var wishId = $("#wishId").val();
-               $.ajax({
-                   type: "post",
-                   dataType: "text",
-                   url: "/product/cancelWishItem",
-                   data: {"wishId":wishId },
-                   success : function (data){
-                       alert("찜하기 취소");
-                       $("#cancelWishItemBtn").hide();
-                       var dynamicTag = '<button type="button" id="addWishItemBtn" class="btn btn-primary">상품 찜하기</button>';
-                       $("#wish").html(dynamicTag);
-                   },
-                   error: function (request, status, error) {
-                       alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                   }
-               });
-           });
-       })
+        $(function () {
+            $(document).on("click","#cancelWishItemBtn",function(){
+                var wishId = $("#wishId").val();
+                $.ajax({
+                    type: "post",
+                    dataType: "text",
+                    url: "/product/cancelWishItem",
+                    data: {"wishId":wishId },
+                    success : function (data){
+                        alert("찜하기 취소");
+                        $("#cancelWishItemBtn").hide();
+                        var dynamicTag = '<button type="button" id="addWishItemBtn" class="btn btn-primary">상품 찜하기</button>';
+                        $("#wish").html(dynamicTag);
+                    },
+                    error: function (request, status, error) {
+                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    }
+                });
+            });
+        })
     });
 </script>
 <div class="container">
@@ -65,24 +65,24 @@
         <img th:src="@{/webapp/upload/} + ${singleProduct.getThumbnail()}">
         <br>
         글 제목: <span th:text="${singleProduct.title}">제목</span><br>
-        작성자: <span th:text="${singleProduct.member.nickname}">닉네임</span><br>
+        작성자: <span th:text="${singleProduct.nickName}">닉네임</span><br>
         날짜: <span th:text="${singleProduct.createDate}">날짜</span><br>
         가격: <span th:text="${singleProduct.price}">날짜</span><br>
         상세 설명: <span th:text="${singleProduct.intro}">상세설명</span><br>
 
     </div>
     <div th:if="${session?.loginMember} != null">
-        <div th:if="${session?.loginMember.userId} == ${writerId}">
+        <div th:if="${session?.loginMember.userId} == ${singleProduct.userId}">
             <a href="#" th:href="@{/product/{id}/edit (id=${singleProduct.productId})}"
                class="btn btn-primary" role="button">수정</a>
             <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
                class="btn btn-primary" role="button">삭제</a>
         </div>
-        <div th:if="${session?.loginMember.userId} != ${writerId}">
+        <div th:if="${session?.loginMember.userId} != ${singleProduct.userId}">
             <a href="#" th:href="@{/product/{id}/delete (id=${singleProduct.productId})}"
                class="btn btn-primary" role="button">상품 문의하기</a>
         </div>
-        <div th:if="${session?.loginMember.userId} != ${writerId}">
+        <div th:if="${session?.loginMember.userId} != ${singleProduct.userId}">
             <input type="hidden" th:id="memberId" th:value="${session?.loginMember.memberId}">
             <input type="hidden" th:id="productId" th:value="${singleProduct.productId}">
             <input type="hidden" th:id="wishId" th:value="${wishItem?.id}">

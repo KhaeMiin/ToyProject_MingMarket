@@ -12,6 +12,7 @@ import project.toyproject.domain.ProductStatus;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ProductDto {
 
@@ -84,7 +85,9 @@ public class ProductDto {
 
         private Long productId;
 
-        private Member member;
+        private String nickName; //작성자 닉네임
+
+        private String userId; //작성자 ID
 
         private String title; // 글 제목
 
@@ -96,6 +99,8 @@ public class ProductDto {
 
         private String createDate;
 
+//        private List<> //댓글 출력
+
 
     }
 
@@ -106,13 +111,13 @@ public class ProductDto {
     @AllArgsConstructor
     public static class SelectProducts {
 
-        private Long id; //pk
+        private Long id; //상품 pk
 
         private String title; //제목
         private String thumbnail; //섬네일
         private String intro; //설명(게시판)
         private int Price; //상품가격
-        private Member member;
+        private Long memberId; //작성자 pk
         private ProductStatus productStatus;
     }
 }

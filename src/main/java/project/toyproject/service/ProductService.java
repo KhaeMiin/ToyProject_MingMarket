@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.domain.WishItem;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductRepository;
@@ -71,7 +72,7 @@ public class ProductService {
         //stream 사용
         List<SelectProducts> productList = products.stream()
                 .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
-                        p.getIntro(), p.getPrice(), p.getMember(),
+                        p.getIntro(), p.getPrice(), p.getMember().getId(),
                         p.getProductStatus())).collect(Collectors.toList());
         return productList;
     }
@@ -85,7 +86,7 @@ public class ProductService {
         //게시글 작성 날짜 구하기
         String createDate = findProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-        ProductDetailData singleProduct = new ProductDetailData(productId, findProduct.getMember(),
+        ProductDetailData singleProduct = new ProductDetailData(productId, findProduct.getMember().getNickname(), findProduct.getMember().getUserId(),
                 findProduct.getTitle(), findProduct.getThumbnail(), findProduct.getIntro(), findProduct.getPrice(),
                 createDate);
 
@@ -113,8 +114,20 @@ public class ProductService {
         //stream 사용
         List<SelectProducts> userProductList = products.stream()
                 .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
-                        p.getIntro(), p.getPrice(), p.getMember(),
+                        p.getIntro(), p.getPrice(), p.getMember().getId(),
                         p.getProductStatus())).collect(Collectors.toList());
         return userProductList;
+    }
+
+    /**
+     * 내가 찜한 상품
+     */
+    public List<SelectProducts> wishList(Long memberId) {
+        List<WishItem> wishItems = productRepository.wishProduct(memberId);
+        return wishItems.stream()
+                .map(w -> new SelectProducts(w.getProduct().getId(), w.getProduct().getTitle(), w.getProduct().getThumbnail(),
+                        w.getProduct().getIntro(), w.getProduct().getPrice(), w.getMember().getId(), w.getStatus()))
+                .collect(Collectors.toList());
+
     }
 }

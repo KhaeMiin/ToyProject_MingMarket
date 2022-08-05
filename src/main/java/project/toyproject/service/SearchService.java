@@ -33,7 +33,7 @@ public class SearchService {
         for (Product productEntity : productEntities) {
             SelectProducts selectProducts = new SelectProducts(productEntity.getId(), productEntity.getTitle(),
                     productEntity.getThumbnail(), productEntity.getIntro(), productEntity.getPrice(),
-                    productEntity.getMember(), productEntity.getProductStatus());
+                    productEntity.getMember().getId(), productEntity.getProductStatus());
             productDtoList.add(selectProducts);
         }
 
