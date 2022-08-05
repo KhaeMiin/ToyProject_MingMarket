@@ -6,13 +6,10 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 import project.toyproject.domain.CategoryList;
-import project.toyproject.domain.Member;
 import project.toyproject.domain.ProductStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class ProductDto {
 

@@ -119,15 +119,4 @@ public class ProductService {
         return userProductList;
     }
 
-    /**
-     * 내가 찜한 상품
-     */
-    public List<SelectProducts> wishList(Long memberId) {
-        List<WishItem> wishItems = productRepository.wishProduct(memberId);
-        return wishItems.stream()
-                .map(w -> new SelectProducts(w.getProduct().getId(), w.getProduct().getTitle(), w.getProduct().getThumbnail(),
-                        w.getProduct().getIntro(), w.getProduct().getPrice(), w.getMember().getId(), w.getStatus()))
-                .collect(Collectors.toList());
-
-    }
 }

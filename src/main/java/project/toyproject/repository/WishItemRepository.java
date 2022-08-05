@@ -21,7 +21,7 @@ public class WishItemRepository {
     }
 
     /**
-     * 상품 조회(단건)
+     * 찜 조회(단건)
      */
     public WishItem findOne(Long id) {
         return em.find(WishItem.class, id);
@@ -38,12 +38,14 @@ public class WishItemRepository {
     }
 
     /**
-     * TODO
-     * 찜 상품 전체 리스트
+     * 내가 찜한 상품 리스트 보기
      */
-    public List<WishItem> findAll(String userId) {
-        return em.createQuery("select w from WishItem w where w.member.userId = :userId", WishItem.class)
-                .setParameter("userId", userId)
+    public List<WishItem> wishProduct(Long memberId) {
+        return em.createQuery(
+                        "select w from WishItem w" +
+                                " join fetch w.product p" +
+                                " where w.member.id = :memberId", WishItem.class
+                ).setParameter("memberId", memberId)
                 .getResultList();
     }
 

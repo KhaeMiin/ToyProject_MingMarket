@@ -5,12 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
+import project.toyproject.dto.ProductDto;
 import project.toyproject.dto.WishItemDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.WishItemRepository;
 import project.toyproject.repository.ProductRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static project.toyproject.dto.WishItemDto.*;
 
@@ -66,15 +68,7 @@ public class WishItemService {
     }
 
     /**
-     * 찜상품 조회 (단건)
-     */
-    public WishItem findOneOrder(Long wishId) {
-        WishItem wishList = wishItemRepository.findOne(wishId);
-        return wishList;
-    }
-
-    /**
-     * 찜상품 조회(회원,상품)
+     * 찜상품 조회(회원,상품으로 조회)
      */
     public FindWishItem findOneWishItem(Long memberId, Long productId) {
         WishItem wishItem = wishItemRepository.findOneItem(memberId, productId);
@@ -84,10 +78,15 @@ public class WishItemService {
     }
 
     /**
-     * 주문 조회 (회원 한명이 주문한 목록 리스트)
+     * 내가 찜한 상품
      */
-    public List<WishItem> findMembers(String userId) {
-        return wishItemRepository.findAll(userId);
+    public List<ProductDto.SelectProducts> wishList(Long memberId) {
+        List<WishItem> wishItems = wishItemRepository.wishProduct(memberId);
+        return wishItems.stream()
+                .map(w -> new ProductDto.SelectProducts(w.getProduct().getId(), w.getProduct().getTitle(), w.getProduct().getThumbnail(),
+                        w.getProduct().getIntro(), w.getProduct().getPrice(), w.getMember().getId(), w.getStatus()))
+                .collect(Collectors.toList());
+
     }
 
 }

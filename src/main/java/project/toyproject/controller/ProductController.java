@@ -158,7 +158,7 @@ public class ProductController {
         List<SelectProducts> userProducts = productService.userProductsList(memberId);
         model.addAttribute("products", userProducts);
         //내가 찜한 상품
-        List<SelectProducts> userWishList = productService.wishList(memberId);
+        List<SelectProducts> userWishList = wishItemService.wishList(memberId);
         model.addAttribute("wishItems", userWishList);
         return "product/myProductList";
     }

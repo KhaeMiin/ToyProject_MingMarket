@@ -59,15 +59,4 @@ public class ProductRepository {
                 .getResultList();
     }
 
-    /**
-     * 내가 찜한 상품 리스트 보기
-     */
-    public List<WishItem> wishProduct(Long memberId) {
-        return em.createQuery(
-                        "select w from WishItem w" +
-                                " join fetch w.product p" +
-                                " where w.member.id = :memberId", WishItem.class
-                ).setParameter("memberId", memberId)
-                .getResultList();
-    }
 }
