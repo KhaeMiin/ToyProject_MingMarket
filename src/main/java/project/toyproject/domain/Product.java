@@ -36,7 +36,16 @@ public class Product extends BaseEntity { //상품
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)  //누구에 의해서 맵핑 되는지!(읽기전용이 됩니다!)
+    /**
+     * CASCADE는 JPA 영속성 전이
+     * 부모 엔티티가 영속화될 때 자식 엔티티도 같이 영속화되고, 부모 엔티티가 삭제될 때 자식 엔티티도
+     * 삭제되는 등 특정 엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속 상태로 전이되는 것을 의미
+     * orphanRemoval = true
+     * 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제해주는 기능
+     * CascadeType.ALL + orphanRemoval = true
+     * 이 두개를 같이 사용하게 되면 부모 엔티티가 자식의 생명주기를 모두 관리할 수 있게 된다.
+     */
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)  //누구에 의해서 맵핑 되는지!(읽기전용이 됩니다!)
     private List<Comment> commentList = new ArrayList<>();
 
     /**
