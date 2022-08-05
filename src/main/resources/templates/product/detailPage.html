@@ -85,12 +85,12 @@
         <div th:if="${session?.loginMember.userId} != ${singleProduct.userId}">
             <input type="hidden" th:id="memberId" th:value="${session?.loginMember.memberId}">
             <input type="hidden" th:id="productId" th:value="${singleProduct.productId}">
-            <input type="hidden" th:id="wishId" th:value="${wishItem?.id}">
+            <input type="hidden" th:id="wishId" th:value="${wishItem}">
             <div th:id="wish">
-                <div th:if="${wishItem?.id} == null">
+                <div th:if="${wishItem} == null">
                     <button type="button" th:id="addWishItemBtn" class="btn btn-primary">상품 찜하기</button>
                 </div>
-                <div th:if="${wishItem?.id} != null">
+                <div th:if="${wishItem} != null">
                     <button type="button" th:id="cancelWishItemBtn" class="btn btn-primary">상품 찜취소</button>
                 </div>
             </div>

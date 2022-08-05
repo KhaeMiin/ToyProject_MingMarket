@@ -3,7 +3,6 @@ package project.toyproject.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import project.toyproject.domain.Product;
-import project.toyproject.domain.WishItem;
 
 import javax.persistence.EntityManager;
 import java.util.List;

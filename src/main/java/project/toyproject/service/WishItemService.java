@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
 import project.toyproject.dto.ProductDto;
-import project.toyproject.dto.WishItemDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.WishItemRepository;
 import project.toyproject.repository.ProductRepository;
@@ -14,7 +13,6 @@ import project.toyproject.repository.ProductRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static project.toyproject.dto.WishItemDto.*;
 
 @Slf4j
 @Service
@@ -70,11 +68,10 @@ public class WishItemService {
     /**
      * 찜상품 조회(회원,상품으로 조회)
      */
-    public FindWishItem findOneWishItem(Long memberId, Long productId) {
+    public Long findOneWishItem(Long memberId, Long productId) {
         WishItem wishItem = wishItemRepository.findOneItem(memberId, productId);
-        FindWishItem findWishItem = new FindWishItem(wishItem.getId(), wishItem.getMember(), wishItem.getWishDate(), wishItem.getProduct());
 
-        return findWishItem;
+        return wishItem.getId();
     }
 
     /**

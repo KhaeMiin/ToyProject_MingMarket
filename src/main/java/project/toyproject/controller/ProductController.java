@@ -20,7 +20,6 @@ import java.util.List;
 
 import static project.toyproject.dto.MemberDto.*;
 import static project.toyproject.dto.ProductDto.*;
-import static project.toyproject.dto.WishItemDto.*;
 
 @Slf4j
 @Controller
@@ -31,7 +30,6 @@ public class ProductController {
     private final ProductService productService;
     private final WishItemService wishItemService;
     private final FileUpload fileUpload;
-    private final MemberService memberService;
     private final SearchService searchService;
 
     /**
@@ -76,15 +74,15 @@ public class ProductController {
 
         //찜상품인지 체크
         HttpSession session = request.getSession(false);
-        FindWishItem wishItem = null;
         try {
             SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
-            wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
+            Long wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
+
+            if (wishItem != null) {
+                model.addAttribute("wishItem", wishItem);
+            }
         } catch (Exception e) {
             e.getMessage();
-        }
-        if (wishItem != null) {
-            model.addAttribute("wishItem", wishItem);
         }
 
         return "product/detailPage";
