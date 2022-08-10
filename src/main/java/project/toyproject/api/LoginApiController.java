@@ -26,13 +26,13 @@ public class LoginApiController {
      * 일반 로그인
      */
     @PostMapping("/login")
-    public String login(
+    public Long login(
             @RequestBody @Valid LoginDto form,
             HttpServletRequest request) {
         SessionMemberData loginMember = loginService.login(form);
         HttpSession session = request.getSession();
         session.setAttribute(LOGIN_MEMBER, loginMember);
-        return "ok";
+        return loginMember.getMemberId();
     }
 
 }

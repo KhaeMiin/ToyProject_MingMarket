@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.toyproject.dto.MemberDto;
+import project.toyproject.service.LoginService;
 import project.toyproject.service.MemberService;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import static project.toyproject.dto.MemberDto.*;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final LoginService loginService;
 
     /**
      * 전체 회원 조회
@@ -48,6 +50,23 @@ public class MemberApiController {
     public SelectMemberData updateMember(@PathVariable("id") Long id,
                                          @RequestBody @Valid UpdateMemberForm form) {
         return memberService.updateMember(id, form);
+    }
+
+    /**
+     * 비밀번호 수정
+     */
+    @PatchMapping("/editPassword/{id}")
+    public String editPasswordForm(@PathVariable("id") Long id,
+                                   @RequestBody @Valid UpdateUserPassForm form) {
+
+        //기존 비밀번호 체크
+        Long member = loginService.passwordCheck(id, form.getPass());
+        if (member == null) {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다");
+        }
+        //일치할 경우 새로운 비밀번호로 변경
+        memberService.editPassword(id, form);
+        return "비밀번호가 변경되었습니다!";
     }
 
     /**

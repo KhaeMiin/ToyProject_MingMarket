@@ -13,6 +13,7 @@ import project.toyproject.service.ProductService;
 import project.toyproject.service.WishItemService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -71,10 +72,40 @@ public class ProductApiController {
 
     }
 
+    /**
+     * 상품 상세페이지
+     */
+    @GetMapping("/detail/{productId}")
+    public DetailProduct productDetail(@PathVariable Long productId, HttpServletRequest request) {
+        ProductDetailData singleProduct = productService.findSingleProduct(productId);
+
+        //찜상품인지 체크
+        HttpSession session = request.getSession(false);
+        try {
+            MemberDto.SessionMemberData loginMember = (MemberDto.SessionMemberData) session.getAttribute("loginMember");
+            Long wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
+            if (wishItem != null) {
+                return new DetailProduct(singleProduct, "찜상품 입니다.");
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return new DetailProduct(singleProduct, "");
+
+    }
+
+    @Getter
+    @AllArgsConstructor
+    static class DetailProduct<T> {
+        private T productData;
+        private String wishStatus;
+    }
+
+
     @Getter
     @AllArgsConstructor
     static class ResultList<T> {
         private int count; //총 회원 인원수
-        private T memberData;
+        private T productData;
     }
 }
