@@ -48,7 +48,7 @@ public class LoginController {
             return "/members/login";
         }
 
-        SessionMemberData loginMember = loginService.login(form.getUserId(), form.getPassword());
+        SessionMemberData loginMember = loginService.login(form);
 
         //로그인 실패시 (null)
         if (loginMember == null) {

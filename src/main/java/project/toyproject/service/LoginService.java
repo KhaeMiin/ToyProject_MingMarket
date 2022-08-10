@@ -31,8 +31,8 @@ public class LoginService{
     /**
      * 로그인
      */
-    public SessionMemberData login(String userId, String password) {
-        Optional<Member> findMemberOptional = memberRepository.findByLoginId(userId);
+    public SessionMemberData login(LoginDto form) {
+        Optional<Member> findMemberOptional = memberRepository.findByLoginId(form.getUserId());
 
         //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
         if (!findMemberOptional.isPresent()) {
@@ -47,7 +47,7 @@ public class LoginService{
          * member.getPass() 암호화에 사용된 클래스
          * @return true/ false
          */
-        if (passwordEncoder.matches(password, member.getPass())) {
+        if (passwordEncoder.matches(form.getPassword(), member.getPass())) {
             Address address = member.getAddress();
             SessionMemberData memberData = new SessionMemberData(
                     member.getId(), member.getUserId(), member.getNickname(), member.getUsername());

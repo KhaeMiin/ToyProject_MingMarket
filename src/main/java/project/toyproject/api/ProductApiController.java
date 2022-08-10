@@ -5,10 +5,16 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import project.toyproject.annotation.LoginCheck;
+import project.toyproject.dto.MemberDto;
 import project.toyproject.dto.ProductDto;
+import project.toyproject.service.FileUpload;
 import project.toyproject.service.ProductService;
 import project.toyproject.service.WishItemService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 import static project.toyproject.dto.ProductDto.*;
@@ -21,6 +27,7 @@ public class ProductApiController {
 
     private final ProductService productService;
     private final WishItemService wishItemService;
+    private final FileUpload fileUpload;
 
     /**
      * 전체 상품 조회
@@ -47,6 +54,21 @@ public class ProductApiController {
     public ResultList userWishList(@PathVariable Long memberId) {
         List<SelectProducts> userWishList = wishItemService.wishList(memberId);
         return new ResultList(userWishList.size(), userWishList);
+    }
+
+    /**
+     * 상품 등록
+     */
+    @GetMapping("/new")
+    public Long createProduct(
+            @Valid @ModelAttribute("form") CreateProductForm form,
+            @LoginCheck MemberDto.SessionMemberData loginMember,
+            HttpServletRequest request) throws IOException {
+        String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 저장 경로
+        String uploadFile = fileUpload.serverUploadFile(form.getThumbnail(), realPath);
+
+        return productService.saveProduct(loginMember.getMemberId(), form.getTitle(), uploadFile, form.getIntro(), form.getPrice(), form.getCategoryList());
+
     }
 
     @Getter
