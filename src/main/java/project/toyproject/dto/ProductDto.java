@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 import project.toyproject.domain.CategoryList;
+import project.toyproject.domain.Product;
 import project.toyproject.domain.ProductStatus;
 
 import javax.validation.constraints.NotBlank;
@@ -113,8 +114,18 @@ public class ProductDto {
         private String title; //제목
         private String thumbnail; //섬네일
         private String intro; //설명(게시판)
-        private int Price; //상품가격
+        private int price; //상품가격
         private Long memberId; //작성자 pk
         private ProductStatus productStatus;
+
+        public SelectProducts(Product product) {
+            id = product.getId();
+            title = product.getTitle();
+            thumbnail = product.getThumbnail();
+            intro = product.getIntro();
+            price = product.getPrice();
+            memberId = product.getMember().getId();
+            productStatus = product.getProductStatus();
+        }
     }
 }

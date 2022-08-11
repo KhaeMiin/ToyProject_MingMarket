@@ -120,7 +120,7 @@ public class MemberDto {
      */
     @Getter
     @Setter
-    @AllArgsConstructor
+//    @AllArgsConstructor
     public static class SessionMemberData {
 
         private Long memberId; //pk
@@ -131,6 +131,12 @@ public class MemberDto {
 
         private String username;
 
+        public SessionMemberData(Member member) {
+            memberId = member.getId();
+            userId = member.getUserId();
+            nickname = member.getNickname();
+            username = member.getUsername();
+        }
     }
 
     /**
@@ -138,7 +144,7 @@ public class MemberDto {
      */
     @Getter
     @Setter
-    @AllArgsConstructor
+//    @AllArgsConstructor
     public static class SelectMemberData {
         private Long memberId;
         private String userId;
@@ -146,6 +152,15 @@ public class MemberDto {
         private String nickname;
         private int hp;
         private Address address;
+
+        public SelectMemberData(Member member) {
+            memberId = member.getId();
+            userId = member.getUserId();
+            username = member.getUsername();
+            nickname = member.getNickname();
+            hp = member.getHp();
+            address = member.getAddress();
+        }
     }
 
 }

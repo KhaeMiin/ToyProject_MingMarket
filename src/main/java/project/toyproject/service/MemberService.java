@@ -55,8 +55,7 @@ public class MemberService {
 
         //stream 공부하자
         List<SelectMemberData> listMemberData = members.stream()
-                .map(m -> new SelectMemberData(m.getId(), m.getUserId(),
-                        m.getUsername(), m.getNickname(), m.getHp(), m.getAddress()))
+                .map(m -> new SelectMemberData(m))
                 .collect(Collectors.toList());
         return listMemberData;
     }
@@ -66,8 +65,7 @@ public class MemberService {
      */
     public SelectMemberData findOneMember(Long memberId) {
         Member member = memberRepository.findOneMember(memberId);
-        SelectMemberData memberData = new SelectMemberData(member.getId(), member.getUserId(),
-                member.getUsername(), member.getNickname(), member.getHp(), member.getAddress());
+        SelectMemberData memberData = new SelectMemberData(member);
         return memberData;
     }
 
@@ -195,7 +193,6 @@ public class MemberService {
         Member member = memberRepository.findOneMember(id);
         Address address = new Address(form.getAddress(), form.getDetailedAddress());
         member.change(form.getNickname(), form.getUsername(), form.getHp(), address);
-        return new SelectMemberData(member.getId(), member.getUserId(),
-                member.getUsername(), member.getNickname(), member.getHp(), member.getAddress());
+        return new SelectMemberData(member);
     }
 }

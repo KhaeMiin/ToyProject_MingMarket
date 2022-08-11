@@ -71,9 +71,7 @@ public class ProductService {
         }*/
         //stream 사용
         List<SelectProducts> productList = products.stream()
-                .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
-                        p.getIntro(), p.getPrice(), p.getMember().getId(),
-                        p.getProductStatus())).collect(Collectors.toList());
+                .map(p -> new SelectProducts(p)).collect(Collectors.toList());
         return productList;
     }
 
@@ -113,9 +111,7 @@ public class ProductService {
         }*/
         //stream 사용
         List<SelectProducts> userProductList = products.stream()
-                .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
-                        p.getIntro(), p.getPrice(), p.getMember().getId(),
-                        p.getProductStatus())).collect(Collectors.toList());
+                .map(p -> new SelectProducts(p)).collect(Collectors.toList());
         return userProductList;
     }
 

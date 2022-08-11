@@ -31,9 +31,7 @@ public class SearchService {
             return productDtoList;
         }
         for (Product productEntity : productEntities) {
-            SelectProducts selectProducts = new SelectProducts(productEntity.getId(), productEntity.getTitle(),
-                    productEntity.getThumbnail(), productEntity.getIntro(), productEntity.getPrice(),
-                    productEntity.getMember().getId(), productEntity.getProductStatus());
+            SelectProducts selectProducts = new SelectProducts(productEntity);
             productDtoList.add(selectProducts);
         }
 

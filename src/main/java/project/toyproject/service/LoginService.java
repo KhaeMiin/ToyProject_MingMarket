@@ -49,8 +49,7 @@ public class LoginService{
          */
         if (passwordEncoder.matches(form.getPassword(), member.getPass())) {
             Address address = member.getAddress();
-            SessionMemberData memberData = new SessionMemberData(
-                    member.getId(), member.getUserId(), member.getNickname(), member.getUsername());
+            SessionMemberData memberData = new SessionMemberData(member);
             return memberData;
         } else {
             return null; //비밀번호가 일치하지 않을 경우 null 반환
