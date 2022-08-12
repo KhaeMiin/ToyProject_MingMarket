@@ -896,12 +896,22 @@ interface에서 전달하고자 하는 변수명 앞에 @Param 어노테이션�
 ##### 🔻Try
 
 
-## 8. 코드 리팩토링
+## 8. 코드 리팩토링 & 기타
 
 <details>
 <summary>코드 설명</summary>
 <div markdown="1">
 
+
+</div>
+</details>
+
+
+<details>
+<summary>JPA GenerationType 성능 비교</summary>
+<div markdown="1">
+
+[성능 비교 참고](https://github.com/KhaeMiin/dev-tips/blob/master/JPA-GenerationType-%EB%B3%84-INSERT-%EC%84%B1%EB%8A%A5-%EB%B9%84%EA%B5%90.md#jpa-%EC%84%A4%EC%A0%95)
 
 </div>
 </details>

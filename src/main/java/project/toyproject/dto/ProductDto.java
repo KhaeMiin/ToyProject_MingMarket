@@ -100,6 +100,16 @@ public class ProductDto {
 //        private List<> //댓글 출력
 
 
+        public ProductDetailData(Product product, String createDate) {
+            productId = product.getId();
+            nickName = product.getMember().getNickname();
+            userId = product.getMember().getUserId();
+            title = product.getTitle();
+            thumbnail = product.getThumbnail();
+            intro = product.getIntro();
+            price = product.getPrice();
+            this.createDate = createDate;
+        }
     }
 
     /**

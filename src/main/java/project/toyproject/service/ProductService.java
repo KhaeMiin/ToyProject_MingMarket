@@ -84,9 +84,7 @@ public class ProductService {
         //게시글 작성 날짜 구하기
         String createDate = findProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-        ProductDetailData singleProduct = new ProductDetailData(productId, findProduct.getMember().getNickname(), findProduct.getMember().getUserId(),
-                findProduct.getTitle(), findProduct.getThumbnail(), findProduct.getIntro(), findProduct.getPrice(),
-                createDate);
+        ProductDetailData singleProduct = new ProductDetailData(findProduct, createDate);
 
         return singleProduct;
     }
