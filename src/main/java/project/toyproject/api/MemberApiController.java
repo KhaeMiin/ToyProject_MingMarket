@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import project.toyproject.dto.MemberDto;
 import project.toyproject.service.LoginService;
 import project.toyproject.service.MemberService;
 
@@ -28,7 +27,7 @@ public class MemberApiController {
     @GetMapping("/list")
     public ResultList memberList() {
         List<SelectMemberData> members = memberService.findMembers();
-        return new ResultList(members.size(), members);
+        return new ResultList<>(members.size(), members);
     }
 
     /**
@@ -37,7 +36,7 @@ public class MemberApiController {
      */
     @PostMapping("/join")
     public Long joinMember(@RequestBody @Valid CreateMemberForm form) {
-        Long id = memberService.join(form);
+        Long id = memberService.join(form).getId();
         return id;
     }
 
