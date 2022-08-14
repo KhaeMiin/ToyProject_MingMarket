@@ -1,6 +1,7 @@
 package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,7 @@ import static project.toyproject.dto.MemberDto.*;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     /**
      * 회원가입
@@ -35,9 +36,11 @@ public class MemberService {
                 form.getUsername(), form.getHp(), address);
         validateDuplicateMember(member); //중복아이디 체크
         checkPassword(form.getPassword(), form.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
-        member.hashPassword(passwordEncoder); //스프링 시큐리티(암호화)
+        member.hashPassword(passwordEncoder.encode(form.getPassword())); //스프링 시큐리티(암호화)
+        System.out.println("member = " + member.getUserId());
         member.createDate(LocalDateTime.now());
         memberRepository.save(member);
+        System.out.println("member.getId() = " + member.getId());
         return member.getId();
     }
 
@@ -86,8 +89,8 @@ public class MemberService {
     @Transactional
     public void editPassword(Long memberId, UpdateUserPassForm form) {
         Member findMember = memberRepository.findOneMember(memberId);
-        findMember.passwordChange(form.getEditYourPassword());
-        findMember.hashPassword(passwordEncoder); //시큐리티 암호화
+//        findMember.passwordChange(form.getEditYourPassword());
+        findMember.hashPassword(passwordEncoder.encode(form.getEditYourPassword())); //시큐리티 암호화
     }
 
     /**

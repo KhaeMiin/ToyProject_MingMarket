@@ -15,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Transactional(readOnly = true)
-class WishServiceTest {
+class WishServiceTest1 {
 
     @Autowired
     WishItemService wishService;
     @Autowired
     EntityManager em;
 
-    /**
+  /*  *//**
      * 상품 찜하기
-     */
+     *//*
     @Test
     void 상품찜추가() {
         //given
@@ -73,5 +73,5 @@ class WishServiceTest {
         em.persist(product);
         return product;
     }
-
+*/
 }

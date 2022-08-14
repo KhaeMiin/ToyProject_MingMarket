@@ -1,73 +1,58 @@
 package project.toyproject.service;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberRepository;
 
-import javax.persistence.EntityManager;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doReturn;
 import static project.toyproject.dto.MemberDto.*;
 
-@SpringBootTest
-@ExtendWith(SpringExtension.class)
-@Transactional
+@ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
 
-    @Autowired MemberService memberService;
-    @Autowired
-    MemberRepository memberRepository;
-    @Autowired
-    EntityManager em;
+    @InjectMocks
+    private MemberService memberService;
+
+    @Mock
+    private MemberRepository memberRepository;
+
+    @Mock
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Test
-    void 회원가입() throws Exception {
-        //given :이런게 주어지면
-        CreateMemberForm member = new CreateMemberForm();
-        member.createMethod("testA", "min",
-                "1234", "1234", "해민", 0100000000, "머라구", "어쩌라는동");
+    @DisplayName("회원가입_성공")
+    void 회원가입_성공() {
+        //given : 이런게 주어지면
+        CreateMemberForm form = new CreateMemberForm();
+        form.createMethod("testaaa1", "testNick", "testpass123*",
+        "testpass123*", "test", 01011112222, "서울특별시 자바동", "밍마켓 1동 1호");
 
-        //when : 이렇게 하면(실행)
-        Long saveId = memberService.join(member);
+        //when : 실행하면
+        Long saveId = memberService.join(form);
+        System.out.println("saveId = " + saveId);
 
-        //then : 이렇게 된다(검증)
-        Assertions.assertThat(member.getUserId()).isEqualTo(memberService.findOneMember(saveId).getUserId());
-        Assertions.assertThat(member.getNickname()).isEqualTo(memberService.findOneMember(saveId).getNickname());
+        //then : 이렇게 된다(결과)
+        //가입한 아이디와 방금 디비에 저장된 아이디 값 비교
+//        System.out.println("userId = " + userId);
+        Assertions.assertThat(form.getUserId()).isEqualTo(memberService.findOneMember(saveId).getUserId());
+
     }
 
-    @Test
-    void 중복_아이디_예외() throws Exception {
-        //given :이런게 주어지면
-        CreateMemberForm member1 = new CreateMemberForm();
-        member1.createMethod("testA", "min",
-                "1234", "1234", "해민", 0100000000, "머라구", "어쩌라는동");
 
-
-        CreateMemberForm member2 = new CreateMemberForm();
-        member2.createMethod("testA", "min",
-                "1234", "1234", "해민", 0100000000, "머라구", "어쩌라는동");
-
-
-        //when : 이렇게 하면(실행)
-        memberService.join(member1);
-        try {
-            memberService.join(member2);
-        } catch (IllegalStateException e) {
-            return;
-        }
-
-        //then : 이렇게 된다(검증)
-        fail("예외가 발생해야 합니다. (예외 발생 안함)"); //이 경우 테스트 실패
-        IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
-        assertEquals("이미 존재하는 회원입니다.", thrown.getMessage());
-    }
 
 }

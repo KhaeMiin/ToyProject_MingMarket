@@ -57,18 +57,18 @@ public class Member extends BaseEntity {
         this.address = address;
     }
 
-    //비밀번호 수정메서드
+/*    //비밀번호 수정메서드
     public void passwordChange(String pass) {
         this.pass = pass;
-    }
+    }*/
 
     /**
      * 비밀번호를 암호화
      * @param passwordEncoder
      * @return
      */
-    public Member hashPassword(PasswordEncoder passwordEncoder) {
-        this.pass = passwordEncoder.encode(this.pass);
+    public Member hashPassword(String passwordEncoder) {
+        this.pass = passwordEncoder;
         return this;
     }
 }

@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Transactional
-class ProductServiceTest {
+class ProductServiceTest1 {
 
     @Autowired ProductService productService;
     @Autowired
