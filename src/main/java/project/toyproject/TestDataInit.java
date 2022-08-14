@@ -26,13 +26,13 @@ public class TestDataInit {
         member.createMethod("test", "min",
                 "1234", "1234", "김성함", 0100000000, "서울시", "231-2");
 
-        Long memberId = memberService.join(member);
+        Long memberId = memberService.join(member).getId();
 
         CreateMemberForm adminMember = new CreateMemberForm();
         adminMember.createMethod("admin", "admin",
                 "1234", "1234", "관리자", 0100000000, "서울시 강남구 ", "밍마켓 123-3");
 
-        Long adminMemberId = memberService.join(adminMember);
+        Long adminMemberId = memberService.join(adminMember).getId();
 
         for (int i = 1; i <= 13; i++) {
             productService.saveProduct(memberId, "test" + i, i + ".jpg", "test" + i, 10000, CategoryList.FASHION);

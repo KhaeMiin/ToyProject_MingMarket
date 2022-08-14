@@ -30,18 +30,16 @@ public class MemberService {
      * 회원가입
      */
     @Transactional
-    public Long join(CreateMemberForm form) {
+    public Member join(CreateMemberForm form) {
         Address address = new Address(form.getAddress(), form.getDetailedAddress());
         Member member = new Member(form.getUserId(), form.getNickname(), form.getPassword(),
                 form.getUsername(), form.getHp(), address);
         validateDuplicateMember(member); //중복아이디 체크
         checkPassword(form.getPassword(), form.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
         member.hashPassword(passwordEncoder.encode(form.getPassword())); //스프링 시큐리티(암호화)
-        System.out.println("member = " + member.getUserId());
         member.createDate(LocalDateTime.now());
         memberRepository.save(member);
-        System.out.println("member.getId() = " + member.getId());
-        return member.getId();
+        return member;
     }
 
     /**

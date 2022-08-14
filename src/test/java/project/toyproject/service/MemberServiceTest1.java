@@ -33,7 +33,7 @@ class MemberServiceTest1 {
                 "1234", "1234", "해민", 0100000000, "머라구", "어쩌라는동");
 
         //when : 이렇게 하면(실행)
-        Long saveId = memberService.join(member);
+        Long saveId = memberService.join(member).getId();
 
         //then : 이렇게 된다(검증)
         Assertions.assertThat(member.getUserId()).isEqualTo(memberService.findOneMember(saveId).getUserId());
