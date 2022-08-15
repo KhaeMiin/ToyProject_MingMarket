@@ -58,6 +58,7 @@ public class ProductController {
         //데이터 베이스에 저장
         Long productId = productService.saveProduct(loginMember.getMemberId(), form.getTitle(), uploadFile, form.getIntro(), form.getPrice(), form.getCategoryList());
 
+        System.out.println("productId = " + productId);
         redirectAttributes.addAttribute("productId", productId);
 
         return "redirect:/product/detail/{productId}"; // 상품디테일 페이지로 넘어가게

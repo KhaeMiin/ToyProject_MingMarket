@@ -52,7 +52,7 @@ public class ProductService {
     @Transactional
     public void updateProduct(Long productId, UpdateProductForm form, String thumbnail) {
         Product findProduct = productRepository.findSingleProduct(productId);
-        findProduct.change(form.getTitle(), thumbnail, findProduct.getIntro(), form.getPrice());
+        findProduct.change(form.getTitle(), thumbnail, form.getIntro(), form.getPrice());
 
     }
 
