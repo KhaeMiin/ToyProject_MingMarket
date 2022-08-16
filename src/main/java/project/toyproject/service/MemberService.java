@@ -190,6 +190,7 @@ public class MemberService {
      * @param form
      * @return
      */
+    @Transactional //수정시 읽기전용이면 스냅샷 저장, 변경감지 수행등을 하지 않는다..
     public SelectMemberData updateMember(Long id, UpdateMemberForm form) {
         Member member = memberRepository.findOneMember(id);
         Address address = new Address(form.getAddress(), form.getDetailedAddress());
