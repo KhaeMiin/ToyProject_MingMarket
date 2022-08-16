@@ -6,13 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.domain.WishItem;
-import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductRepository;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
