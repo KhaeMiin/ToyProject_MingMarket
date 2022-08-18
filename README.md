@@ -750,26 +750,6 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 </div>
 </details>
 
-#### 6. 예외 처리 Exception(진행 중)
-
-<details>
-<summary></summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
-#### 7. API 개발 + 성능 튜닝(진행 중)
-
-<details>
-<summary></summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
 <br>
 
 ## 6. 기타 트러블 슈팅
@@ -885,33 +865,3 @@ interface에서 전달하고자 하는 변수명 앞에 @Param 어노테이션�
 
 
 <br>
-
-## 7. 회고 / 느낀점
-
-#### 📝간단한 KPT
-##### 🔻Keep
-
-##### 🔻Problem
-
-##### 🔻Try
-
-
-## 8. 코드 리팩토링 & 기타
-
-<details>
-<summary>코드 설명</summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
-
-<details>
-<summary>JPA GenerationType 성능 비교</summary>
-<div markdown="1">
-
-[성능 비교 참고](https://github.com/KhaeMiin/dev-tips/blob/master/JPA-GenerationType-%EB%B3%84-INSERT-%EC%84%B1%EB%8A%A5-%EB%B9%84%EA%B5%90.md#jpa-%EC%84%A4%EC%A0%95)
-
-</div>
-</details>
