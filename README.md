@@ -53,12 +53,12 @@
 <div markdown="1">
 
 ##### `마이페이지`
-- 본인의 정보와 비밀번호를 수정할 수 있다.
-- 찜 상품 리스트를 볼 수 있다.
-- 자신이 올린 상품 리스트를 볼 수 있다.
-- 자신이 올린 상품의 판매 상태를 변경할 수 있다. (거래 완료된 상품이면 거래 완료로 변경) (❌ 구현 전)
-- 관심 상품, 내 상품의 대표 이미지 또는 제목 클릭 시 상세 페이지로 이동된다.
-- 채팅 목록을 확인할 수 있다.(❌ 구현 전)
+- 본인의 정보와 비밀번호를 수정 가능
+- 찜 상품 리스트를 볼 수 있음
+- 자신이 올린 상품 리스트를 볼 수 있음
+- 자신이 올린 상품의 판매 상태 변경 가능 (거래 완료된 상품이면 거래 완료로 변경) (❌ 구현 전)
+- 관심 상품, 내 상품의 대표 이미지 또는 제목 클릭 시 상세 페이지로 이동
+- 채팅 목록을 확인할 수 있음(❌ 구현 전)
 
 </div>
 </details>
@@ -69,11 +69,11 @@
 <div markdown="1">
 
 ##### `상품 등록, 수정, 삭제`
-- 상품 등록 시 대표 이미지, 제목, 상세 설명, 가격, 카테고리를 입력받는다.
-- 비회원은 상품을 등록할 수 없다.
-- 수정 시 대표 이미지, 제목, 상세 설명, 가격, 카테고리를 변경할 수 있다.
-- 등록한 회원은 거래 상태와 무관하게 상품을 삭제할 수 있다.
-- 관심 상품에 추가된 상품이 삭제될 경우, 자동으로 삭제된다. (❌ 구현 전)
+- 상품 등록 시 대표 이미지, 제목, 상세 설명, 가격, 카테고리를 입력
+- 비회원은 상품을 등록할 수 없음
+- 수정 시 대표 이미지, 제목, 상세 설명, 가격, 카테고리 변경 가능
+- 등록한 회원은 거래 상태와 무관하게 상품 삭제 가능
+- 관심 상품에 추가된 상품이 삭제될 경우, 자동으로 삭제 (❌ 구현 전)
 
 </div>
 </details>
@@ -84,21 +84,20 @@
 
 ##### `상품 찜하기`
 - 마음에 드는 상품은 찜하기 가능
-- 본인이 올린 상품은 찜할 수 없다.
+- 본인이 올린 상품은 찜할 수 없음
 - 찜 취소 가능
-- 찜한 상품은 **마이페이지 - 관심 상품**에서 확인할 수 있다.
+- 찜한 상품은 **마이페이지 - 관심 상품**에서 확인 가능
 
 ##### `상품 댓글 달기(❌ 구현 전)`
-- 모든 회원은 상품에 댓글을 달 수 있다.
-- 모든 회원은 모든 댓글에 대댓글을 달 수 있다.
-- 자신이 작성한 댓글을 수정, 삭제할 수 있다.
+- 모든 회원은 상품에 댓글을 달 수 있음
+- 모든 회원은 모든 댓글에 대댓글을 달 수 있음
+- 자신이 작성한 댓글을 수정, 삭제 가능
 
 ##### `상품 문의(❌ 구현 전)`
-- 상품을 거래하고자 할 때 채팅을 통해서 문의할 수 있다.
-- 상품 디테일 페이지에 상품 문의하기 버튼이 있다.
-- 로그인 회원만 가능하다. (비회원 사용 불가)
-- 본인이 본인에게 문의는 불가능하다.
-- 이미 거래가 완료된 상품은 더 이상 문의할 수 없다.
+- 상품을 거래하고자 할 때 채팅을 통해서 문의할 수 있음
+- 로그인 회원만 가능 (비회원 사용 불가)
+- 본인이 본인에게 문의는 불가능
+- 이미 거래가 완료된 상품은 더 이상 문의할 수 없음
 
 </div>
 </details>
@@ -108,19 +107,19 @@
 <div markdown="1">
 
 ##### `상품 리스트`
-- 메인화면에 상품 리스트가 출력된다. 
-- 등록 날짜가 가장 최신순으로 출력된다.
+- 메인화면에 상품 리스트 출력
+- 등록 날짜가 가장 최신순으로 출력
 
 ##### `상품 검색 기능, 카테고리 (❌ 구현 전)`
-- 원하는 상품 정보를 검색할 수 있다.
-- 카테고리는 『패션(여성, 남성, 스포츠, 잡화), 가전/디지털(컴퓨터, 냉장고, 청소기, 세탁기/건조기), 도서(여행, 역사, 예술, 기타), 기타』로 나뉘어있다.
+- 원하는 상품 정보 검색 가능
+- 카테고리: 『패션(여성, 남성, 스포츠, 잡화), 가전/디지털(컴퓨터, 냉장고, 청소기, 세탁기/건조기), 도서(여행, 역사, 예술, 기타), 기타』
 
 </div>
 </details>
 
 ## 5. 핵심 기능 & 트러블 슈팅
 
-#### 1. JPA를 활용한 웹 애플리케이션 개발
+### 1. JPA를 활용한 웹 애플리케이션 개발
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
@@ -138,7 +137,7 @@
 
 <br>
 
-##### `1. 도메인 모델 분석 (연관관계 매핑 분석)`
+**`1. 도메인 모델 분석 (연관관계 매핑 분석)`**
 - **회원(Member)** 과 **상품(Product)**
     - 한 명의 회원은 여러 상품을 등록할 수 있다.
     - 상품(Product)이 연관관계 주인으로 다대일 관계를 갖는다.
@@ -157,12 +156,16 @@
 - **상품(Product)** 과 **카테고리(Category)**
     - 하나의 상품은 여러개의 카테고리를 가질 수 있다.
       <br><br>
-##### `2. 테이블 설계`
+
+
+**`2. 테이블 설계`** <br>
+
 <img src="https://blog.kakaocdn.net/dn/VahxL/btrHaoGhKcw/q5jKbGSMBJWhewhLUNohWK/img.png" width="600">
 
 <br>
 
-##### `3. 엔티티 개발`
+**`3. 엔티티 개발`** <br>
+
 👉 주요 사용한 어노테이션
 - `@Entity`: 해당 클래스가 DB테이블과 1대 1 매칭
 - `@Id`: Primary Key를 지정
@@ -173,7 +176,6 @@
   - <img src="https://blog.kakaocdn.net/dn/xW1JV/btrHfmNFlWw/SZdtqTXWq0h5RvEjcBvE80/img.png" width="350">
   - `fetch = LAZY`: 지연 로딩 → 로딩되는 시점에 Lazy 로딩 설정이 되어있는 member 엔티티는 프록시 객체로 가져온다
   - 후에 실제 객체를 사용하는 시점에(member 사용하는 시점에) 초기화가 된다. DB에 쿼리가 나간다. (select 쿼리가 따로 2번 나감)
-  - `@ManyToOne`, `@OneToOne`: 기본이 `(fetch = EAGER)` → 즉시로딩 이므로 LAZY로 바꿔준다.
 - `@JoinColumn(name = "member_id")`:연관 관계를 맺을 해당 객체의 컬럼 값을 넣어주기
 - `@Enumerated(EnumType.STRING)`: 자바의 enum 타입을 매핑할 때 사용
   <br>
@@ -200,13 +202,6 @@
 
 <br>
 
-> 아래와 같이 기본 생성자 접근자를 `protected`로 변경하면 `new Entity()` 사용을 막을 수 있어 객체의 일관성을 더 유지할 수 있다.
-> <br>(`protected`로 설정하는 이유는 JPA 기본 스펙상 기본 생성자가 필요한데 `protected`로 제어하는 것까지 허용되기 때문이다.)
-> <br> 롬복을 사용하여 어노테이션 설정을 통해 간단하게 설정하였다.
-
-<img src="https://blog.kakaocdn.net/dn/bN2uFz/btrHevKrk2n/oS7FgdEMk3QBDGR1D947bk/img.png" width="400">
-
-<br>
 <br>
 <br>
 
@@ -224,17 +219,6 @@
 > 유저는 상품을 자유롭게 올릴 수 있다. 
 > 올린 상품을 수정할 수 있다
 
-👇Controller
-
-<img src="https://blog.kakaocdn.net/dn/bXVNYP/btrHaficUqE/Gt7w6LYKNd9lIkVRXz6Hi0/img.png" width="800">
-
-👇ProductRepository
-
-<img src="https://blog.kakaocdn.net/dn/sT8jW/btrHaYnjoFO/ntVeLB0X0y7xJVCbEzdTjK/img.png" width="500">
-
-
-
-👇결과:
 
 <img src="https://blog.kakaocdn.net/dn/UDMag/btrFybu624A/ImJr1Z2w3vKXhZKqz1vhj0/img.png" width="400">
 
@@ -244,27 +228,17 @@
 - 게시글 수정 시 게시글 작성자(member_id)는 변경될 일이 없다.
 - 그래서 아래 코드 실행 시 member_id = null값이다.
 
-```
- else { // 상품이 존재할 경우 강제로 업데이트(즉, 수정)
-    em.merge(product);
-}
-```
+
+👇ProductRepository
+
+<img src="https://blog.kakaocdn.net/dn/sT8jW/btrHaYnjoFO/ntVeLB0X0y7xJVCbEzdTjK/img.png" width="500">
+
+
 
 > 병합은 준영속 상태의 엔티티를 다시 영속 상태로 변경할 때 사용한다.  
-> merge() 메서드는 준영속 상태의 엔티티를 받아 그 정보로 새로운 영속 상태의 엔티티를 반환한다.
+> merge() 메서드는 준영속 상태의 엔티티를 받아 그 정보로 새로운 영속 상태의 엔티티를 반환한다. <br>
+> 이때 product 의 모든 값을 영속 엔티티에 채워 넣기 때문에 null 값이 들어갈 수도 있는 문제가 생긴다.
 
-**merge()의 동작 방식**
-
-1.  `merge()`를 실행
-2.  파라미터로 넘어온 준영속 엔티티의 식별자 값으로 1차 캐시에서 엔티티를 조회
--   만약 1차 캐시에 엔티티가 없으면 데이터베이스에 엔티티를 조회하고 1차 캐시에 저장.
--   무조건 1번은 db 조회를 하므로 성능에 좋지 않을 수 있다.
-3.  조회한 영속 엔티티에 product 엔티티의 값을 채워 넣음
--   이때 product 의 모든 값을 영속 엔티티에 채워 넣기 때문에 **null 값이 들어갈 수도 있는 문제가 생긴다.**
--   이래서 **업데이트 시 merge()보단 변경 감지를 사용하자.**
-4.  영속 상태의 객체를 반환
-
-<br>
 
 #### **✨수정된 코드✨**
 
@@ -295,22 +269,20 @@ public Product findSingleProduct(Long productId) {
 </details>
 
 
-#### 2. 상품등록, 회원가입, 로그인 시 Validation 검증
+### 2. 상품등록, 회원가입, 로그인 시 Validation 검증
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
 
-#### `1. Valid Annotation을 이용한 Validation 체크`
+#### `1. Spring Validator를 이용한 Validation 체크`
 ✔️Spring에서는 사용자가 입력한 값에 대한 유효성을 체크하기 위해 Spring Validator를 사용할 수 있도록 지원하고 있다.
 
-- `build.gradle`에 dependency 추가 <br>
-  ➡️`implementation 'org.springframework.boot:spring-boot-starter-validation'`
 - **Dto**객체를 정의한 후 각 필드에 맞는 Annotation을 사용했다.
-  - `@NotNull`: Null 허용하지 않음 (" ", "" 허용)
-  - `@NotEmpty`: Null과 ""는 허용하지 않음 (" "는 허용) 
-  - `@NotBlank`: Null과 "", " " 모두 허용하지 않음
-  - `@Size(min=, max=)`: 크기가 지정된 경계를 포함한 사이에 있어야 함
-  - `@Range(min=, max=)`: 숫자 값 또는 숫자 값의 문자열 표현에 적용(지정한 범위 내에 있어야 함)
+  - `@NotNull`
+  - `@NotEmpty`
+  - `@NotBlank`
+  - `@Size(min=, max=)`
+  - `@Range(min=, max=)`
 - **Controller**에서는 Dto 객체 앞에 `@Valied`, 그리고 객체 뒤에는 `BindingResult result`를 명시한다.
   - `@Valid` 선언된 객체에 설정을 바탕으로 유효성 검사
   - 데이터가 유효하지 않은 속성이 있으면 그에 대한 에러 정보를 `BindingResult`에 담는다.
@@ -336,97 +308,15 @@ public Product findSingleProduct(Long productId) {
 ````
 
 
-<br>
-📝검증과 오류 메시지 공식 메뉴얼 <br>
-→ https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#validation-and-
-error-messages
-
 </div>
 </details>
 
-#### 3. Spring Security 회원가입 시 패스워드 암호화 적용하기
+### 3. Spring Security 회원가입 시 패스워드 암호화 적용하기
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
-<br>
 
->Spring Security?<br>
->Spring 기반의 Application 보안을 위한 Spring framework<br>
->스프링 시큐리티의 PasswordEncoder를 이용하여 패스워드를 암호화할 것이다. <br>
->[🔗Spring Security 공식문서 바로가기](https://spring.io/projects/spring-security)<br>
-
-##### `1. 의존성 주입`
-
-- 우선 비밀번호 암호화에 사용되는 PasswordEncoder를 사용하기 위해서는 Spring Security 의존성을 주입해줘야 한다.<br>
-  ➡️`implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security`
-
-
-##### `2. Config 설정`
-<details>  
-<summary>PasswordEncoder 코드 참조</summary>  
-<div markdown="1">  
-
-  ```
-/*
- * Copyright 2011-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package org.springframework.security.crypto.password;
-
-/**
- * Service interface for encoding passwords.
- *
- * The preferred implementation is {@code BCryptPasswordEncoder}.
- *
- * @author Keith Donald
- */
-public interface PasswordEncoder {
-
-	/**
-	 * Encode the raw password. Generally, a good encoding algorithm applies a SHA-1 or
-	 * greater hash combined with an 8-byte or greater randomly generated salt.
-	 */
-	String encode(CharSequence rawPassword);
-
-	/**
-	 * Verify the encoded password obtained from storage matches the submitted raw
-	 * password after it too is encoded. Returns true if the passwords match, false if
-	 * they do not. The stored password itself is never decoded.
-	 * @param rawPassword the raw password to encode and match
-	 * @param encodedPassword the encoded password from storage to compare with
-	 * @return true if the raw password, after encoding, matches the encoded password from
-	 * storage
-	 */
-	boolean matches(CharSequence rawPassword, String encodedPassword);
-
-	/**
-	 * Returns true if the encoded password should be encoded again for better security,
-	 * else false. The default implementation always returns false.
-	 * @param encodedPassword the encoded password to check
-	 * @return true if the encoded password should be encoded again for better security,
-	 * else false.
-	 */
-	default boolean upgradeEncoding(String encodedPassword) {
-		return false;
-	}
-
-}
-```
-
-</div>  
-</details>
+#### `1. Config 설정` <br>
 
 `PasswordEncoder`는 스프링 시큐리티의 인터페이스 객체이다. <br>
 스프링 시큐리티(Spring Security)에서 제공하는 비밀번호 암호화 방법이다. <br>
@@ -447,15 +337,12 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 </div>  
 </details>
 
-❗️여기서 **BcryptPasswordEncoder는 BCrypt라는 해시 함수를 이용하여 패스워드를 암호화하는 구현체**이다.
+❗ **BcryptPasswordEncoder는 BCrypt라는 해시 함수를 이용하여 패스워드를 암호화하는 구현체**이다.
 
 
 
 **`.antMatchers`**
 
-```
-.antMatchers("/css/**", "/js/**", "/*.ico", "/error", "/").permitAll()
-```
 - 특정 리소스에 대해서 권한을 설정한다.
 - 뒤에 붙은 `.permitAll()`은 `.antMatchers`에서 설정한 URL의 접근을 인증 없이 허용한다는 뜻이다.
 
@@ -470,7 +357,7 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 
 [🔗스프링 시큐리티 설정값 참고한 블로그 바로가기](https://kimchanjung.github.io/programming/2020/07/02/spring-security-02/)
 
-##### `3. 회원가입/로그인 구현`
+#### `2. 회원가입/로그인 구현` <br>
 
 👇MemberEntity
 
@@ -479,8 +366,9 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 
 `MemberEntity`에서 `PasswordEncoder`를 사용하여 password를 인코딩하였다.
 
+<br>
 
-#### **1\. 회원가입**
+**회원가입** <br>
 
 👇MemberService
 
@@ -491,20 +379,7 @@ configure(http:HttpSecurity):void 오버라이드하였다.
 생성자를 통해 의존 관계를 주입받은 `PasswordEncoder`를 사용하여 비밀번호 해싱후<br>
 `MemberRepository`로 DB에 저장할 수 있도록 하였다. <br><br>
 
-<details>  
-<summary>👇MemberController</summary>  
-<div markdown="1">
-
-<img src="https://blog.kakaocdn.net/dn/LvW8D/btrHiXgJBhj/9AtFYJ0OP4nN2PgZikRw1K/img.png" width="600">
-
-</div>  
-</details>
-
-
-컨트롤러에서는 `"/join"`에 POST요청이 들어오면
-기본적인 Validation 후 `memberService.join()`을 통해 회원가입이 진행될 수 있도록 해주었다.<br><br>
-
-#### **2\. 회원 로그인**
+**회원 로그인** <br>
 
 👇LoginService
 
@@ -519,7 +394,7 @@ db에 암호화되어 저장된 패스워드가 서로 대칭되는지**에 대�
 비밀번호가 일치하면 memberEntitiy를, 비밀번호가 일치하지 않으면 null을 반환하도록 하였다.
 <br><br>
 
-#### **3\. 비밀번호 변경**
+**비밀번호 변경** <br>
 
 👇LoginService
 
@@ -579,7 +454,8 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 
 - WebSecurityConfigurerAdapter를 상속받은 클래스에서 모든 설정을 변경할 수 있다.
 
-  👇SecurityConfig
+  👇SecurityConfig <br>
+
   <img src="https://blog.kakaocdn.net/dn/MNLQN/btrHOUDjTlI/PCprKP65uEk9aEX976BKg0/img.png" width="650">
 
   - `.logoutRequestMatcher(new AntPathRequestMatcher("/URL"))`: 로그아웃을 실행할 URL 경로
@@ -592,7 +468,7 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 </details>
 
 
-#### 4. 상품 등록 시 Spring MultipartFile을 이용한 대표 이미지 업로드
+### 4. 상품 등록 시 Spring MultipartFile을 이용한 대표 이미지 업로드
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
@@ -602,48 +478,11 @@ passwordCheck 메서드를 통해 비밀번호 수정전 현재 비밀번호를 
 그리고 **상품 등록 시 제목, 상세 설명, 가격 등 문자와 바이너리를 동시에 폼에 담아 전송**해야 한다.<br>
 이 문제를 해결하기 위해 HTTP가 제공하는 multipart/form-data라는 전송 방식을 사용한다.<br>
 
-> 📝 **바이너리 파일(binart file)**  
-> 바이너리 파일은 데이터의 저장과 처리를 목적으로   
-> 0과 1의 이진 형식으로 인코딩된 파일을 가리킵니다. (텍스트 파일이 아닌 컴퓨터 파일)  
-> 프로그램이 이 파일의 데이터를 읽거나 쓸 때는 데이터의 어떠한 변환도 일어나지 않습니다.
-
-👇html
-
-```
-<form action="/save" method="post" enctype="multipart/form-data">
-    <input type="text" name="name">
-    <input type="file" name="image">
-    <button type="submit">전송</button>
-</form>
-```
-
-데이터를 전송하게 되면 아래와 같은 내용으로 HTTP Body에 담긴다.
-
-👇HTTP Message Body
-
-```
-------WebKitFormBoundaryMVA4MPoFDDjKPJl2
-Content-Disposition: form-data; name="name"
-kim!
-------WebKitFormBoundaryMVA4MPoFDDjKPJl2
-Content-Disposition: form-data; name="image"; filename="ì‚¬ì§„.jpg"
-Content-Type: image/jpeg
-... ÿØÿà·'j©?AGÙ'ìÿÙ ...
-------WebKitFormBoundaryMVA4MPoFDDjKPJl2--
-
-```
-
--   "---xxx"로 영역 구분
--   "Content-Disposition:form-data; data="data" ~ → 영역의 시작(해당 영역에 대한 정보)
--   "---xxx--" 끝 명시
-
-위와 같은 식으로 각각의 항목을 구분해서 한 번에 형식이 다른 여러 항목을 전송할 수 있다.
-
 **multipart/form-data 방식**
 
 ##### `1. HTML <form></form>`
 
-<img src="https://blog.kakaocdn.net/dn/bEzhRg/btrHlyujC08/Stg8pOWOeNHOSwHNeSNhdk/img.png" width="500">
+<img src="https://blog.kakaocdn.net/dn/bEzhRg/btrHlyujC08/Stg8pOWOeNHOSwHNeSNhdk/img.png" width="600">
 
 우선 이 방식을 사용하기 위해 Form 태그에 `enctype="multipart/form-data"`를 추가로 지정했다.
 
@@ -651,18 +490,18 @@ Content-Type: image/jpeg
 
 👇FileUpload
 
-![](https://blog.kakaocdn.net/dn/QcvP1/btrHiXIsX2Q/KnseROr0VaUhxqAwrBOf1K/img.png)
+<img src="https://blog.kakaocdn.net/dn/Pnjtt/btrJ29SQWPb/FXl0Q1uaKKmUVMLr6wYfR1/img.png" width="760">
 
-- `extractExt(String originalFilename)`: 원래 파일명에서 확장자를 뽑는다. (.jpg, .pnp ...)
-- `createServerFileName(String originalFilename)`: 서버 내부에서 관리하는 파일명으로 UUID를 생성한 후 원래 파일명 확장자를 붙인다. (ex: UUID.jpg)
+- `serverUploadFile(MultipartFile multipartFile, '저장되는 경로') {}`: 파일을 저장한다.
+  - `file.transferTo(new File("PATH")` 을 이용해 파일을 저장할 수 있다.<br>
+  - 사용자가 업로드한 파일명은  `file.getOriginalFilename() {}`  으로 받을 수 있다.
 <br>중복된 파일명으로 저장되어 충돌나는 현상을 방지하기 위해 UUID를 사용하였다.
-- `serverUploadFile(MultipartFile multipartFile, '저장되는 경로')`: 파일을 저장한다.
-`file.transferTo(new File("PATH")` 을 이용해 파일을 저장할 수 있다.<br>
-사용자가 업로드한 파일명은  `file.getOriginalFilename()`  으로 받을 수 있다.
+- `createServerFileName(String originalFilename) {}`: 서버 내부에서 관리하는 파일명으로 UUID를 생성한 후 원래 파일명 확장자를 붙인다. (ex: UUID.jpg)
+- `extractExt(String originalFilename)`: 원래 파일명에서 확장자를 뽑는다. (.jpg, .pnp ...)
 
 ##### `3. Cotroller (+ 파일이 저장되는 경로 구하기)`
 
-![](https://blog.kakaocdn.net/dn/HmdDv/btrHkUw0QIR/Nzodo4mwE1kxSuPHkw0Fik/img.png)
+<img src="https://blog.kakaocdn.net/dn/dNz5ui/btrJ2bcBYKq/oGhP4FMOcPVK5wvKvD3Cm0/img.png" width="820">
 
 `realPath`: 파일이 저장되는 경로이다.<br>
 `request.getSession().getServletContext().getRealPath("/upload")`: **내 프로젝트/src/main/webapp/upload 파일 경로**이다.
@@ -703,7 +542,7 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 </div>
 </details>
 
-#### 5. Spring Interceptor를 이용한 로그인 체크
+### 5. Spring Interceptor를 이용한 로그인 체크
 <details>
 <summary>📌기능 설명</summary>
 <div markdown="1">
@@ -711,9 +550,6 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 ##### `인터셉터 (Interceptor)`<br>
 >Interceptor란 컨트롤러에 들어오는 요청 `HttpRequest`와 컨트롤러가 응답하는 `HttpResponse`를 가로채는 역할을 한다.<br>
 
-📝사용자 요청으로 서버로 들어온 Request 객체를 Controller의 Handler(사용자가 요청한 URL에 따라 실행되어야 할 메서드)로 도달하기 전 가로채어, 
-원하는 추가 작업이나 로직을 수행한 후 Handler로 보낼 수 있도록 해준다.
-<br><br>
 ##### `사용이유` <br>
 프로젝트 올리기, 마이페이지 등 로그인을 한 사용자만 실행할 수 있는 Controller Handler를 작성할 때,<br>
 오직 로그인 회원만 실행할 수 있게 하도록 **로그인 회원인지 확인하는 체크 코드를 각 핸들러에 모두 작성**해주어야 한다.<br>
@@ -721,21 +557,25 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 그리고 **코드의 누락 실수**가 발생할 수 있다.<br>
 그렇게 된다면 자격이 없는 사용자가 접근할 수 있게 되어 보안 측면에서 문제가 생긴다.<br><br>
 🔧이러한 문제점들을 줄이기 위해 Interceptor를 사용하여 핸들러 수만큼 작성했던 **로그인 체크 코드를 Interceptor 클래스에 한 번만 작성하면 된다.**<br>
-이에 따라 **코드의 중복을 제거**할 수 있고 **메모리 낭비를 줄일 수 있다.**<br>
+이에 따라 **코드의 중복을 제거**할 수 있고 **메모리 낭비를 줄일 수 있었다.**<br>
 동시에 누락에 대한 위험이 상당히 줄어든다.
 
 
 **1. 인터셉터(Interceptor) 구현**
 
-<img src="https://blog.kakaocdn.net/dn/bn3GX2/btrHqPXdnCO/kuJsdangJWx8fLhPCnpV31/img.png">
+<img src="https://blog.kakaocdn.net/dn/cRvvsk/btrJ0VBAY4c/Gff7y2L9YfacB6zcuKjyXK/img.png" width="670">
 
 - `request.getRequestURI`: 웹 서버로 요청 시, 요청에 사용된 URL 로부터 URI 값을 리턴한다.
-- `?redirectURL= + requestURI`: 로그인 사용자가 아닌 경우, 쿼리스프링으로 현재 요청 페이지 URI를 넣어서 로그인 페이지로 보낸다.
+- `/login?redirectURL= + requestURI`: 로그인 사용자가 아닌 경우, 쿼리스프링으로 현재 요청 페이지 URI를 넣어서 로그인 페이지로 보낸다.
 
+<br>
+
+👇LoginController<br>
 <img src="https://blog.kakaocdn.net/dn/VgvVw/btrHrwC6B25/RvBx3raJQAbgzkvTutyzO0/img.png" width="600">
 
 - LoginController에서 로그인 성공 시 다시 요청했던 페이지로 갈 수 있도록 쿼리스프링을 받아서 redirect 하였다. <br>
 - ` @RequestParam(defaultValue = "/")`: 기본 값을 "/"로 설정하여 넘어오는 URI가 없을 경우 메인 페이지로 갈 수 있도록 하였다.
+
 
 **2. WebMvcConfigurer 구현 후 Interceptor 등록**
 
@@ -760,17 +600,13 @@ application.yml 에서 다음과 같이 코드를 적어주었다.
 
 #### 🚫현재 문제점
 
-1. 로그인 시 잘못된 아이디(없는 아이디)를 입력하게 되면
+- 로그인 시 잘못된 아이디(없는 아이디)를 입력하게 되면 NoSuchElementException 예외가 터져버린다.
 
 <img src="https://blog.kakaocdn.net/dn/Aswox/btrFHEX5ZqN/BdAb7IqKdBTWXkeVKOkbIK/img.png" width="450">
 
-2. NoSuchElementException 예외가 터져버린다.
 
 <img src="https://blog.kakaocdn.net/dn/pGSvS/btrFTOx96lq/YUwapoxLkwOW7uLpikMdPK/img.png" width="450">
 
-
-🔻에러 메시지<br>
-java.util.NoSuchElementException: No value present at java.base/java.util.Optional.get(Optional.java:148) ~\[na:na\] at project.toyproject.service.LoginService.login(LoginService.java:31) ~\[classes/:na\] at
 
 코드보기
 
@@ -810,12 +646,6 @@ java.util.NoSuchElementException: No value present at java.base/java.util.Option
 <img src="https://blog.kakaocdn.net/dn/5X9Jo/btrFHGhphs5/JNjnGSB8w4XKgUvZqnnsPK/img.png" width="450">
 
 생각한 방향으로 잘 작동되는 것을 볼 수 있다.
-
-> **Optional<T> 클래스**  
->  Integer, Double 클래스처럼 **'T' 타입의 객체를 포장해주는 래퍼 클래스**  
->  **모든 타입의 참조 변수를 저장할 수 있다.**  
->  이러한 Optional 객체를 사용하면 복잡한 조건문 없이 **null 값으로 인해 발생하는 예외를 처리할 수 있다.**  
->[(참고한 사이트)코딩의 시작, TCP School](http://www.tcpschool.com/java/java_stream_optional)
 
 </div>
 </details>

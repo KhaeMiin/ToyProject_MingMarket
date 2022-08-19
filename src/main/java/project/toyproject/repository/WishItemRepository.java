@@ -39,6 +39,7 @@ public class WishItemRepository {
 
     /**
      * 내가 찜한 상품 리스트 보기
+     * fetch join: 지연로딩을 무시하고 진짜 객체(프록시 객체 아님)에 값을 다 채워서 가져옴 (WishItem, Product)
      */
     public List<WishItem> wishProduct(Long memberId) {
         return em.createQuery(
