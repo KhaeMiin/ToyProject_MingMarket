@@ -7,24 +7,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
+import project.toyproject.repository.WishItemRepository;
 
 import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 @Transactional(readOnly = true)
 class WishServiceTest1 {
 
     @Autowired
     WishItemService wishService;
     @Autowired
+    WishItemRepository wishItemRepository;
+    @Autowired
     EntityManager em;
 
-  /*  *//**
-     * 상품 찜하기
-     *//*
     @Test
     void 상품찜추가() {
         //given
@@ -37,7 +36,7 @@ class WishServiceTest1 {
         Long wishId = wishService.addWishItem(member.getId(), product.getId());
 
         //then
-        WishItem getWishItem = wishService.findOneOrder(wishId);
+        WishItem getWishItem = wishItemRepository.findOne(wishId);
         assertEquals(getWishItem.getMember(), member);
         assertEquals(getWishItem.getStatus(), ProductStatus.WISH); //주문상태가 예약으로 바뀌었는지
 
@@ -55,7 +54,7 @@ class WishServiceTest1 {
         wishService.cancelWishItem(wishId);
 
         //then
-        WishItem getWishItem = wishService.findOneOrder(wishId);
+        WishItem getWishItem = wishItemRepository.findOne(wishId);
 
         assertThrows(NullPointerException.class, () -> getWishItem.getMember()); //찜 상품에서 삭제되었으니까 null
         assertThrows(NullPointerException.class, () -> getWishItem.getProduct());
@@ -73,5 +72,4 @@ class WishServiceTest1 {
         em.persist(product);
         return product;
     }
-*/
 }

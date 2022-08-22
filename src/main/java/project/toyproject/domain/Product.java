@@ -26,7 +26,7 @@ public class Product extends BaseEntity { //상품
     private String intro; //설명(게시판)
     private int Price; //상품가격
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member; //fk
 
