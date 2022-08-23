@@ -36,7 +36,7 @@ public class ProductApiController {
     @GetMapping("/list")
     public ResultList productList() {
         List<SelectProducts> products = productService.findProducts();
-        return new ResultList(products.size(), products);
+        return new ResultList<>(products.size(), products);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ProductApiController {
     @GetMapping("/products/{memberId}")
     public ResultList userProductList(@PathVariable Long memberId) {
         List<SelectProducts> userProducts = productService.userProductsList(memberId);
-        return new ResultList(userProducts.size(), userProducts);
+        return new ResultList<>(userProducts.size(), userProducts);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ProductApiController {
     @GetMapping("/wish/{memberId}")
     public ResultList userWishList(@PathVariable Long memberId) {
         List<SelectProducts> userWishList = wishItemService.wishList(memberId);
-        return new ResultList(userWishList.size(), userWishList);
+        return new ResultList<>(userWishList.size(), userWishList);
     }
 
     /**
@@ -85,12 +85,12 @@ public class ProductApiController {
             MemberDto.SessionMemberData loginMember = (MemberDto.SessionMemberData) session.getAttribute("loginMember");
             Long wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
             if (wishItem != null) {
-                return new DetailProduct(singleProduct, "찜상품 입니다.");
+                return new DetailProduct<>(singleProduct, "찜상품 입니다.");
             }
         } catch (Exception e) {
             e.getMessage();
         }
-        return new DetailProduct(singleProduct, "");
+        return new DetailProduct<>(singleProduct, "");
 
     }
 

@@ -11,6 +11,7 @@ import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -69,9 +70,16 @@ class MemberJpaRepositoryTest {
 
     }
 
-    @DisplayName("로그인시 회원 조회")
+    @DisplayName("로그인시 회원 조회 (값 있음)")
     @Test
     void findByLoginId() {
+        Member member1 = createMember();
+        memberJpaRepository.save(member1);
+
+        Optional<Member> result = memberJpaRepository.findByUserId(member1.getUserId());
+        Member member = result.get();
+        assertThat(member.getUserId()).isEqualTo(member1.getUserId());
+
     }
 
     private static Member createMember() {

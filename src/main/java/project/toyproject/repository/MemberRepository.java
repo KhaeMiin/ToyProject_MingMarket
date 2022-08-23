@@ -51,7 +51,7 @@ public class MemberRepository {
                 return Optional.of(m);
             }
         }
-        return Optional.empty(); //값이 없으면 null
+        return Optional.empty(); //값이 없으면 빈 값 보낸다.
 */
 
         //stream 사용
