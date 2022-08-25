@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
+import project.toyproject.repository.MemberJpaRepository;
 import project.toyproject.repository.MemberRepository;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    private final MemberJpaRepository memberJpaRepository;
+
     /**
      * 회원가입
      */
@@ -38,7 +41,8 @@ public class MemberService {
         checkPassword(form.getPassword(), form.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
         member.hashPassword(passwordEncoder.encode(form.getPassword())); //스프링 시큐리티(암호화)
         member.createDate(LocalDateTime.now());
-        memberRepository.save(member);
+//        memberRepository.save(member);
+        memberJpaRepository.save(member);
         return member;
     }
 
@@ -46,7 +50,8 @@ public class MemberService {
      * 회원 전체 조회
      */
     public List<SelectMemberData> findMembers() {
-        List<Member> members = memberRepository.findAllMembers();
+//        List<Member> members = memberRepository.findAllMembers();
+        List<Member> members = memberJpaRepository.findAll();
 /*        List<SelectMemberData> listMemberData = new ArrayList<>();
         for (Member member : members) {
             SelectMemberData selectMemberData = new SelectMemberData(member.getId(), member.getUserId(),
@@ -65,7 +70,9 @@ public class MemberService {
      * 회원 단건 조회
      */
     public SelectMemberData findOneMember(Long memberId) {
-        Member member = memberRepository.findOneMember(memberId);
+//        Member member = memberRepository.findOneMember(memberId);
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
+//        Member member = memberJpaRepository.findById(memberId).orElseGet(null); //member에 값이 없을 경우 null
         SelectMemberData memberData = new SelectMemberData(member);
         return memberData;
     }
@@ -75,7 +82,8 @@ public class MemberService {
      */
     @Transactional
     public void editInformation(Long memberId, UpdateMemberForm form) {
-        Member findMember = memberRepository.findOneMember(memberId);
+//        Member findMember = memberRepository.findOneMember(memberId);
+        Member findMember = memberJpaRepository.findById(memberId).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
         Address address = new Address(form.getAddress(), form.getDetailedAddress());
         findMember.change(form.getNickname(), form.getUsername(),form.getHp(), address);
 
@@ -86,7 +94,8 @@ public class MemberService {
      */
     @Transactional
     public void editPassword(Long memberId, UpdateUserPassForm form) {
-        Member findMember = memberRepository.findOneMember(memberId);
+//        Member findMember = memberRepository.findOneMember(memberId);
+        Member findMember = memberJpaRepository.findById(memberId).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
 //        findMember.passwordChange(form.getEditYourPassword());
         findMember.hashPassword(passwordEncoder.encode(form.getEditYourPassword())); //시큐리티 암호화
     }
@@ -95,7 +104,8 @@ public class MemberService {
      * 중복 아이디 검증 메서드
      */
     private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByUserId(member.getUserId());
+//        List<Member> findMembers = memberRepository.findByUserId(member.getUserId());
+        List<Member> findMembers = memberJpaRepository.findMemberByUserId(member.getUserId());
 /*        if (!findMembers.isEmpty()) { //isEmpty(): 문자열 길이가 0일 경우 true 반환, 여기서는 !isEmpty: 값이 있다면
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }*/
@@ -186,13 +196,15 @@ public class MemberService {
 
     /**
      * API 회원 정보 수정 메서드
-     * @param id
+     * @param id : memberId(pk)
      * @param form
      * @return
      */
     @Transactional //수정시 읽기전용이면 스냅샷 저장, 변경감지 수행등을 하지 않는다..
     public SelectMemberData updateMember(Long id, UpdateMemberForm form) {
-        Member member = memberRepository.findOneMember(id);
+//        Member member = memberRepository.findOneMember(id);
+        Member member = memberJpaRepository.findById(id).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
+
         Address address = new Address(form.getAddress(), form.getDetailedAddress());
         member.change(form.getNickname(), form.getUsername(), form.getHp(), address);
         return new SelectMemberData(member);

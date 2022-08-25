@@ -1,4 +1,4 @@
-package project.toyproject.service;
+package project.toyproject.test;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.repository.MemberRepository;
+import project.toyproject.service.MemberService;
 
 import javax.persistence.EntityManager;
 
@@ -19,7 +20,8 @@ import static project.toyproject.dto.MemberDto.*;
 @Transactional
 class MemberServiceTest1 {
 
-    @Autowired MemberService memberService;
+    @Autowired
+    MemberService memberService;
     @Autowired
     MemberRepository memberRepository;
     @Autowired

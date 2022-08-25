@@ -1,4 +1,4 @@
-package project.toyproject.service;
+package project.toyproject.test;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +11,7 @@ import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
 import project.toyproject.repository.ProductRepository;
+import project.toyproject.service.ProductService;
 
 import javax.persistence.EntityManager;
 
@@ -21,7 +22,8 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 class ProductServiceTest1 {
 
-    @Autowired ProductService productService;
+    @Autowired
+    ProductService productService;
     @Autowired
     ProductRepository productRepository;
     @Autowired
