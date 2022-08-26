@@ -74,14 +74,20 @@ public class ProductService {
 
     /**
      * 단일 상품 조회
+     * TODO
+     * Spirng Data JPA 경우 ProductDetailData에 값 넣을 때 product.getMember().getUserId();, getMember().getNickname();부분
+     * 프록시객체였던 member가 디비에 값 조회(쿼리 1번 나가짐)하여 entity객체로 값 받아와짐.
+     * fetch Joing (@EntityGraph)을 사용하여 이 부분 해결하자 (한방쿼리 사용_)
      */
     public ProductDetailData findSingleProduct(Long productId) {
+        System.out.println("productTest");
         Product findProduct = productRepository.findSingleProduct(productId);
+        System.out.println("findProduct end");
 
         //게시글 작성 날짜 구하기
         String createDate = findProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-        ProductDetailData singleProduct = new ProductDetailData(findProduct, createDate);
+        ProductDetailData singleProduct = new ProductDetailData(findProduct, createDate); //이 부분에서 product.getMember().getUserId();때문에 n+1의 문제가 발생할 수 있다. fetch로 수정해야함
 
         return singleProduct;
     }
@@ -93,6 +99,8 @@ public class ProductService {
 
     /**
      * 내가 올린 상품 리스트
+     * TODO
+     * SelectProducts: product.getMember().getId();부분 n+1 다시 생각해보기
      */
     public List<SelectProducts> userProductsList(Long memberId) {
         List<Product> products = productRepository.userProducts(memberId);

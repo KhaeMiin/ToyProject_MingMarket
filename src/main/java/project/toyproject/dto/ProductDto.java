@@ -128,6 +128,12 @@ public class ProductDto {
         private Long memberId; //작성자 pk
         private ProductStatus productStatus;
 
+        /**
+         * TODO
+         * product.getMember().getId() : n+1 문제 (좀 더 생각해보자) fetchJoin
+         * Spring Data Jpa -> entityGraph
+         * @param product
+         */
         public SelectProducts(Product product) {
             id = product.getId();
             title = product.getTitle();

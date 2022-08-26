@@ -70,13 +70,15 @@ public class WishItemService {
      * 찜상품 조회(회원,상품으로 조회)
      */
     public Long findOneWishItem(Long memberId, Long productId) {
+        System.out.println("wishTest");
         WishItem wishItem = wishItemRepository.findOneItem(memberId, productId);
+        System.out.println("wishItem end ");
 
         return wishItem.getId();
     }
 
     /**
-     * 내가 찜한 상품
+     * 내가 찜한 상품 (fetch join 상태)
      */
     public List<SelectProducts> wishList(Long memberId) {
         List<WishItem> wishItems = wishItemRepository.wishProduct(memberId);

@@ -23,6 +23,8 @@ public class SearchService {
 
     /**
      * product에 대한 select Query 한 번만 나감
+     * p.getMember().getId() 이 부분 다시 확인하자 (n+1)
+     * Spring Data Jpa -> entityGraph
      */
     @Transactional
     public List<SelectProducts> searchPosts(String keyword) {

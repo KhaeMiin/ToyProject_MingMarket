@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.MemberDto;
+import project.toyproject.repository.MemberJpaRepository;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.service.MemberService;
 
@@ -36,7 +37,7 @@ class MemberServiceTest {
     private MemberService memberService;
 
     @Mock
-    private MemberRepository memberRepository;
+    private MemberJpaRepository memberRepository;
 
     @Spy
     private BCryptPasswordEncoder passwordEncoder;
@@ -52,7 +53,7 @@ class MemberServiceTest {
         String encodePass = encoder.encode(form.getPassword());
         Member member = new Member(form.getUserId(), form.getNickname(), encodePass,
                 form.getUsername(), form.getHp(), new Address(form.getAddress(), form.getDetailedAddress()));
-        given(memberRepository.save(any())).willReturn(member);
+        given(memberRepository.save(any())).willReturn(member);//memberRepository.save(any())를 실행하면 member를 리턴
 
 
         //when : 실행하면
@@ -65,6 +66,9 @@ class MemberServiceTest {
 
     }
 
+    /**
+     *
+     */
     @Test
     @DisplayName("회원가입_실패")
     void 중복아이디_예외() {
@@ -83,7 +87,7 @@ class MemberServiceTest {
         doReturn(findByUserId()).when(memberRepository)
                 .findByUserId(userId);
 
-        given(memberRepository.save(any())).willReturn(member);
+        given(memberRepository.save(any())).willReturn(member); //memberRepository.save(any())를 실행하면 member를 리턴
 
         //when : 실행하면
         try {
@@ -103,7 +107,7 @@ class MemberServiceTest {
     void 전체회원_조회() {
         //given
         doReturn(memberList()).when(memberRepository)
-                .findAllMembers();
+                .findAll();
 
         //when
         List<SelectMemberData> members = memberService.findMembers();
