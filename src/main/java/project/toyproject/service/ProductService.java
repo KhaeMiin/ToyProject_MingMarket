@@ -86,12 +86,10 @@ public class ProductService {
      * fetch Joing (@EntityGraph)을 사용하여 이 부분 해결하자 (한방쿼리 사용_)
      */
     public ProductDetailData findSingleProduct(Long productId) {
-        System.out.println("productTest");
 //        Product findProduct = productRepository.findSingleProduct(productId); //순수 JPA
         Product findProduct = productJpaRepository.findById(productId).orElseThrow(() -> { //Spring DATA JPA
             throw new IllegalStateException("저장된 값이 없습니다.");
         });
-        System.out.println("findProduct end");
 
         //게시글 작성 날짜 구하기
         String createDate = findProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -115,6 +113,8 @@ public class ProductService {
      * 내가 올린 상품 리스트
      * TODO
      * SelectProducts: product.getMember().getId();부분 n+1 다시 생각해보기
+     * getMember().nickName()등 다른 정보를 꺼낼 일이 있으면 fetch join
+     * getId()외 다른 정보를 꺼낼 일이 없으면 fetch join을 굳이 안해도 될 것 같다. (개인적인 내 생각)
      */
     public List<SelectProducts> userProductsList(Long memberId) {
 //        List<Product> products = productRepository.userProducts(memberId); //순수 JPA
