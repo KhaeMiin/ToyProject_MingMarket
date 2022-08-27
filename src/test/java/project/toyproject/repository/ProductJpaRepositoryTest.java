@@ -75,7 +75,7 @@ class ProductJpaRepositoryTest {
         Product product2 = Product.createProduct("test2", "tt.jpg", "test2", 20000, member, CategoryList.BOOKS);
         productJpaRepository.save(product2);
 
-        List<Product> findProducts = productJpaRepository.findProductByMemberId(member.getId());
+        List<Product> findProducts = productJpaRepository.findByMemberId(member.getId());
 
         assertThat(findProducts.size()).isEqualTo(1);
     }

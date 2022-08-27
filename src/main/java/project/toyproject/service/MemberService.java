@@ -41,7 +41,7 @@ public class MemberService {
         checkPassword(form.getPassword(), form.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
         member.hashPassword(passwordEncoder.encode(form.getPassword())); //스프링 시큐리티(암호화)
         member.createDate(LocalDateTime.now());
-//        memberRepository.save(member);
+//        memberRepository.save(member); //순수 JPA
         memberJpaRepository.save(member);
         return member;
     }
@@ -50,7 +50,7 @@ public class MemberService {
      * 회원 전체 조회
      */
     public List<SelectMemberData> findMembers() {
-//        List<Member> members = memberRepository.findAllMembers();
+//        List<Member> members = memberRepository.findAllMembers(); //순수 JPA
         List<Member> members = memberJpaRepository.findAll();
 /*        List<SelectMemberData> listMemberData = new ArrayList<>();
         for (Member member : members) {
@@ -70,7 +70,7 @@ public class MemberService {
      * 회원 단건 조회
      */
     public SelectMemberData findOneMember(Long memberId) {
-//        Member member = memberRepository.findOneMember(memberId);
+//        Member member = memberRepository.findOneMember(memberId); //순수 JPA
         Member member = memberJpaRepository.findById(memberId).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
 //        Member member = memberJpaRepository.findById(memberId).orElseGet(null); //member에 값이 없을 경우 null
         SelectMemberData memberData = new SelectMemberData(member);
@@ -82,7 +82,7 @@ public class MemberService {
      */
     @Transactional
     public void editInformation(Long memberId, UpdateMemberForm form) {
-//        Member findMember = memberRepository.findOneMember(memberId);
+//        Member findMember = memberRepository.findOneMember(memberId); //순수 JPA
         Member findMember = memberJpaRepository.findById(memberId).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
         Address address = new Address(form.getAddress(), form.getDetailedAddress());
         findMember.change(form.getNickname(), form.getUsername(),form.getHp(), address);
@@ -94,7 +94,7 @@ public class MemberService {
      */
     @Transactional
     public void editPassword(Long memberId, UpdateUserPassForm form) {
-//        Member findMember = memberRepository.findOneMember(memberId);
+//        Member findMember = memberRepository.findOneMember(memberId); //순수 JPA
         Member findMember = memberJpaRepository.findById(memberId).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
 //        findMember.passwordChange(form.getEditYourPassword());
         findMember.hashPassword(passwordEncoder.encode(form.getEditYourPassword())); //시큐리티 암호화
@@ -104,7 +104,7 @@ public class MemberService {
      * 중복 아이디 검증 메서드
      */
     private void validateDuplicateMember(Member member) {
-//        List<Member> findMembers = memberRepository.findByUserId(member.getUserId());
+//        List<Member> findMembers = memberRepository.findByUserId(member.getUserId()); //순수 JPA
         List<Member> findMembers = memberJpaRepository.findMemberByUserId(member.getUserId());
 /*        if (!findMembers.isEmpty()) { //isEmpty(): 문자열 길이가 0일 경우 true 반환, 여기서는 !isEmpty: 값이 있다면
             throw new IllegalStateException("이미 존재하는 회원입니다.");
