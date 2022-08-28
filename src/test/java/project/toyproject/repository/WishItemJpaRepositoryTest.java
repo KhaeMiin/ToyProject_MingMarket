@@ -59,10 +59,10 @@ class WishItemJpaRepositoryTest {
         WishItem wishItem = WishItem.addWishItem(member, product);
         WishItem save = wishItemJpaRepository.save(wishItem);
         //when
-        List<WishItem> result = wishItemJpaRepository.findOneItem(member.getId(), product.getId());
+        WishItem result = wishItemJpaRepository.findOneItem(member.getId(), product.getId()).get();
 
         //then
-        assertThat(result.get(0)).isEqualTo(save);
+        assertThat(result).isEqualTo(save);
     }
 
     @DisplayName("내가 찜한 상품 리스트")
