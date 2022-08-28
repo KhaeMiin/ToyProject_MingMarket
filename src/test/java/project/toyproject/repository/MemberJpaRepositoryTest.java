@@ -1,12 +1,10 @@
 package project.toyproject.repository;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 
@@ -58,7 +56,7 @@ class MemberJpaRepositoryTest {
         assertThat(all.size()).isEqualTo(3);
     }
 
-    @DisplayName("회원이름으로 검색")
+/*    @DisplayName("회원이름으로 검색")
     @Test
     void findMemberByUserId() {
         Member member1 = createMember();
@@ -68,7 +66,7 @@ class MemberJpaRepositoryTest {
 
         assertThat(memberByUserId.get(0).getUserId()).isEqualTo("AAA1");
 
-    }
+    }*/
 
     @DisplayName("로그인시 회원 조회 (값 있음)")
     @Test

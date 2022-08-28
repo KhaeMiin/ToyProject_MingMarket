@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import project.toyproject.domain.Address;
-import project.toyproject.domain.Member;
 import project.toyproject.dto.LoginDto;
-import project.toyproject.dto.MemberDto;
 import project.toyproject.service.LoginService;
 
 import javax.servlet.http.HttpServletRequest;

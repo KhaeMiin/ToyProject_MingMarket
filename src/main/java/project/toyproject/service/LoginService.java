@@ -2,16 +2,13 @@ package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.LoginDto;
-import project.toyproject.dto.MemberDto;
+import project.toyproject.repository.MemberJpaRepository;
 import project.toyproject.repository.MemberRepository;
 
 import java.util.Optional;
@@ -25,6 +22,7 @@ import static project.toyproject.dto.MemberDto.*;
 public class LoginService{
 
     private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberJpaRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -32,14 +30,16 @@ public class LoginService{
      * 로그인
      */
     public SessionMemberData login(LoginDto form) {
-        Optional<Member> findMemberOptional = memberRepository.findByLoginId(form.getUserId());
+//        Optional<Member> findMemberOptional = memberRepository.findByLoginId(form.getUserId()); // 순수JPA
+        Optional<Member> findMember = memberJpaRepository.findByUserId(form.getUserId()); //Spring Data JPA
 
         //아이디 조회해서 해당 아이디 정보가 있을 경우( 없으면 null 반환받음)
-        if (!findMemberOptional.isPresent()) {
+        if (!findMember.isPresent()) { // boolean isPresent()
             return null;
         }
 
-        Member member = findMemberOptional.get();
+
+        Member member = findMember.get();
 
         /**
          * 비밀번호 확인 (스프링 시큐리티)
@@ -66,7 +66,8 @@ public class LoginService{
      * 비밀번호 체크 (비밀번호 수정시 사용)
      */
     public Long passwordCheck(Long memberId, String password) {
-        Member member = memberRepository.findOneMember(Long.valueOf(memberId));
+//        Member member = memberRepository.findOneMember(Long.valueOf(memberId)); // 순수JPA
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(IllegalStateException::new); //Spring Data JPA
 
         /**
          * 비밀번호 확인 (스프링 시큐리티)
