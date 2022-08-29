@@ -21,11 +21,6 @@ public class SearchService {
 
     private final SearchRepository searchRepository;
 
-    /**
-     * product에 대한 select Query 한 번만 나감
-     * p.getMember().getId() 이 부분 다시 확인하자 (n+1)
-     * Spring Data Jpa -> entityGraph
-     */
     @Transactional
     public List<SelectProducts> searchPosts(String keyword) {
         List<Product> productEntities = searchRepository.findByTitleContaining(keyword);
@@ -42,7 +37,7 @@ public class SearchService {
         */
         return productEntities.stream()
                 .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
-                        p.getIntro(), p.getPrice(), p.getMember().getId(), p.getProductStatus()))
+                        p.getIntro(), p.getPrice(), p.getMember().getId(), p.getMember().getNickname(), p.getProductStatus()))
                 .collect(Collectors.toList());
 
 //        return productDtoList;

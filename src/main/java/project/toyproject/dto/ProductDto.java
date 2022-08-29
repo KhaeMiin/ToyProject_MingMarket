@@ -126,12 +126,12 @@ public class ProductDto {
         private String intro; //설명(게시판)
         private int price; //상품가격
         private Long memberId; //작성자 pk
+        private String memberNick;
         private ProductStatus productStatus;
 
         /**
-         * TODO
-         * product.getMember().getId() : n+1 문제 (좀 더 생각해보자) fetchJoin
-         * Spring Data Jpa -> entityGraph
+         * product.getMember().getId() : n+1 문제
+         * Spring Data JPA -> entityGraph 어노테이션 사용으로 n+1문제 해결 (fetchJoin)
          * @param product
          */
         public SelectProducts(Product product) {
@@ -141,6 +141,7 @@ public class ProductDto {
             intro = product.getIntro();
             price = product.getPrice();
             memberId = product.getMember().getId();
+            memberNick = product.getMember().getNickname();
             productStatus = product.getProductStatus();
         }
     }

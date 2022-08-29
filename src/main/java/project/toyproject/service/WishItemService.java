@@ -106,7 +106,7 @@ public class WishItemService {
         List<WishItem> wishItems = wishItemJpaRepository.findByMemberId(memberId); //Spring Data JPA
         return wishItems.stream()
                 .map(w -> new SelectProducts(w.getProduct().getId(), w.getProduct().getTitle(), w.getProduct().getThumbnail(),
-                        w.getProduct().getIntro(), w.getProduct().getPrice(), w.getMember().getId(), w.getStatus()))
+                        w.getProduct().getIntro(), w.getProduct().getPrice(), w.getMember().getId(), w.getMember().getNickname(), w.getStatus()))
                 .collect(Collectors.toList());
 
     }

@@ -3,10 +3,8 @@ package project.toyproject.test;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,9 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
-import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.MemberJpaRepository;
-import project.toyproject.repository.MemberRepository;
 import project.toyproject.service.MemberService;
 
 import java.util.ArrayList;
@@ -27,11 +23,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
 import static project.toyproject.dto.MemberDto.*;
 
 @ExtendWith(MockitoExtension.class)
-class MemberServiceTest {
+class MemberServiceMockTest {
 
     @InjectMocks
     private MemberService memberService;
