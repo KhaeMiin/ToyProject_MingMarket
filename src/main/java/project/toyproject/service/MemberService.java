@@ -96,6 +96,8 @@ public class MemberService {
     public void editPassword(Long memberId, UpdateUserPassForm form) {
 //        Member findMember = memberRepository.findOneMember(memberId); //순수 JPA
         Member findMember = memberJpaRepository.findById(memberId).orElseThrow(() -> {throw new IllegalStateException("저장된 값이 없습니다.");});
+        System.out.println("form.getEditPasswordCheck() = " + form.getEditPasswordCheck());
+        checkPassword(form.getEditPasswordCheck(), findMember.getUserId()); //비밀번호 영문 숫자 특수문자 조합 체크
 //        findMember.passwordChange(form.getEditYourPassword());
         findMember.hashPassword(passwordEncoder.encode(form.getEditYourPassword())); //시큐리티 암호화
     }
