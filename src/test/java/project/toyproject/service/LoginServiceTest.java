@@ -22,8 +22,6 @@ class LoginServiceTest {
     @Autowired
     LoginService loginService;
     @Autowired
-    MemberJpaRepository memberJpaRepository;
-    @Autowired
     MemberService memberService;
 
     @DisplayName("로그인 성공")

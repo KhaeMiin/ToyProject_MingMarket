@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.repository.MemberJpaRepository;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductJpaRepository;
 import project.toyproject.repository.ProductRepository;
@@ -24,6 +25,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductJpaRepository productJpaRepository;
     private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberJpaRepository;
 
     /**
      * 상품 등록
@@ -32,7 +34,10 @@ public class ProductService {
     public Long saveProduct(Long memberId, String title, String thumbnail, String intro, int price, CategoryList categoryList) {
 
         //엔티티 조회
-        Member member = memberRepository.findOneMember(memberId);
+//        Member member = memberRepository.findOneMember(memberId);
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(() -> {
+            throw new IllegalStateException("저장된 값이 없습니다.");
+        });
 
         //상품 생성
         Product product = Product.createProduct(title, thumbnail, intro, price, member, categoryList);
