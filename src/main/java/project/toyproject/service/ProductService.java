@@ -88,7 +88,7 @@ public class ProductService {
      * TODO
      * Spirng Data JPA 경우 ProductDetailData에 값 넣을 때 product.getMember().getUserId();, getMember().getNickname();부분
      * 부분 n+1 다시 생각해보기
-     * fetch Joing (@EntityGraph)을 사용하여 이 부분 해결하자 (한방쿼리 사용_)
+     * fetch Joing (@EntityGraph)을 사용하여 이 부분 해결(한방쿼리 사용_)
      */
     public ProductDetailData findSingleProduct(Long productId) {
 //        Product findProduct = productRepository.findSingleProduct(productId); //순수 JPA
