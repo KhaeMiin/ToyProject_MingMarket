@@ -1,6 +1,8 @@
 package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Product;
@@ -40,5 +42,19 @@ public class SearchService {
                 .collect(Collectors.toList());
 
 //        return productDtoList;
+    }
+
+    //페이징 처리
+    @Transactional
+    public Page<SelectProducts> searchPostsPage(String keyword, Pageable pageable) {
+        Page<Product> products = searchRepository.findByTitleContaining(keyword, pageable);
+
+        if (products.isEmpty()) {
+            return products.map(p -> new SelectProducts(p));
+        }
+
+        return products
+                .map(p -> new SelectProducts(p));
+
     }
 }

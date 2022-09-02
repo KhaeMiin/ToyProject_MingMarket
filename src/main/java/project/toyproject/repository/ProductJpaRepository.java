@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import project.toyproject.domain.Product;
 
 import java.util.List;
@@ -23,9 +24,12 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
     List<Product> findAll();
 
     @Query("select p from Product p join fetch p.member") //쿼리 직접 작성
-//    @EntityGraph(attributePaths = {"member"}) //어노테이션 사용
+    @EntityGraph(attributePaths = {"member"}) //어노테이션 사용
     List<Product> findByMemberId(Long memberId);
 
+    //페이징
+    @EntityGraph(attributePaths = {"member"}) //어노테이션 사용
+    Page<Product> findProductsByMemberId(Long memberId, Pageable pageable);
 
 //    @Query("select p from Product p left join fetch p.member") //fetch join 쿼리 직접 작성하는 방법
     @EntityGraph(attributePaths = {"member"})

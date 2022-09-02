@@ -150,4 +150,13 @@ public class ProductService {
         return userProductList;
     }
 
+    /**
+     * 내가 올린 상품 리스트(페이징 처리)
+     */
+    public Page<SelectProducts> userProductsListPage(Long memberId, Pageable pageable) {
+        Page<Product> products = productJpaRepository.findProductsByMemberId(memberId, pageable);
+        return products
+                .map(p -> new SelectProducts(p));
+    }
+
 }

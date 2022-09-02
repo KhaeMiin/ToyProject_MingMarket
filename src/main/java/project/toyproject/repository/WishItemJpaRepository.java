@@ -1,5 +1,7 @@
 package project.toyproject.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +17,6 @@ public interface WishItemJpaRepository extends JpaRepository<WishItem, Long> {
     Optional<WishItem> findOneItem(@Param("userId") Long userId, @Param("productId") Long productId);
 
     List<WishItem> findByMemberId(Long memberId); //내가 찜한 리스트
+    Page<WishItem> findByMemberId(Long memberId, Pageable pageable); //내가 찜한 리스트 페이징처리
 }
 

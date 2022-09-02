@@ -2,6 +2,8 @@ package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
@@ -67,10 +69,6 @@ public class WishItemService {
         //찜상품 생성
         WishItem wish = WishItem.addWishItem(member, product);
 
-        log.info("service에서={}", member.getId());
-        log.info("service에서={}", product.getId());
-
-
         //찜상품 저장
 //        wishItemRepository.addWishList(wish); // 순수 JPA
         wishItemJpaRepository.save(wish); //Spring Data JPA
@@ -94,7 +92,6 @@ public class WishItemService {
         WishItem wishItem = wishItemJpaRepository.findOneItem(memberId, productId).orElseThrow(() -> { //Spring Data JPA
             throw new IllegalArgumentException("상품 정보가 없습니다.");
         });
-
         return wishItem.getId();
     }
 
@@ -107,7 +104,14 @@ public class WishItemService {
         return wishItems.stream()
                 .map(w -> new SelectProducts(w.getProduct()))
                 .collect(Collectors.toList());
+    }
 
+    /**
+     * 내가 찜한 상품 (페이징 처리)
+     */
+    public Page<SelectProducts> wishListPage(Long memberId, Pageable pageable) {
+        Page<WishItem> wishItems = wishItemJpaRepository.findByMemberId(memberId, pageable);//Spring Data JPA
+        return wishItems.map(w -> new SelectProducts(w.getProduct()));
     }
 
 }

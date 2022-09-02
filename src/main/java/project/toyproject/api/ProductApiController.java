@@ -70,12 +70,31 @@ public class ProductApiController {
     }
 
     /**
-     * 관심 상품
+     * 내가 올린 상품 조회(페이징 처리)
+     */
+    @GetMapping("/productsPage/{memberId}")
+    public Page<SelectProducts> userProductList(
+            @PageableDefault(size = 5, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+            @PathVariable Long memberId) {
+        return productService.userProductsListPage(memberId, pageable);
+    }
+
+    /**
+     * 내 관심 상품 List
      */
     @GetMapping("/wish/{memberId}")
     public ResultList userWishList(@PathVariable Long memberId) {
         List<SelectProducts> userWishList = wishItemService.wishList(memberId);
         return new ResultList<>(userWishList.size(), userWishList);
+    }
+    /**
+     * 내 관심 상품 List 페이징 처리
+     */
+    @GetMapping("/wishPage/{memberId}")
+    public Page<SelectProducts> userWishListPage(
+            @PageableDefault(size = 6, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+            @PathVariable Long memberId) {
+        return wishItemService.wishListPage(memberId, pageable);
     }
 
     /**
