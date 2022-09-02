@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.dto.MemberDto;
@@ -33,10 +37,27 @@ public class ProductApiController {
     /**
      * 전체 상품 조회
      */
-    @GetMapping("/list")
+//    @GetMapping("/list")
     public ResultList productList() {
         List<SelectProducts> products = productService.findProducts();
         return new ResultList<>(products.size(), products);
+    }
+
+    /**
+     * 전체 상품 조회
+     * Spring Data JPA에서 페이징처리하기 (최근 등록 상품 순서로 출력)
+     * Page<T>, Pageable, PagingAndSortingRepository
+     */
+    @GetMapping("/list")
+    public Page<SelectProducts> list(@PageableDefault(size = 6, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable) {
+        return productService.findProductsPage(pageable);
+    }
+
+    //제네릭<>을 이용하여 Object로 한 번 감싸주어 JSON에서 바로 배열로 나가버리는 것을 막는다. (필드 확장 가능해짐)
+//    @GetMapping("/list")
+    public ResultList list2(@PageableDefault(size = 6, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<SelectProducts> products = productService.findProductsPage(pageable);
+        return new ResultList(products.getTotalPages(), products);
     }
 
     /**
@@ -105,7 +126,7 @@ public class ProductApiController {
     @Getter
     @AllArgsConstructor
     static class ResultList<T> {
-        private int count; //총 회원 인원수
+        private int total; //페이지수, 혹은 상품갯수
         private T productData;
     }
 }

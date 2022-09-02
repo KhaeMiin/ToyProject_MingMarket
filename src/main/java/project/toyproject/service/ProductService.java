@@ -1,6 +1,8 @@
 package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.CategoryList;
@@ -81,6 +83,16 @@ public class ProductService {
         List<SelectProducts> productList = products.stream()
                 .map(p -> new SelectProducts(p)).collect(Collectors.toList());
         return productList;
+    }
+    /**
+     * 모든 상품 조회 (페이징처리)
+     */
+    public Page<SelectProducts> findProductsPage(Pageable pageable) {
+        Page<Product> products = productJpaRepository.findAll(pageable);//Spring DATA JPA
+
+        //stream 사용
+        return products.map(p -> new SelectProducts(p));
+
     }
 
     /**

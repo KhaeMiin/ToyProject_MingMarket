@@ -36,8 +36,7 @@ public class SearchService {
         }
         */
         return productEntities.stream()
-                .map(p -> new SelectProducts(p.getId(), p.getTitle(), p.getThumbnail(),
-                        p.getIntro(), p.getPrice(), p.getMember().getId(), p.getMember().getNickname(), p.getProductStatus()))
+                .map(p -> new SelectProducts(p))
                 .collect(Collectors.toList());
 
 //        return productDtoList;

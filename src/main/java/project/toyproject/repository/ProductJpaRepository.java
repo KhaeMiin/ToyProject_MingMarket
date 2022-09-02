@@ -1,5 +1,7 @@
 package project.toyproject.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +25,7 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p join fetch p.member") //쿼리 직접 작성
 //    @EntityGraph(attributePaths = {"member"}) //어노테이션 사용
     List<Product> findByMemberId(Long memberId);
+
 
 //    @Query("select p from Product p left join fetch p.member") //fetch join 쿼리 직접 작성하는 방법
     @EntityGraph(attributePaths = {"member"})

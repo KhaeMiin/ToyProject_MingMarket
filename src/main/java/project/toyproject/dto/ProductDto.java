@@ -8,9 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Product;
 import project.toyproject.domain.ProductStatus;
+import project.toyproject.domain.WishItem;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class ProductDto {
 
@@ -128,6 +130,7 @@ public class ProductDto {
         private Long memberId; //작성자 pk
         private String memberNick;
         private ProductStatus productStatus;
+        private LocalDateTime createDate;
 
         /**
          * product.getMember().getId() : n+1 문제
@@ -143,6 +146,7 @@ public class ProductDto {
             memberId = product.getMember().getId();
             memberNick = product.getMember().getNickname();
             productStatus = product.getProductStatus();
+            createDate = product.getCreateDate();
         }
     }
 }
