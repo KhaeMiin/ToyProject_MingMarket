@@ -1,6 +1,8 @@
 package project.toyproject.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,15 @@ public class MemberService {
                 .map(m -> new SelectMemberData(m))
                 .collect(Collectors.toList());
         return listMemberData;
+    }
+    /**
+     * 회원 전체 조회 (페이징 처리)
+     */
+    public Page<SelectMemberData> findMembersPage(Pageable pageable) {
+        Page<Member> members = memberJpaRepository.findALl(pageable);
+
+        //stream 공부하자
+        return members.map(m -> new SelectMemberData(m));
     }
 
     /**
