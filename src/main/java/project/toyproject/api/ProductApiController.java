@@ -100,7 +100,7 @@ public class ProductApiController {
     /**
      * 상품 등록
      */
-    @PostMapping("/new")
+    @GetMapping("/new")
     public Long createProduct(
             @Valid @ModelAttribute("form") CreateProductForm form,
             @LoginCheck MemberDto.SessionMemberData loginMember,
@@ -132,14 +132,6 @@ public class ProductApiController {
         }
         return new DetailProduct<>(singleProduct, "");
 
-    }
-
-    @PostMapping("/addWishItem/{productId}")
-    public Long addWishItem(@LoginCheck MemberDto.SessionMemberData loginMember, @PathVariable Long productId) {
-        if (loginMember == null) {
-            throw new IllegalStateException("로그인 후 사용가능합니다.");
-        }
-        return wishItemService.addWishItem(loginMember.getMemberId(), productId);
     }
 
     @Getter

@@ -3,9 +3,6 @@ package project.toyproject.api;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import project.toyproject.service.LoginService;
 import project.toyproject.service.MemberService;
@@ -31,13 +28,6 @@ public class MemberApiController {
     public ResultList memberList() {
         List<SelectMemberData> members = memberService.findMembers();
         return new ResultList<>(members.size(), members);
-    }
-    /**
-     * 전체 회원 조회 (페이징처리)
-     */
-    @GetMapping("/members")
-    public Page<SelectMemberData> memberListPage(@PageableDefault(size = 6)Pageable pageable) {
-        return memberService.findMembersPage(pageable);
     }
 
     /**
