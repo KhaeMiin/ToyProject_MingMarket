@@ -30,6 +30,5 @@ public class CommentDto {
     @Setter
     @NoArgsConstructor
     public static class CommentRequestDto {
-
     }
 }
