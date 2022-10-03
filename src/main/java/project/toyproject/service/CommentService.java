@@ -22,12 +22,16 @@ public class CommentService {
 
     /**
      * 댓글 작성
+     * +대댓글 작성
      */
     @Transactional
     public Long addComment(CommentDto.CommentResponseDto form) {
         Product product = productJpaRepository.findById(form.getProductId()).orElseThrow(() -> new IllegalStateException("해당 상품이 없습니다."));
         Member member = memberJpaRepository.findById(form.getMemberId()).orElseThrow(() -> new IllegalStateException("해당 유저가 존재하지 않습니다"));
-        Comment parentComment = commentRepository.findById(form.getParentId()).orElseThrow(() -> new IllegalStateException("해당 댓글이 존재하지 않습니다."));
+        Comment parentComment = null;
+        if (form.getParentId() != null) {
+            parentComment = commentRepository.findById(form.getParentId()).orElseThrow(() -> new IllegalStateException("해당 댓글이 존재하지 않습니다."));
+        }
         Comment comment = Comment.createComment(product, member, parentComment, form.getComment());
         Comment result = commentRepository.save(comment);
         return result.getId();

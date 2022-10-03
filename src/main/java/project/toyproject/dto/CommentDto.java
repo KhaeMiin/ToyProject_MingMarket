@@ -1,8 +1,6 @@
 package project.toyproject.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 public class CommentDto {
 
@@ -11,7 +9,8 @@ public class CommentDto {
      */
     @Getter
     @Setter
-    @NoArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
     public static class CommentResponseDto {
         private Long productId; //댓글 다는 게시글
 
