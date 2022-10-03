@@ -8,10 +8,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.toyproject.annotation.LoginCheck;
+import project.toyproject.dto.CommentDto;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.dto.ProductDto;
+import project.toyproject.service.CommentService;
 import project.toyproject.service.FileUpload;
 import project.toyproject.service.ProductService;
 import project.toyproject.service.WishItemService;
@@ -22,6 +25,8 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+import static project.toyproject.dto.CommentDto.*;
+import static project.toyproject.dto.MemberDto.*;
 import static project.toyproject.dto.ProductDto.*;
 
 @Slf4j
@@ -33,6 +38,7 @@ public class ProductApiController {
     private final ProductService productService;
     private final WishItemService wishItemService;
     private final FileUpload fileUpload;
+    private final CommentService commentService;
 
     /**
      * 전체 상품 조회
@@ -63,47 +69,53 @@ public class ProductApiController {
     /**
      * 내가 올린 상품 조회
      */
-    @GetMapping("/products/{memberId}")
-    public ResultList userProductList(@PathVariable Long memberId) {
-        List<SelectProducts> userProducts = productService.userProductsList(memberId);
+    @GetMapping("/my-product")
+    public ResultList userProductList(HttpServletRequest request) {
+        SessionMemberData loginMember = getSessionMemberData(request);
+        List<SelectProducts> userProducts = productService.userProductsList(loginMember.getMemberId());
         return new ResultList<>(userProducts.size(), userProducts);
     }
+
 
     /**
      * 내가 올린 상품 조회(페이징 처리)
      */
-    @GetMapping("/productsPage/{memberId}")
+    @GetMapping("/my-product-paging")
     public Page<SelectProducts> userProductList(
             @PageableDefault(size = 5, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
-            @PathVariable Long memberId) {
-        return productService.userProductsListPage(memberId, pageable);
+            HttpServletRequest request) {
+        SessionMemberData loginMember = getSessionMemberData(request);
+        return productService.userProductsListPage(loginMember.getMemberId(), pageable);
     }
 
     /**
      * 내 관심 상품 List
      */
-    @GetMapping("/wish/{memberId}")
-    public ResultList userWishList(@PathVariable Long memberId) {
-        List<SelectProducts> userWishList = wishItemService.wishList(memberId);
+    @GetMapping("/my-wish")
+    public ResultList userWishList(HttpServletRequest request) {
+        SessionMemberData loginMember = getSessionMemberData(request);
+        List<SelectProducts> userWishList = wishItemService.wishList(loginMember.getMemberId());
         return new ResultList<>(userWishList.size(), userWishList);
     }
     /**
      * 내 관심 상품 List 페이징 처리
      */
-    @GetMapping("/wishPage/{memberId}")
+    @GetMapping("/my-wish-paging")
     public Page<SelectProducts> userWishListPage(
             @PageableDefault(size = 6, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
-            @PathVariable Long memberId) {
-        return wishItemService.wishListPage(memberId, pageable);
+            HttpServletRequest request) {
+        SessionMemberData loginMember = getSessionMemberData(request);
+        return wishItemService.wishListPage(loginMember.getMemberId(), pageable);
     }
 
     /**
      * 상품 등록
      */
-    @GetMapping("/new")
+    @PostMapping("/new")
     public Long createProduct(
             @Valid @ModelAttribute("form") CreateProductForm form,
-            @LoginCheck MemberDto.SessionMemberData loginMember,
+            BindingResult result,
+            @LoginCheck SessionMemberData loginMember,
             HttpServletRequest request) throws IOException {
         String realPath = request.getSession().getServletContext().getRealPath("/upload/");// 저장 경로
         String uploadFile = fileUpload.serverUploadFile(form.getThumbnail(), realPath);
@@ -122,7 +134,7 @@ public class ProductApiController {
         //찜상품인지 체크
         HttpSession session = request.getSession(false);
         try {
-            MemberDto.SessionMemberData loginMember = (MemberDto.SessionMemberData) session.getAttribute("loginMember");
+            SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
             Long wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
             if (wishItem != null) {
                 return new DetailProduct<>(singleProduct, "찜상품 입니다.");
@@ -131,7 +143,28 @@ public class ProductApiController {
             e.getMessage();
         }
         return new DetailProduct<>(singleProduct, "");
+    }
 
+    /**
+     * 댓글 작성
+     */
+    @PostMapping("/comment/{productId}")
+    public String addComment(
+            @RequestParam String comment,
+            @PathVariable Long productId,
+            HttpServletRequest request) {
+        SessionMemberData loginMember = getSessionMemberData(request);
+        CommentResponseDto form = new CommentResponseDto(productId, loginMember.getMemberId(), null, comment);
+
+        commentService.addComment(form);
+        return "댓글 작성 완료!";
+    }
+
+
+    private static SessionMemberData getSessionMemberData(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
+        return loginMember;
     }
 
     @Getter
