@@ -103,6 +103,24 @@ class CommentServiceTest {
     }
 
 
+    @Test
+    @DisplayName("대댓글 작성 성공")
+    void addComments() {
+        //given
+        Member member = createMember();
+        Long productId = createProduct(member);
+        CommentResponseDto form1 = new CommentResponseDto(productId, member.getId(), null, "댓글입니다");
+        Long commentId = commentService.addComment(form1);
+        CommentResponseDto form2 = new CommentResponseDto(productId, member.getId(), commentId, "대댓글입니다");
+        Long result = commentService.addComment(form2);
+
+        //when
+        //then
+        Comment comment = commentRepository.findById(result).orElseThrow(() -> new IllegalStateException("댓글이 없습니다."));
+        Assertions.assertThat(result).isEqualTo(comment.getId());
+    }
+
+
     private Long createProduct(Member member) {
         Product product = Product.createProduct("test", "test.jpg", "test", 10000, member, CategoryList.BOOKS);
         return productService.saveProduct(member.getId(), product.getTitle(), product.getThumbnail(), product.getIntro(), product.getPrice(), product.getCategoryList());

@@ -146,11 +146,32 @@ public class ProductApiController {
     }
 
     /**
+     * 상품 상세페이지
+     */
+    @GetMapping("/detail2/{productId}")
+    public DetailProduct productDetailV2(@PathVariable Long productId, HttpServletRequest request) {
+        ProductDetailDataV2 singleProduct = productService.findSingleProductV2(productId);
+
+        //찜상품인지 체크
+        HttpSession session = request.getSession(false);
+        try {
+            SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
+            Long wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
+            if (wishItem != null) {
+                return new DetailProduct<>(singleProduct, "찜상품 입니다.");
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return new DetailProduct<>(singleProduct, "");
+    }
+
+    /**
      * 댓글 작성
      */
     @PostMapping("/comment/{productId}")
     public String addComment(
-            @RequestParam String comment,
+            @RequestBody String comment,
             @PathVariable Long productId,
             HttpServletRequest request) {
         SessionMemberData loginMember = getSessionMemberData(request);

@@ -6,8 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.CategoryList;
+import project.toyproject.domain.Comment;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.dto.CommentDto;
 import project.toyproject.repository.MemberJpaRepository;
 import project.toyproject.repository.MemberRepository;
 import project.toyproject.repository.ProductJpaRepository;
@@ -17,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static project.toyproject.dto.CommentDto.*;
 import static project.toyproject.dto.ProductDto.*;
 
 @Service
@@ -112,6 +115,27 @@ public class ProductService {
         String createDate = findProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
         ProductDetailData singleProduct = new ProductDetailData(findProduct, createDate); //이 부분에서 product.getMember().getUserId();때문에 n+1의 문제가 발생할 수 있다. fetch로 수정해야함
+
+        return singleProduct;
+    }
+
+    /**
+     * TODO
+     * comment 출력 error
+     * 댓글도 함께 join해서 출력
+     */
+    public ProductDetailDataV2 findSingleProductV2(Long productId) {
+//        Product findProduct = productRepository.findSingleProduct(productId); //순수 JPA
+        Product findProduct = productJpaRepository.findProductsById(productId).orElseThrow(() -> new IllegalStateException("해당 상품이 없습니다."));
+
+        //게시글 작성 날짜 구하기
+        String createDate = findProduct.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        List<Comment> commentList = findProduct.getCommentList();
+        List<CommentRequestDto> comment = commentList.stream()
+                .map(c -> new CommentRequestDto(c))
+                .collect(Collectors.toList());
+        ProductDetailDataV2 singleProduct = new ProductDetailDataV2(findProduct, createDate, comment);//이 부분에서 product.getMember().getUserId();때문에 n+1의 문제가 발생할 수 있다. fetch로 수정해야함
 
         return singleProduct;
     }

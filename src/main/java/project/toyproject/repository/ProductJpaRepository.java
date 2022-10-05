@@ -34,4 +34,8 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
 //    @Query("select p from Product p left join fetch p.member") //fetch join 쿼리 직접 작성하는 방법
     @EntityGraph(attributePaths = {"member"})
     Optional<Product> findById(Long productId);
+
+    @Query("select p from Product p left join fetch p.commentList") //TODO
+//    @EntityGraph(attributePaths = {"comment"})
+    Optional<Product> findProductsById(Long productId);
 }

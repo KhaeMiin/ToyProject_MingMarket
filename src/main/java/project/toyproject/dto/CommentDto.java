@@ -1,6 +1,7 @@
 package project.toyproject.dto;
 
 import lombok.*;
+import project.toyproject.domain.Comment;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -35,5 +36,15 @@ public class CommentDto {
     @Setter
     @NoArgsConstructor
     public static class CommentRequestDto {
+        private String memberNickName;
+        private Long parentId;
+        private String comment;
+
+        public CommentRequestDto(Comment comment) {
+            this.memberNickName = comment.getMember().getNickname();
+            this.parentId = comment.getParent().getId();
+            this.comment = comment.getComment();
+        }
     }
+
 }

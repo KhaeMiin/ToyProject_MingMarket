@@ -13,6 +13,7 @@ import project.toyproject.domain.WishItem;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ProductDto {
 
@@ -113,6 +114,43 @@ public class ProductDto {
             this.createDate = createDate;
         }
     }
+
+    @Getter @Setter
+    @AllArgsConstructor
+    public static class ProductDetailDataV2 {
+
+        private Long productId;
+
+        private String nickName; //작성자 닉네임
+
+        private String userId; //작성자 ID
+
+        private String title; // 글 제목
+
+        private String thumbnail; //대표 이미지
+
+        private String intro; //상세설명
+
+        private int price; //가격
+
+        private String createDate;
+
+        private List<CommentDto.CommentRequestDto> comment; //댓글 출력
+
+
+        public ProductDetailDataV2(Product product, String createDate, List<CommentDto.CommentRequestDto> comment) {
+            this.productId = product.getId();
+            nickName = product.getMember().getNickname();
+            userId = product.getMember().getUserId();
+            title = product.getTitle();
+            thumbnail = product.getThumbnail();
+            intro = product.getIntro();
+            price = product.getPrice();
+            this.createDate = createDate;
+            this.comment = comment;
+        }
+    }
+
 
     /**
      * 상품 출력
