@@ -11,6 +11,11 @@ import project.toyproject.repository.CommentRepository;
 import project.toyproject.repository.MemberJpaRepository;
 import project.toyproject.repository.ProductJpaRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static project.toyproject.dto.CommentDto.*;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -25,7 +30,7 @@ public class CommentService {
      * +대댓글 작성
      */
     @Transactional
-    public Long addComment(CommentDto.CommentResponseDto form) {
+    public Long addComment(CommentResponseDto form) {
         Product product = productJpaRepository.findById(form.getProductId()).orElseThrow(() -> new IllegalStateException("해당 상품이 없습니다."));
         Member member = memberJpaRepository.findById(form.getMemberId()).orElseThrow(() -> new IllegalStateException("해당 유저가 존재하지 않습니다"));
         Comment parentComment = null;
@@ -36,5 +41,18 @@ public class CommentService {
         Comment result = commentRepository.save(comment);
         return result.getId();
     }
+
+    /**
+     * 상품에 댓글,대댓글
+     */
+    @Transactional
+    public List<CommentRequestDto> findByProductIdComment(Long productId) {
+        productJpaRepository.findById(productId).orElseThrow(() -> new IllegalStateException("해당 상품이 없습니다."));
+        List<Comment> findComment = commentRepository.findByProductId(productId);
+        return findComment.stream()
+                .map(c -> new CommentRequestDto(c))
+                .collect(Collectors.toList());
+    }
+
 
 }

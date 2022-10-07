@@ -11,9 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.toyproject.annotation.LoginCheck;
-import project.toyproject.dto.CommentDto;
-import project.toyproject.dto.MemberDto;
-import project.toyproject.dto.ProductDto;
 import project.toyproject.service.CommentService;
 import project.toyproject.service.FileUpload;
 import project.toyproject.service.ProductService;
@@ -130,6 +127,7 @@ public class ProductApiController {
     @GetMapping("/detail/{productId}")
     public DetailProduct productDetail(@PathVariable Long productId, HttpServletRequest request) {
         ProductDetailData singleProduct = productService.findSingleProduct(productId);
+        List<CommentRequestDto> comment = commentService.findByProductIdComment(productId);
 
         //찜상품인지 체크
         HttpSession session = request.getSession(false);
@@ -137,33 +135,12 @@ public class ProductApiController {
             SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
             Long wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
             if (wishItem != null) {
-                return new DetailProduct<>(singleProduct, "찜상품 입니다.");
+                return new DetailProduct<>(singleProduct, "찜상품 입니다.", comment);
             }
         } catch (Exception e) {
             e.getMessage();
         }
-        return new DetailProduct<>(singleProduct, "");
-    }
-
-    /**
-     * 상품 상세페이지
-     */
-    @GetMapping("/detail2/{productId}")
-    public DetailProduct productDetailV2(@PathVariable Long productId, HttpServletRequest request) {
-        ProductDetailDataV2 singleProduct = productService.findSingleProductV2(productId);
-
-        //찜상품인지 체크
-        HttpSession session = request.getSession(false);
-        try {
-            SessionMemberData loginMember = (SessionMemberData) session.getAttribute("loginMember");
-            Long wishItem = wishItemService.findOneWishItem(loginMember.getMemberId(), productId);
-            if (wishItem != null) {
-                return new DetailProduct<>(singleProduct, "찜상품 입니다.");
-            }
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return new DetailProduct<>(singleProduct, "");
+        return new DetailProduct<>(singleProduct, "", comment);
     }
 
     /**
@@ -188,11 +165,14 @@ public class ProductApiController {
         return loginMember;
     }
 
+
+
     @Getter
     @AllArgsConstructor
     static class DetailProduct<T> {
         private T productData;
         private String wishStatus;
+        private T commentData;
     }
 
 

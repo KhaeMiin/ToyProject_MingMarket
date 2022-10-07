@@ -42,7 +42,10 @@ public class CommentDto {
 
         public CommentRequestDto(Comment comment) {
             this.memberNickName = comment.getMember().getNickname();
-            this.parentId = comment.getParent().getId();
+            if (comment.getParent() != null) {
+                System.out.println("comment = " + comment);
+                this.parentId = comment.getParent().getId();
+            }
             this.comment = comment.getComment();
         }
     }

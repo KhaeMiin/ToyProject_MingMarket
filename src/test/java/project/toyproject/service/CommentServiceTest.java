@@ -15,6 +15,9 @@ import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.CommentRepository;
 import project.toyproject.repository.ProductJpaRepository;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static project.toyproject.dto.CommentDto.*;
 
@@ -40,7 +43,7 @@ class CommentServiceTest {
         Long result = commentService.addComment(form);
         //then
         Comment comment = commentRepository.findById(result).orElseThrow(() -> new IllegalStateException("댓글이 없습니다."));
-        Assertions.assertThat(result).isEqualTo(comment.getId());
+        assertThat(result).isEqualTo(comment.getId());
     }
 
     @Test
@@ -117,7 +120,28 @@ class CommentServiceTest {
         //when
         //then
         Comment comment = commentRepository.findById(result).orElseThrow(() -> new IllegalStateException("댓글이 없습니다."));
-        Assertions.assertThat(result).isEqualTo(comment.getId());
+        assertThat(result).isEqualTo(comment.getId());
+    }
+
+    @Test
+    @DisplayName("댓글과 대댓글 출력")
+    void findByProductId() {
+        //given
+        Long productId = createComment();
+        //when
+        List<CommentRequestDto> findComments = commentService.findByProductIdComment(productId);
+        //then
+        assertThat(findComments.size()).isEqualTo(2);
+    }
+
+    private Long createComment() {
+        Member member = createMember();
+        Long productId = createProduct(member);
+        CommentResponseDto form1 = new CommentResponseDto(productId, member.getId(), null, "댓글입니다");
+        Long commentId = commentService.addComment(form1);
+        CommentResponseDto form2 = new CommentResponseDto(productId, member.getId(), commentId, "대댓글입니다");
+        Long result = commentService.addComment(form2);
+        return productId;
     }
 
 

@@ -135,10 +135,8 @@ public class ProductDto {
 
         private String createDate;
 
-        private List<CommentDto.CommentRequestDto> comment; //댓글 출력
 
-
-        public ProductDetailDataV2(Product product, String createDate, List<CommentDto.CommentRequestDto> comment) {
+        public ProductDetailDataV2(Product product, String createDate) {
             this.productId = product.getId();
             nickName = product.getMember().getNickname();
             userId = product.getMember().getUserId();
@@ -147,7 +145,6 @@ public class ProductDto {
             intro = product.getIntro();
             price = product.getPrice();
             this.createDate = createDate;
-            this.comment = comment;
         }
     }
 

@@ -135,7 +135,7 @@ public class ProductService {
         List<CommentRequestDto> comment = commentList.stream()
                 .map(c -> new CommentRequestDto(c))
                 .collect(Collectors.toList());
-        ProductDetailDataV2 singleProduct = new ProductDetailDataV2(findProduct, createDate, comment);//이 부분에서 product.getMember().getUserId();때문에 n+1의 문제가 발생할 수 있다. fetch로 수정해야함
+        ProductDetailDataV2 singleProduct = new ProductDetailDataV2(findProduct, createDate);//이 부분에서 product.getMember().getUserId();때문에 n+1의 문제가 발생할 수 있다. fetch로 수정해야함
 
         return singleProduct;
     }
