@@ -134,6 +134,24 @@ class CommentServiceTest {
         assertThat(findComments.size()).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("댓글 삭제")
+    void deleteComment() {
+        //given
+        Member member = createMember();
+        Long productId = createProduct(member);
+        CommentResponseDto form1 = new CommentResponseDto(productId, member.getId(), null, "댓글입니다");
+        Long commentId = commentService.addComment(form1);
+        CommentResponseDto form2 = new CommentResponseDto(productId, member.getId(), commentId, "대댓글입니다");
+        Long parentCommentId = commentService.addComment(form2);
+
+        //when
+        commentService.deleteComment(commentId);
+
+        //then
+//        assertThat(commentRepository.findById(commentId)).isNull();
+    }
+
     private Long createComment() {
         Member member = createMember();
         Long productId = createProduct(member);

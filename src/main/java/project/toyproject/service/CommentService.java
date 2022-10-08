@@ -43,7 +43,7 @@ public class CommentService {
     }
 
     /**
-     * 상품에 댓글,대댓글
+     * 상품에 댓글,대댓글 출력
      */
     @Transactional
     public List<CommentRequestDto> findByProductIdComment(Long productId) {
@@ -52,6 +52,14 @@ public class CommentService {
         return findComment.stream()
                 .map(c -> new CommentRequestDto(c))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 댓글 삭제
+     */
+    @Transactional
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
     }
 
 

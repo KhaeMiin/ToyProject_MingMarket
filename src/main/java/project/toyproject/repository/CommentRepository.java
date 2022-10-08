@@ -13,4 +13,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @EntityGraph(attributePaths = {"member"})
     List<Comment> findByProductId(Long productId);
+
+    void deleteByParentId(Long commentId);
 }
