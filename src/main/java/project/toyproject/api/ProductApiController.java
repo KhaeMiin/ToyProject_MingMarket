@@ -176,7 +176,7 @@ public class ProductApiController {
     }
 
     /**
-     * 댓글 삭제
+     * 댓글 삭제 (대댓글도 함께 삭제)
      * TODO
      * 테스트 실행 전
      */

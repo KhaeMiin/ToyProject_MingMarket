@@ -91,6 +91,10 @@ public class CommentService {
     }
 
 
+    /**
+     * 상품에 있는 댓글들 삭제
+     * @param productId
+     */
     @Transactional
     public void deleteByProductId(Long productId) {
         commentRepository.deleteByProductId(productId);
