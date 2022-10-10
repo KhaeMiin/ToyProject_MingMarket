@@ -144,6 +144,23 @@ public class ProductApiController {
     }
 
     /**
+     * 상품 삭제
+     * TODO
+     * 테스트 실행 전
+     */
+    @PostMapping("/delete/{productId}")
+    public String removeProduct(@PathVariable Long productId, HttpServletRequest request) {
+        SessionMemberData loginMember = getSessionMemberData(request);
+        ProductDetailDataV2 findProduct = productService.findSingleProductV2(productId);
+        if (loginMember.getMemberId().equals(findProduct.getMemberId())) {
+            productService.removeProduct(productId);
+            commentService.deleteByProductId(productId);
+            return "삭제가 완료되었습니다.";
+        }
+        return "작성자만 삭제가 가능합니다.";
+    }
+
+    /**
      * 댓글 작성
      */
     @PostMapping("/comment/{productId}")
@@ -158,6 +175,25 @@ public class ProductApiController {
         return "댓글 작성 완료!";
     }
 
+    /**
+     * 댓글 삭제
+     * TODO
+     * 테스트 실행 전
+     */
+    @DeleteMapping("/comment/delete/{commentId}")
+    public String deleteComment(@PathVariable Long commentId, HttpServletRequest request) {
+        SessionMemberData loginMember = getSessionMemberData(request);
+        CommentRequestDto findComment = commentService.findByCommentId(commentId);
+        if (findComment.getMemberId().equals(loginMember.getMemberId())) {
+            commentService.deleteComment(commentId);
+            if (findComment.getParentId() != null) { //대댓글도 삭제하기
+                commentService.deleteChildComment(commentId);
+            }
+            return "삭제가 완료되었습니다!";
+        }
+        return "작성자만 삭제가 가능합니다.";
+
+    }
 
     private static SessionMemberData getSessionMemberData(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

@@ -60,6 +60,37 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
+    /**
+     * 단일 댓글 출력
+     */
+    public CommentRequestDto findByCommentId(Long commentId) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalStateException("해당 댓글이 존재하지 않습니다."));
+        return new CommentRequestDto(comment);
+    }
+
+    /**
+     * 해당 부모 댓글의 자식 댓글 조회
+     * TODO
+     * 테스트 실행 전
+     */
+    public List<CommentRequestDto> findByParentId(Long commentId) {
+        List<Comment> comments = commentRepository.findByParentId(commentId);
+        return comments.stream()
+                .map(c -> new CommentRequestDto(c))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 대댓글 삭제
+     * TODO
+     * 테스트 실행 전
+     */
+    @Transactional
+    public void deleteChildComment(Long parentId) {
+        commentRepository.deleteByParentId(parentId);
+    }
+
+
     @Transactional
     public void deleteByProductId(Long productId) {
         commentRepository.deleteByProductId(productId);

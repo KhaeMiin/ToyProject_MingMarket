@@ -33,12 +33,13 @@ public class CommentDto {
      * 댓글 출력
      */
     @Getter
-    @Setter
+//    @Setter
     @NoArgsConstructor
     public static class CommentRequestDto {
         private String memberNickName;
         private Long parentId;
         private String comment;
+        private Long memberId;
 
         public CommentRequestDto(Comment comment) {
             this.memberNickName = comment.getMember().getNickname();
@@ -47,6 +48,7 @@ public class CommentDto {
                 this.parentId = comment.getParent().getId();
             }
             this.comment = comment.getComment();
+            memberId = comment.getMember().getId();
         }
     }
 

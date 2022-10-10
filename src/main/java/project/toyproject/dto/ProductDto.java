@@ -115,7 +115,7 @@ public class ProductDto {
         }
     }
 
-    @Getter @Setter
+    @Getter
     @AllArgsConstructor
     public static class ProductDetailDataV2 {
 
@@ -135,6 +135,8 @@ public class ProductDto {
 
         private String createDate;
 
+        private Long memberId;
+
 
         public ProductDetailDataV2(Product product, String createDate) {
             this.productId = product.getId();
@@ -145,6 +147,7 @@ public class ProductDto {
             intro = product.getIntro();
             price = product.getPrice();
             this.createDate = createDate;
+            memberId = product.getMember().getId();
         }
     }
 
