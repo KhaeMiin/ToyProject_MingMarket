@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import project.toyproject.repository.MemberRepository;
+import project.toyproject.repository.old.MemberRepository;
 import project.toyproject.service.MemberService;
 
 import javax.persistence.EntityManager;

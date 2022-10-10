@@ -60,7 +60,7 @@ class CommentRepositoryTest {
         assertThat(result.getMember()).isEqualTo(childComment.getMember());
     }
 
-    @DisplayName("내가 작성한 댓글 리스트 확인")
+    @DisplayName("내가 작성한 댓글 리스트 조회")
     @Test
     void findById() {
         //given
@@ -81,7 +81,57 @@ class CommentRepositoryTest {
         assertThat(childComment.getParent()).isEqualTo(comment1);
     }
 
+    @DisplayName("상품에 달린 댓글 리스트 조회")
+    @Test
+    void findByProductId() {
+        //given
+        Product product = createProduct();
+        Member member = createMember();
+        Member resultMember = memberJpaRepository.save(member);
+        Comment comment1 = addComment(product, member, "1댓글입니다~");
+        Comment comment2 = addComment(product, member, "2댓글입니다~");
+        Comment comment3 = addComment(product, member, "3댓글입니다~");
+        Comment childComment = addChildComment(comment1, member, "댓글1의 대댓글입니다~");
+        //when
+        List<Comment> result = commentRepository.findByProductId(product.getId());
+        //then
+        assertThat(result.size()).isEqualTo(4);
+    }
 
+    @DisplayName("단일 댓글 삭제")
+    @Test
+    void deleteId() {
+        //given
+        Product product = createProduct();
+        Member member = createMember();
+        Member resultMember = memberJpaRepository.save(member);
+        Comment comment1 = addComment(product, member, "1댓글입니다~");
+        Comment comment2 = addComment(product, member, "2댓글입니다~");
+        Comment comment3 = addComment(product, member, "3댓글입니다~");
+        Comment childComment = addChildComment(comment1, member, "댓글1의 대댓글입니다~");
+        //when
+        commentRepository.deleteById(comment1.getId());
+        //then
+        assertThat(commentRepository.findById(comment1.getId())).isEmpty();
+    }
+
+    @DisplayName("상품에 댓글 삭제")
+    @Test
+    void deleteByProductId() {
+        //given
+        Product product = createProduct();
+        Member member = createMember();
+        Member resultMember = memberJpaRepository.save(member);
+        Comment comment1 = addComment(product, member, "1댓글입니다~");
+        Comment comment2 = addComment(product, member, "2댓글입니다~");
+        Comment comment3 = addComment(product, member, "3댓글입니다~");
+        Comment childComment = addChildComment(comment1, member, "댓글1의 대댓글입니다~");
+        //when
+        commentRepository.deleteByProductId(product.getId());
+        //then
+        List<Comment> results = commentRepository.findByProductId(product.getId());
+        assertThat(results.size()).isEqualTo(0);
+    }
 
     //댓글
     private Comment addComment(Product product, Member member, String comment) {

@@ -1,4 +1,4 @@
-package project.toyproject.repository;
+package project.toyproject.repository.old;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

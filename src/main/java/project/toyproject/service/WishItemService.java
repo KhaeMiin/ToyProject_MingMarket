@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
 import project.toyproject.repository.*;
+import project.toyproject.repository.old.MemberRepository;
+import project.toyproject.repository.old.ProductRepository;
+import project.toyproject.repository.old.WishItemRepository;
 
 import java.util.List;
 import java.util.Optional;

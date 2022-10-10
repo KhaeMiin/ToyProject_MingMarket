@@ -9,11 +9,10 @@ import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Comment;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.dto.CommentDto;
 import project.toyproject.repository.MemberJpaRepository;
-import project.toyproject.repository.MemberRepository;
+import project.toyproject.repository.old.MemberRepository;
 import project.toyproject.repository.ProductJpaRepository;
-import project.toyproject.repository.ProductRepository;
+import project.toyproject.repository.old.ProductRepository;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;

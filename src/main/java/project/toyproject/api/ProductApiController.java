@@ -60,7 +60,7 @@ public class ProductApiController {
 //    @GetMapping("/list")
     public ResultList list2(@PageableDefault(size = 6, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<SelectProducts> products = productService.findProductsPage(pageable);
-        return new ResultList(products.getTotalPages(), products);
+        return new ResultList<>(products.getTotalPages(), products);
     }
 
     /**
@@ -127,7 +127,7 @@ public class ProductApiController {
     @GetMapping("/detail/{productId}")
     public DetailProduct productDetail(@PathVariable Long productId, HttpServletRequest request) {
         ProductDetailData singleProduct = productService.findSingleProduct(productId);
-        List<CommentRequestDto> comment = commentService.findByProductIdComment(productId);
+        List<CommentRequestDto> comment = commentService.findByProductId(productId);
 
         //찜상품인지 체크
         HttpSession session = request.getSession(false);

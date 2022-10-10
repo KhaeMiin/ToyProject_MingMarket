@@ -9,7 +9,7 @@ import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.LoginDto;
 import project.toyproject.repository.MemberJpaRepository;
-import project.toyproject.repository.MemberRepository;
+import project.toyproject.repository.old.MemberRepository;
 
 import java.util.Optional;
 

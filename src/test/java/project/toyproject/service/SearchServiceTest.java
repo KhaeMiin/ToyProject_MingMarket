@@ -1,6 +1,5 @@
 package project.toyproject.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +9,12 @@ import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
-import project.toyproject.dto.ProductDto;
 import project.toyproject.repository.ProductJpaRepository;
-import project.toyproject.repository.ProductRepository;
 import project.toyproject.repository.SearchRepository;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static project.toyproject.dto.ProductDto.*;
 
 @SpringBootTest

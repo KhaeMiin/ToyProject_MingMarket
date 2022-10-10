@@ -1,13 +1,11 @@
 package project.toyproject.test;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
-import project.toyproject.repository.WishItemRepository;
+import project.toyproject.repository.old.WishItemRepository;
 import project.toyproject.service.WishItemService;
 
 import javax.persistence.EntityManager;

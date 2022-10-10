@@ -7,8 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.dto.MemberDto;
-import project.toyproject.dto.ProductDto;
-import project.toyproject.repository.MemberRepository;
+import project.toyproject.repository.old.MemberRepository;
 import project.toyproject.service.ProductService;
 
 import java.util.List;

@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Comment;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.dto.CommentDto;
 import project.toyproject.repository.CommentRepository;
 import project.toyproject.repository.MemberJpaRepository;
 import project.toyproject.repository.ProductJpaRepository;
@@ -45,8 +44,7 @@ public class CommentService {
     /**
      * 상품에 댓글,대댓글 출력
      */
-    @Transactional
-    public List<CommentRequestDto> findByProductIdComment(Long productId) {
+    public List<CommentRequestDto> findByProductId(Long productId) {
         productJpaRepository.findById(productId).orElseThrow(() -> new IllegalStateException("해당 상품이 없습니다."));
         List<Comment> findComment = commentRepository.findByProductId(productId);
         return findComment.stream()
@@ -62,5 +60,9 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
+    @Transactional
+    public void deleteByProductId(Long productId) {
+        commentRepository.deleteByProductId(productId);
+    }
 
 }

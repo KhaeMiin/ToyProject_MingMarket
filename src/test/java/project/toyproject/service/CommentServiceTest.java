@@ -1,6 +1,5 @@
 package project.toyproject.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,8 @@ import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Comment;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.dto.CommentDto;
 import project.toyproject.dto.MemberDto;
 import project.toyproject.repository.CommentRepository;
-import project.toyproject.repository.ProductJpaRepository;
 
 import java.util.List;
 
@@ -129,7 +126,7 @@ class CommentServiceTest {
         //given
         Long productId = createComment();
         //when
-        List<CommentRequestDto> findComments = commentService.findByProductIdComment(productId);
+        List<CommentRequestDto> findComments = commentService.findByProductId(productId);
         //then
         assertThat(findComments.size()).isEqualTo(2);
     }
@@ -149,7 +146,19 @@ class CommentServiceTest {
         commentService.deleteComment(commentId);
 
         //then
-//        assertThat(commentRepository.findById(commentId)).isNull();
+        assertThat(commentRepository.findById(commentId)).isEmpty();
+    }
+
+    @DisplayName("상품에 댓글 모두 삭제")
+    @Test
+    void deleteByProductId() {
+        //given
+        Long productId = createComment();
+        //when
+        commentService.deleteByProductId(productId);
+        //then
+        List<CommentRequestDto> results = commentService.findByProductId(productId);
+        assertThat(results.size()).isEqualTo(0);
     }
 
     private Long createComment() {

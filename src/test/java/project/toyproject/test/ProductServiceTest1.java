@@ -10,7 +10,7 @@ import project.toyproject.domain.Address;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.repository.ProductRepository;
+import project.toyproject.repository.old.ProductRepository;
 import project.toyproject.service.ProductService;
 
 import javax.persistence.EntityManager;

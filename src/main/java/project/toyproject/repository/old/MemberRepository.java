@@ -1,4 +1,4 @@
-package project.toyproject.repository;
+package project.toyproject.repository.old;
 
 import org.springframework.stereotype.Repository;
 import project.toyproject.domain.Member;
