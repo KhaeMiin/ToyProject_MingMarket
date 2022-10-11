@@ -121,7 +121,7 @@ class CommentServiceTest {
     }
 
     @Test
-    @DisplayName("댓글과 대댓글 출력")
+    @DisplayName("상품 댓글과 대댓글 출력")
     void findByProductId() {
         //given
         Long productId = createComment();
@@ -156,6 +156,70 @@ class CommentServiceTest {
         Long productId = createComment();
         //when
         commentService.deleteByProductId(productId);
+        //then
+        List<CommentRequestDto> results = commentService.findByProductId(productId);
+        assertThat(results.size()).isEqualTo(0);
+    }
+
+    @DisplayName("해당 부모 댓글의 대댓글 조회")
+    @Test
+    void findByParentId() {
+        //given
+        Member member = createMember();
+        Long productId = createProduct(member);
+        CommentResponseDto form1 = new CommentResponseDto(productId, member.getId(), null, "댓글입니다");
+        Long parentId = commentService.addComment(form1);
+        CommentResponseDto form2 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다1");
+        CommentResponseDto form3 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다2");
+        CommentResponseDto form4 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다3");
+        Long childCommentId = commentService.addComment(form2);
+        commentService.addComment(form2);
+        commentService.addComment(form3);
+        //when
+        List<CommentRequestDto> results = commentService.findByParentId(parentId);
+        //then
+        assertThat(results.size()).isEqualTo(3);
+    }
+
+    @DisplayName("해당 부모 댓글의 대댓글들 삭제")
+    @Test
+    void deleteChildComment() {
+        //given
+        Member member = createMember();
+        Long productId = createProduct(member);
+        CommentResponseDto form1 = new CommentResponseDto(productId, member.getId(), null, "댓글입니다");
+        Long parentId = commentService.addComment(form1);
+        CommentResponseDto form2 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다1");
+        CommentResponseDto form3 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다2");
+        CommentResponseDto form4 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다3");
+        Long childCommentId = commentService.addComment(form2);
+        commentService.addComment(form2);
+        commentService.addComment(form3);
+        //when
+        commentService.deleteChildComment(parentId);
+        //then
+        List<CommentRequestDto> results = commentService.findByParentId(parentId);
+        assertThat(results.size()).isEqualTo(0);
+    }
+
+    @DisplayName("해당 부모 댓글과 대댓글들 삭제")
+    @Test
+    void deleteChildAndParent() {
+        //given
+        Member member = createMember();
+        Long productId = createProduct(member);
+        CommentResponseDto form1 = new CommentResponseDto(productId, member.getId(), null, "댓글입니다");
+        Long parentId = commentService.addComment(form1);
+        CommentResponseDto form2 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다1");
+        CommentResponseDto form3 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다2");
+        CommentResponseDto form4 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다3");
+        Long childCommentId = commentService.addComment(form2);
+        commentService.addComment(form2);
+        commentService.addComment(form3);
+        //when
+        System.out.println("parentId = " + parentId);
+        commentService.deleteChildAndParent(parentId);
+        System.out.println("parentId = " + parentId);
         //then
         List<CommentRequestDto> results = commentService.findByProductId(productId);
         assertThat(results.size()).isEqualTo(0);

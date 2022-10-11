@@ -70,8 +70,6 @@ public class CommentService {
 
     /**
      * 해당 부모 댓글의 자식 댓글 조회
-     * TODO
-     * 테스트 실행 전
      */
     public List<CommentRequestDto> findByParentId(Long commentId) {
         List<Comment> comments = commentRepository.findByParentId(commentId);
@@ -81,13 +79,23 @@ public class CommentService {
     }
 
     /**
-     * 대댓글 삭제
-     * TODO
-     * 테스트 실행 전
+     * 대댓글만 삭제
      */
     @Transactional
     public void deleteChildComment(Long parentId) {
         commentRepository.deleteByParentId(parentId);
+    }
+
+    /**
+     * 부모 댓글과 대댓글 삭제
+     */
+    @Transactional
+    public void deleteChildAndParent(Long commentId) {
+        List<Comment> comments = commentRepository.findByParentId(commentId); //대댓글이 존재하는지 조회
+        if (comments != null || comments.size() != 0) {  //대댓글이 존재할 경우
+            commentRepository.deleteByParentId(commentId); //대댓글 삭제
+        }
+        commentRepository.deleteById(commentId);
     }
 
 

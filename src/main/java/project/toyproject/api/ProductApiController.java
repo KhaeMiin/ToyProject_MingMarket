@@ -185,10 +185,7 @@ public class ProductApiController {
         SessionMemberData loginMember = getSessionMemberData(request);
         CommentRequestDto findComment = commentService.findByCommentId(commentId);
         if (findComment.getMemberId().equals(loginMember.getMemberId())) {
-            commentService.deleteComment(commentId);
-            if (findComment.getParentId() != null) { //대댓글도 삭제하기
-                commentService.deleteChildComment(commentId);
-            }
+            commentService.deleteChildAndParent(commentId);
             return "삭제가 완료되었습니다!";
         }
         return "작성자만 삭제가 가능합니다.";
