@@ -83,6 +83,9 @@ public class CommentService {
      */
     @Transactional
     public void deleteChildComment(Long parentId) {
+        if (parentId == null) {
+            throw new IllegalStateException("해당 댓글이 없습니다.");
+        }
         commentRepository.deleteByParentId(parentId);
     }
 
@@ -105,6 +108,9 @@ public class CommentService {
      */
     @Transactional
     public void deleteByProductId(Long productId) {
+        if (productId == null) {
+            throw new IllegalStateException("해당 상품이 존재하지 않습니다.");
+        }
         commentRepository.deleteByProductId(productId);
     }
 

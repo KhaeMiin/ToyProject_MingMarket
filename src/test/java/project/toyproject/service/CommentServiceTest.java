@@ -202,6 +202,30 @@ class CommentServiceTest {
         assertThat(results.size()).isEqualTo(0);
     }
 
+    @DisplayName("해당 부모 댓글의 대댓글들 삭제 실패")
+    @Test
+    void deleteChildCommentError() {
+        //given
+        Member member = createMember();
+        Long productId = createProduct(member);
+        CommentResponseDto form1 = new CommentResponseDto(productId, member.getId(), null, "댓글입니다");
+        Long parentId = commentService.addComment(form1);
+        CommentResponseDto form2 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다1");
+        CommentResponseDto form3 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다2");
+        CommentResponseDto form4 = new CommentResponseDto(productId, member.getId(), parentId, "대댓글입니다3");
+        Long childCommentId = commentService.addComment(form2);
+        commentService.addComment(form2);
+        commentService.addComment(form3);
+        //when
+        try {
+            commentService.deleteChildComment(form1.getParentId());
+        } catch (Exception e) {
+            return;
+        }
+        //then
+        assertThrows(IllegalStateException.class, () -> commentService.deleteComment(form1.getParentId()));
+    }
+
     @DisplayName("해당 부모 댓글과 대댓글들 삭제")
     @Test
     void deleteChildAndParent() {
