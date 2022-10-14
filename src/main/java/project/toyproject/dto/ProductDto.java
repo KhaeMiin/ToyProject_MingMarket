@@ -1,7 +1,9 @@
 package project.toyproject.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
@@ -156,7 +158,7 @@ public class ProductDto {
      * 상품 출력
      */
     @Getter
-    @AllArgsConstructor
+    @NoArgsConstructor
     public static class SelectProducts {
 
         private Long id; //상품 pk
@@ -175,6 +177,7 @@ public class ProductDto {
          * Spring Data JPA -> entityGraph 어노테이션 사용으로 n+1문제 해결 (fetchJoin)
          * @param product
          */
+        @QueryProjection
         public SelectProducts(Product product) {
             id = product.getId();
             title = product.getTitle();
