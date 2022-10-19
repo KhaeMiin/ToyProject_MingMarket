@@ -1,4 +1,4 @@
-package project.toyproject.repository;
+package project.toyproject.repository.jpql;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import project.toyproject.domain.Member;

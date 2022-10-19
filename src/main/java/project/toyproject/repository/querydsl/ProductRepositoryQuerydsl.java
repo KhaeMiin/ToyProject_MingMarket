@@ -1,9 +1,8 @@
-package project.toyproject.repository;
+package project.toyproject.repository.querydsl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project.toyproject.domain.Product;
-import project.toyproject.dto.ProductDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +11,7 @@ import static project.toyproject.dto.ProductDto.*;
 
 public interface ProductRepositoryQuerydsl {
 
-    List<SelectProducts> findAll();
+    List<SelectProducts> findAllProduct();
 
     List<SelectProducts> findByMemberId(Long memberId);
 

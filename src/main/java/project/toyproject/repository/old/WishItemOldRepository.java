@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class WishItemRepository {
+public class WishItemOldRepository {
 
     private final EntityManager em;
 

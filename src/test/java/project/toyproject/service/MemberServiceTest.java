@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Member;
-import project.toyproject.dto.MemberDto;
-import project.toyproject.repository.MemberJpaRepository;
+import project.toyproject.repository.jpql.MemberJpaRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static project.toyproject.dto.MemberDto.*;

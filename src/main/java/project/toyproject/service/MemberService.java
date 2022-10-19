@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
-import project.toyproject.repository.MemberJpaRepository;
-import project.toyproject.repository.old.MemberRepository;
+import project.toyproject.repository.jpql.MemberJpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +21,6 @@ import static project.toyproject.dto.MemberDto.*;
 @RequiredArgsConstructor //final 붙은 필드만 가지고 생성자 만든다.
 public class MemberService {
 
-    private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     private final MemberJpaRepository memberJpaRepository;

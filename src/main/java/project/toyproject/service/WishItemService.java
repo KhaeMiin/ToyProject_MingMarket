@@ -7,10 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.*;
-import project.toyproject.repository.*;
-import project.toyproject.repository.old.MemberRepository;
-import project.toyproject.repository.old.ProductRepository;
-import project.toyproject.repository.old.WishItemRepository;
+import project.toyproject.repository.jpql.MemberJpaRepository;
+import project.toyproject.repository.jpql.ProductJpaRepository;
+import project.toyproject.repository.jpql.WishItemJpaRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +28,6 @@ public class WishItemService {
     private final MemberJpaRepository memberJpaRepository;
     private final ProductJpaRepository productJpaRepository;
 
-    private final WishItemRepository wishItemRepository;
-    private final MemberRepository memberRepository;
-    private final ProductRepository productRepository;
 
     /**
      * 상품 찜하기

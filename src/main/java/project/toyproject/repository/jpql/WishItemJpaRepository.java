@@ -1,4 +1,4 @@
-package project.toyproject.repository;
+package project.toyproject.repository.jpql;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

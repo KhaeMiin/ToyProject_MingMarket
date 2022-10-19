@@ -8,8 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Address;
 import project.toyproject.domain.Member;
 import project.toyproject.dto.LoginDto;
-import project.toyproject.repository.MemberJpaRepository;
-import project.toyproject.repository.old.MemberRepository;
+import project.toyproject.repository.jpql.MemberJpaRepository;
 
 import java.util.Optional;
 
@@ -21,7 +20,6 @@ import static project.toyproject.dto.MemberDto.*;
 @RequiredArgsConstructor
 public class LoginService{
 
-    private final MemberRepository memberRepository;
     private final MemberJpaRepository memberJpaRepository;
 
     private final PasswordEncoder passwordEncoder;

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MemberRepository {
+public class MemberOldRepository {
 
     @PersistenceContext //스프링 제공
     private EntityManager em;

@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.toyproject.annotation.LoginCheck;
 import project.toyproject.dto.MemberDto;
-import project.toyproject.repository.old.MemberRepository;
 import project.toyproject.service.ProductService;
 
 import java.util.List;
@@ -19,7 +18,6 @@ import static project.toyproject.dto.ProductDto.*;
 @Slf4j
 public class HomeController {
 
-    private final MemberRepository memberRepository;
     private final ProductService productService;
 
     /**

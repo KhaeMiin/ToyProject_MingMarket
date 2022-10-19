@@ -1,4 +1,4 @@
-package project.toyproject.repository;
+package project.toyproject.repository.jpql;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;

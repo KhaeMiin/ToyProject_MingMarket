@@ -9,10 +9,10 @@ import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Comment;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.repository.MemberJpaRepository;
-import project.toyproject.repository.old.MemberRepository;
-import project.toyproject.repository.ProductJpaRepository;
-import project.toyproject.repository.old.ProductRepository;
+import project.toyproject.repository.jpql.MemberJpaRepository;
+import project.toyproject.repository.jpql.ProductJpaRepository;
+import project.toyproject.repository.old.ProductOldRepository;
+import project.toyproject.repository.querydsl.ProductRepository;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -26,9 +26,7 @@ import static project.toyproject.dto.ProductDto.*;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
     private final ProductJpaRepository productJpaRepository;
-    private final MemberRepository memberRepository;
     private final MemberJpaRepository memberJpaRepository;
 
     /**

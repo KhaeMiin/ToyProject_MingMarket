@@ -9,7 +9,7 @@ import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
-import project.toyproject.repository.ProductJpaRepository;
+import project.toyproject.repository.jpql.ProductJpaRepository;
 import project.toyproject.repository.SearchRepository;
 
 import java.util.List;

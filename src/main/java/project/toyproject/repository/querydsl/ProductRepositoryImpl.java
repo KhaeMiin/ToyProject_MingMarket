@@ -1,12 +1,10 @@
-package project.toyproject.repository;
+package project.toyproject.repository.querydsl;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project.toyproject.domain.Product;
-import project.toyproject.domain.QMember;
-import project.toyproject.domain.QProduct;
 import project.toyproject.dto.ProductDto;
 import project.toyproject.dto.QProductDto_SelectProducts;
 
@@ -33,7 +31,7 @@ public class ProductRepositoryImpl implements ProductRepositoryQuerydsl {
      */
 
     @Override
-    public List<ProductDto.SelectProducts> findAll() {
+    public List<ProductDto.SelectProducts> findAllProduct() {
         return queryFactory
                 .select(new QProductDto_SelectProducts(product))
                 .from(product)

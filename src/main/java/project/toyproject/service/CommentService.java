@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import project.toyproject.domain.Comment;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
-import project.toyproject.repository.CommentRepository;
-import project.toyproject.repository.MemberJpaRepository;
-import project.toyproject.repository.ProductJpaRepository;
+import project.toyproject.repository.jpql.CommentRepository;
+import project.toyproject.repository.jpql.MemberJpaRepository;
+import project.toyproject.repository.jpql.ProductJpaRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

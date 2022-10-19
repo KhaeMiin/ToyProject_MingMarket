@@ -10,7 +10,7 @@ import project.toyproject.domain.Comment;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
 import project.toyproject.dto.MemberDto;
-import project.toyproject.repository.CommentRepository;
+import project.toyproject.repository.jpql.CommentRepository;
 
 import java.util.List;
 
