@@ -55,16 +55,6 @@ public class ProductRepositoryImpl implements ProductRepositoryQuerydsl {
         return null;
     }
 
-    @Override
-    public Optional<Product> findById(Long productId) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<Product> findProductById(Long productId) {
-        return Optional.empty();
-    }
-
     private BooleanExpression memberIdEq(Long memberId) {
         return memberId != null ? product.member.id.eq(memberId) : null; //값이 있으면 비교해서 값 반환, 없으면 null반환
     }

@@ -9,11 +9,13 @@ import project.toyproject.domain.Address;
 import project.toyproject.domain.CategoryList;
 import project.toyproject.domain.Member;
 import project.toyproject.domain.Product;
+import project.toyproject.dto.ProductDto;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static project.toyproject.dto.ProductDto.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -76,7 +78,7 @@ class ProductRepositoryTest {
         Product product2 = Product.createProduct("test2", "tt.jpg", "test2", 20000, member, CategoryList.BOOKS);
         productRepository.save(product2);
 
-        List<Product> findProducts = productRepository.findByMemberId(member.getId());
+        List<SelectProducts> findProducts = productRepository.findByMemberId(member.getId());
 
         assertThat(findProducts.size()).isEqualTo(1);
     }

@@ -17,7 +17,4 @@ public interface ProductRepositoryQuerydsl {
 
     Page<SelectProducts> findProductsByMemberId(Long memberId, Pageable pageable);
 
-    Optional<Product> findById(Long productId);
-
-    Optional<Product> findProductById(Long productId);
 }
